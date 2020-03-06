@@ -1,0 +1,5 @@
+{{ object.Title }}
+{{ object.Description }}
+{% for a in object.Tag.all %}
+    {{ a.name }}
+{% endfor %}

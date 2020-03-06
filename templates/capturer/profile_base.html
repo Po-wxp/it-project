@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+{% extends 'capturer/base.html' %}
+{% load staticfiles %}
+
+{% block script_block %}
+
+<script>
+    $(document).ready(function(){
+        $('#follow-button').click(function() {
+           
+            $.get($(this).data('url'), function(response) {
+                $('.message-section').text(response.message);
+                if($('.message-section').text() == "2"){
+                    $('#follow-button').attr("value","Follow")
+                }else if ($('.message-section').text() == "1"){
+                    $('#follow-button').attr("value","Cancel Follow")
+                }
+                
+            });
+        });
+    })
+    
+</script>
+
+{% endblock %}
+
+
+{% block title_block %}
+    {% if user %}
+        {{ user.username }}
+    {% else %}
+        Unknown user
+    {% endif %}
+{% endblock %}
+
+{% block theme_block %}
+    {% if selected_user %}	
+        <h1><img src="{{ MEDIA_URL }}{{ user_profile.image }}" width="30" height="30" alt="Avatar">{{ selected_user.username }}</h1>
+        {% if selected_user != user %}
+            <div class="message-section" style="display:none;"></div>
+            {% if selected_user in profile.following.all %}
+                <input data-url="{% url 'capturer:follow' selected_user.username %}" id="follow-button" type="button" value="Cancel Follow"></input>
+            {% else %}
+                <input data-url="{% url 'capturer:follow' selected_user.username %}" id="follow-button" type="button" value="Follow"></input>
+            {% endif %}
+
+        {% endif %}
+    {% else %}
+        The specified user deos not exist.
+    {% endif %}
+
+    {% if user_profile %}
+        <li>{{ album.count }}posts.</li>
+        <li>{{ user_profile.following.count }}followings</li>
+        <li>{{ user_profile.description }}</li>
+    {% else %}
+        The specified userprofile deos not exist.
+    {% endif %} 
+    
+{% endblock %}
+
+
+{% block body_block %}
+{% endblock %}
+
+{% block side_block %}
+<li><a href="{% url 'capturer:profile' selected_user.username %}">profile</a></li>
+<li><a href="{% url 'capturer:album' selected_user.username %}">album</a></li>
+<li><a href="{% url 'capturer:favorite' selected_user.username %}">favorite</a></li>
+
+<li><a href="{% url 'capturer:following' selected_user.username %}">following</a></li>
+
+{% if selected_user == user %} 
+    <li><a href="{% url 'capturer:profileModify' user.username %}">Modify Profile </a></li>
+    <li><a href="{% url 'capturer:myreview' selected_user.username %}">myreview</a></li>
+{% endif %}
+{% endblock %}

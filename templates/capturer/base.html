@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+
+<html>
+       <head>
+              <title>
+                     {% block title_block %}
+                     {% endblock %}
+              </title> 
+              <script src="{% static "js/jquery.js" %}" crossorigin="anonymous"></script>
+                     {% block script_block %}
+                     {% endblock %}
+       </head>
+        <body>
+              <div>
+                     <strong>capturer</strong>
+                     {% if user.is_authenticated %}
+                            <img src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" />
+                            <a href="{% url 'capturer:profile' user.username %}">{{ user.username }}</a>
+                     {% else %} 
+                            <a href="{% url 'capturer:login' %}">Login</a>
+                     {% endif %}
+              </div>
+
+              <div>
+                     <form action="/search" method="get">
+                            <input name="q" type="text" />
+                            <input type="submit" />
+                     </form>
+              </div>
+                 
+              <div>
+                     {% block theme_block %}
+                     {% endblock %}
+              </div>
+
+	       <div>
+                     {% block body_block %}
+                     {% endblock %}
+              </div>
+              
+              <div>
+                     {% block side_block %}
+                     {% endblock %}
+              </div>
+
+       </body>
+       <li><a href="{% url 'capturer:index' %}">Home</a></li>
+</html>
+
+
+
+
+
+

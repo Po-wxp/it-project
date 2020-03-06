@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+
+{% extends 'capturer/profile_base.html' %}
+{% load staticfiles %}
+
+{% block title_block %} 
+    Profile for {{ selected_user.username }} 
+{% endblock %}
+
+{% block body_block %}
+    <h1>{{ selected_user.username }}'s Profile</h1> 
+    {% if selected_user == user %} 
+        <form method="post" action="." enctype="multipart/form-data"> 
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <input type="submit" value="Update" /> 
+        </form>
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% for result in page.object_list %}
+
+    {% if result.object.Title %}
+    Title: {{ result.object.Title }}
+    Description: {{ result.object.Description }}
+    {% for tag in result.object.Tag.all %}
+            {{ tag }}
+        {% endfor %}
+    <li><a href="{% url 'capturer:show_photo' result.object.Category.slug result.object.id %}"><img src="{{ MEDIA_URL }}{{ result.object.Image }}" width="100" height="100" /></a></li>
+    {% endif %}
+
+    <!-- {% if result.object.Description %}
+    Description: {{ result.object.Description }}
+    <li><a href="{% url 'capturer:show_photo' result.object.Category.slug result.object.id %}"><img src="{{ MEDIA_URL }}{{ result.object.Image }}" width="100" height="100" /></a></li>
+    {% endif %}
+
+    {% if result.object.Tag %}
+        {% for tag in result.object.Tag.all %}
+            {{ tag }}
+        {% endfor %}
+    {% endif %} -->
+
+    {% if result.object.nickname %}
+        <li>nickname: <a href="{% url 'capturer:profile' result.object.user.username %} ">{{ result.object.user.username }}</a></li>
+    {% endif %}
+
+    {% if result.object.user %}
+        <li>username:<a href="{% url 'capturer:profile' result.object.user.username %} ">{{ result.object.user.username }}</a></li>
+    {% endif %}
+    
+
+    {% if result.object.name %}
+        <li>Category:<a href="{% url 'capturer:show_category' result.object.slug %}">{{ result.object.name }}</a></li>
+    {% endif %}
+
+{% empty %}           
+        No results found.
+{% endfor %}

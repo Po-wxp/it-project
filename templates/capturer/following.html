@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+
+{% extends 'capturer/profile_base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+    
+
+    {% for following in followings %}
+        
+        <li><a href="{% url 'capturer:profile' following.username %} ">{{ following.username }}</a></li>
+    {% endfor %}
+</div> 
+{% endblock %}
