@@ -25,6 +25,7 @@ urlpatterns = [
      path('follow/<username>/', views.follow, name='follow'),
      path('collection/<photo_id>/', views.collection, name='collection'),
      path('<photo_id>/delete/', views.delete_post, name='delete'),
+     # path('upload_avatar/', views.upload_avatar, name='upload_avatar'),
 
      # path('search/', views.search, name='search'),
 ]

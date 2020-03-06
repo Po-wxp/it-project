@@ -48,7 +48,7 @@
                 $.get($(this).data('url'), function(response) {
                 // window.history.back(-1);
                 // window.open("{% url 'capturer:profile' user.username %}");
-                window.location.href=document.referrer;
+                    window.location.href=document.referrer;
                 })
             }
         });
@@ -62,7 +62,6 @@
 {% block body_block %}
 <h1>show photo</h1>
     {% if photo.author == user %}
-    <!-- <li><a href="{% url 'capturer:delete' photo.id %}">Delete</a></li> -->
     <input type="button" id="delete_btn" data-url="{% url 'capturer:delete' photo.id %}" value="Delete">
     {% endif %}
     

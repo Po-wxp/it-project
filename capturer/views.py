@@ -26,9 +26,24 @@ def index(request):
     context_dict = {}
     
     category_list = Category.objects.all()
-    photo_list = Photo.objects.order_by('-Like')[:5]
+    # photo_list = Photo.objects.order_by('-Like')[:5]
 
-    context_dict = {'categories': category_list, 'photos':photo_list,'profile':stable(request)}
+    category1_photo_list = Photo.objects.filter(Category = Category.objects.get(id=1)).order_by('-Like')[:1]
+    category2_photo_list = Photo.objects.filter(Category = Category.objects.get(id=2)).order_by('-Like')[:1]
+    category3_photo_list = Photo.objects.filter(Category = Category.objects.get(id=3)).order_by('-Like')[:1]
+    category4_photo_list = Photo.objects.filter(Category = Category.objects.get(id=4)).order_by('-Like')[:1]
+    category5_photo_list = Photo.objects.filter(Category = Category.objects.get(id=5)).order_by('-Like')[:1]
+    category6_photo_list = Photo.objects.filter(Category = Category.objects.get(id=6)).order_by('-Like')[:1]
+    category7_photo_list = Photo.objects.filter(Category = Category.objects.get(id=7)).order_by('-Like')[:1]
+    category8_photo_list = Photo.objects.filter(Category = Category.objects.get(id=8)).order_by('-Like')[:1]
+
+    context_dict = {'category1': category1_photo_list, 'category2': category2_photo_list,
+                    'category3': category3_photo_list, 'category4': category4_photo_list,
+                    'category5': category5_photo_list, 'category6': category6_photo_list,
+                    'category7': category7_photo_list, 'category8': category8_photo_list,
+                    'categories':category_list, 'profile':stable(request)}
+
+    # context_dict = {'categories':category_list, 'profile':stable(request)}
 
     return render(request, 'capturer/index.html', context=context_dict)
 
@@ -100,15 +115,14 @@ def post_photo(request, category_name_slug):
                 photo.Title = request.POST.get('Title')
                 photo.Description = request.POST.get('Description')
                 photo.author = user
+                photo.tag=request.user
                 
                 if 'Image' in request.FILES:
                     photo.Image = request.FILES['Image']
-                
-                photo.tag=request.user
+            
                 photo.save()
                 form.save_m2m()
 
-                
                 return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
         else:
             print(form.errors)
@@ -159,6 +173,16 @@ def register(request):
   
     context_dict = {'user_form':user_form, 'profile_form':profile_form,'registered':registered}
     return render(request, 'capturer/register.html', context=context_dict)
+
+
+# def upload_avatar(request):
+#     file_obj = request.FILES.get('image')
+#     file_path = os.path.join('static/image/', file_obj.name)
+#     with open(file_path, 'wb') as f:
+#         for chunk in file_obj.chunks():
+#             f.write(chunk)
+#     return HttpResponse(file_path)
+
 
 
 def user_login(request):

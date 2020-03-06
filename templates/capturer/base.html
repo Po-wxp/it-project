@@ -15,22 +15,30 @@
        </head>
         <body>
               <div>
-                     <strong>capturer</strong>
+                     
+                     <strong>Capturer</strong>
+                     
+                            <form  style="display: inline" action="/search" method="get">
+                                   <input name="q" type="text" />
+                                   <input type="submit" />
+                            </form>
+                     
+                        
                      {% if user.is_authenticated %}
                             <img src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" />
                             <a href="{% url 'capturer:profile' user.username %}">{{ user.username }}</a>
+                            <a href="{% url 'capturer:logout' %}">Logout</a>
+                            <a href="{% url 'auth_password_change' %}">Password Change</a>
                      {% else %} 
                             <a href="{% url 'capturer:login' %}">Login</a>
                      {% endif %}
+                            <a href="{% url 'capturer:about' %}">About us</a>
+                            <a href="{% url 'capturer:contact' %}">Contact us</a>
+                            <a href="{% url 'capturer:index' %}">Home</a>
+                     
               </div>
 
-              <div>
-                     <form action="/search" method="get">
-                            <input name="q" type="text" />
-                            <input type="submit" />
-                     </form>
-              </div>
-                 
+              
               <div>
                      {% block theme_block %}
                      {% endblock %}
@@ -47,7 +55,7 @@
               </div>
 
        </body>
-       <li><a href="{% url 'capturer:index' %}">Home</a></li>
+       
 </html>
 
 

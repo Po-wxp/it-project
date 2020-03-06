@@ -7,11 +7,27 @@
 Register
 {% endblock %}
 
+{% block script_block %}
+<script>
+    // $('#id_image').change(function(){
+    //     var obj=$("#id_image")[0].files[0];
+    //     var fr=new FileReader();
+    //     fr.onload=function () {
+    //            $("#avatarPreview").attr('src',this.result);
+    //            console.log(this.result);
+    //            $("#avatar").val(this.result);
+    // })
+
+
+</script>
+
+{% endblock %}
+
 {% block body_block %}
     <h1>Register for Capturer</h1>
     {% if registered %}
         <strong>thank you for registering!</strong>
-        <a href="{% url 'capturer:index' %}">Return to the homepage.</a><br />
+        <a href="{% url 'capturer:login' %}">Go to log in!</a><br />
     {% else %}
         <strong>register here!</strong><br />
         <form id="user_form" method="post" action="{% url 'capturer:register' %}" enctype="multipart/form-data">

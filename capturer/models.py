@@ -50,9 +50,9 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=10, null=False)
     description = models.TextField(max_length=DESCRIPTION_MAX_LENGTH, null=False)
     postcode = models.CharField(max_length=POSTCODE_MAX_LENGTH, null=False)
-    favorite = models.ManyToManyField(Photo, related_name="user_favoirte", null=True, blank=True)
+    favorite = models.ManyToManyField(Photo, related_name="user_favoirte")
     # review = models.ManyToManyField(Review, related_name="user_review")
-    following = models.ManyToManyField(User, related_name="user_following", null=True, blank=True)
+    following = models.ManyToManyField(User, related_name="user_following")
     # photo = models.ForeignKey(Photo, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to='profile_images', blank=False)
 
