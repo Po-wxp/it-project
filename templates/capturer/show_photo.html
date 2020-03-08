@@ -5,12 +5,13 @@
 
 
 
-
 {% block title_block %}
     show photo
 {% endblock %}
 
 {% block script_block %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
 <script>
     $(document).ready(function(){
@@ -19,9 +20,9 @@
             $.get($(this).data('url'), function(response) {
                 $('.message-section').text(response.message);
                 if($('.message-section').text() == "2"){
-                    $('#collection_btn').attr("value","Connection")
+                    $('#collection_btn').attr("value","Collection")
                 }else if ($('.message-section').text() == "1"){
-                    $('#collection_btn').attr("value","Cancel Connection")
+                    $('#collection_btn').attr("value","Cancel Collection")
                 }
                 
             });
@@ -46,14 +47,44 @@
         $('#delete_btn').click(function() {
             if(confirm("Are you sure to delete your post?")){
                 $.get($(this).data('url'), function(response) {
-                // window.history.back(-1);
-                // window.open("{% url 'capturer:profile' user.username %}");
                     window.location.href=document.referrer;
                 })
             }
         });
     })
- 
+
+    $(document).ready(function(){
+        $('#review_form').submit(function(event) {
+            event.preventDefault();
+            $('.error-message').text('');
+            CKEDITOR.instances['id_content'].updateElement();
+            
+            $.ajax({
+                url: "{% url 'capturer:upload_comment' photo.id %}",
+                type: 'POST',
+                data: $(this).serialize(),
+                // async: false,
+                success: function(data){
+                    console.log(data);
+                    if(data['status']=="success"){ 
+                        review_html = '<div>' + '<img src=\"' + data['profile_avatar'] + '\" width=\"30\" height=\"30\" alt=\"Avatar\"' +'/>'
+                                     +  '<a href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">'+ data['profile_name'] +'</a>'    
+                                     + ' ' +data['date'] + ':' + data['content'] + '</div>';
+                        $('#show_reviews').prepend(review_html)
+
+                        CKEDITOR.instances['id_content'].setData('');
+                    
+                    }else{
+                        $('.error-message').text(data['message']).show();
+                    }
+                },
+                error: function(xhr){
+                    console.log(data);
+                }
+            });
+            return false;
+        });
+    })
     
 </script>
 
@@ -83,26 +114,39 @@
 
 
     {% if photo %}
-        <img src="{{ MEDIA_URL }}{{ photo.Image }}" width="100" height="100" />
-        Description:{{ photo.Description }}
-        Likes:{{ photo.Like }}
-        Views:{{ photo.views }}
-        tags:{% for tag in tags %}
+        <p><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="800" height="800" /></p>
+        <p>Description:{{ photo.Description }}</p>
+        <!-- <p>Likes:{{ photo.Like }}</p>
+        <p>Views:{{ photo.views }}</p> -->
+        <p>Tags:{% for tag in tags %}
                 {{ tag.name }}
         {% endfor %}
-        Date:{{ photo.Date }}
-        Title:{{ photo.Title }}
-        Reviews:{% for review in reviews %}
-            <li><img src="{{ MEDIA_URL }}{{ review.profile.image }}" width="30" height="30" alt="Avatar" />
-            <a href="{% url 'capturer:profile' review.profile.user.username %} ">{{ review.profile.user.username }}</a></li>
-            Content:{{ review.content }}
-            Date:{{ review.date }}
-        {% endfor %}
-    {% endif  %}
+        </p>
+        <p>Date:{{ photo.Date }}</p>
+        <p>Title:{{ photo.Title }}</p>
+    
 
-    <form id="review_form" method="post" action="." >
-        {% csrf_token %}
-        {{ form.content }}
-    <input type="submit" name="submit" value="review">
-    </form>
+        <form id="review_form" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+            <div class="error-message" style="display:none;"></div>
+            <input id="comment_btn" type="submit" name="submit" value="submit" style="margin-left:745px">
+        </form>
+
+        
+
+        <h2>Reviews:</h2>
+        <div id="show_reviews">
+            {% for review in reviews %}
+                <img src="{{ MEDIA_URL }}{{ review.profile.image }}" width="30" height="30" alt="Avatar" />
+                <a href="{% url 'capturer:profile' review.profile.user.username %} ">{{ review.profile.user.username }}</a>
+                    {{ review.date|date:"Y-m-d H:i:s" }}:
+                    <p>{{ review.content|safe }}</p>
+        </div>
+        {% empty %}
+            No review!
+        {% endfor %}
+    {% endif %}
 {% endblock %}

@@ -354,33 +354,33 @@ def show_photo(request, category_name_slug, photo_id):
     try:
         photo = Photo.objects.get(id=photo_id)
         tags = photo.Tag.all()
-        reviews = Review.objects.filter(photo=photo)
+        reviews = Review.objects.filter(photo=photo).order_by('-id')
         context_dict = {'photo':photo,'tags':tags, 'reviews':reviews}
     except Photo.DoesNotExist:
         context_dict['photo'] = None
         context_dict['tags'] = None
         context_dict['reviews'] = None
 
-    form = ReviewForm()
-    user = request.user
-    user_profile = UserProfile.objects.get(user=user)
+    # form = ReviewForm()
+    # user = request.user
+    # user_profile = UserProfile.objects.get(user=user)
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            if category:
-                if photo:
-                    form = form.save(commit=False)
-                    form.photo = photo            
-                    form.profile = user_profile
-                    form.like = 0
-                    form.content = request.POST.get('content')
-                    form.save()
-                    # return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
-        else:
-            print(form.errors)
-
-    context_dict['form'] = form
+    # if request.method == 'POST':
+    #     form = ReviewForm(request.POST)
+    #     if form.is_valid():
+    #         if category:
+    #             if photo:
+    #                 form = form.save(commit=False)
+    #                 form.photo = photo            
+    #                 form.profile = user_profile
+    #                 form.like = 0
+    #                 form.content = request.POST.get('content')
+    #                 form.save()
+    #                 # return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
+    #     else:
+    #         print(form.errors)
+    # 
+    context_dict['form'] = ReviewForm()
     context_dict['profile'] = stable(request)
 
     visitor_cookie_handler(request)
@@ -389,6 +389,30 @@ def show_photo(request, category_name_slug, photo_id):
     response = render(request, 'capturer/show_photo.html', context=context_dict)
     return response
 
+def upload_comment(request, photo_id):
+    form = ReviewForm(request.POST)
+    user = request.user
+    user_profile = UserProfile.objects.get(user=user)
+    photo = Photo.objects.get(id=photo_id)
+
+    data = {}
+    if form.is_valid():
+        comment = Review()
+        comment.photo = photo            
+        comment.profile = user_profile
+        comment.like = 0
+        comment.content = request.POST.get('content')
+        comment.save()
+        # return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
+        data['status'] = "success"
+        data['content'] = comment.content
+        data['date'] = comment.date.strftime('%Y-%m-%d %H:%I:%S')
+        data['profile_name'] = comment.profile.user.username
+        data['profile_avatar'] = comment.profile.image.url
+    else:
+        data['status'] = "error"
+        data['message'] = list(form.errors.values())[0][0]
+    return JsonResponse(data)
 
 class LikePhotoView(View): 
 

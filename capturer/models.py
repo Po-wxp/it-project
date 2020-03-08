@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from datetime import datetime
+from ckeditor.fields import RichTextField
+
 
 # Create your models here.
 
@@ -61,9 +63,9 @@ class UserProfile(models.Model):
 class Review(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=False, blank=False)
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     like = models.IntegerField(default=0)
-    content = models.TextField(max_length=1000, null=False)
+    content = RichTextField(max_length=1000, null=False)
 
     def __str__(self): return self.content
 

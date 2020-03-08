@@ -1,6 +1,10 @@
 from django import forms
 from capturer.models import Photo, UserProfile, Tag, Review, Contact
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
+from django.db.models import ObjectDoesNotExist
+from datetime import datetime
+
 
 class PhotoForm(forms.ModelForm):
     Image = forms.ImageField(help_text="Please upload the image.", required=False) 
@@ -48,10 +52,17 @@ class UserProfileModifyForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
-    # content = forms.CharField(max_length=1000 ,widget=forms.Textarea)
+    
     class Meta:
         model = Review
         fields = ('content', )
+    # def clean(self):
+    #     # content = self.cleaned_data['content']
+    #     try:
+    #         model_class = ContentType.objects.get(model=content).model_class()
+    #     except ObjectDoesNotExist:
+    #         raise forms.ValidationError('review is not exist!')
+    #     return self.cleaned_data
 
 
 class ContactForm(forms.ModelForm):

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'registration',
     'social_django',
     'haystack',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -149,6 +150,26 @@ USE_L10N = True
 
 USE_TZ = True
 
+#ckeditor
+CKEDITOR_UPLOAD_PATH = 'upload/'
+
+CKEDITOR_CONFIGS = {
+    'default':{
+        'toolbar':'custom',
+        'toolbar_custom':[
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ["TextColor", "BGColor", "RemoveFormat"],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ["Smiley", "SpecialChar", 'Blockquote'],
+        ],
+        'width': '800',
+        'height': '180',
+        'tabSpaces': 4,
+        'removePlugins': 'elementspath',
+        'resize_enabled': False,
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
