@@ -68,7 +68,7 @@
                     console.log(data);
                     if(data['status']=="success"){ 
                         review_html = '<div>' + '<img src=\"' + data['profile_avatar'] + '\" width=\"30\" height=\"30\" alt=\"Avatar\"' +'/>'
-                                     +  '<a href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">'+ data['profile_name'] +'</a>'    
+                                     +  '<a href=\"/capturer/' + data['profile_name'] +'/profile/\">' + data['profile_name'] +'</a>'    
                                      + ' ' +data['date'] + ':' + data['content'] + '</div>';
                         $('#show_reviews').prepend(review_html)
 
@@ -77,13 +77,13 @@
                     }else{
                         $('.error-message').text(data['message']).show();
                     }
-                },
+                }, 
                 error: function(xhr){
                     console.log(data);
                 }
             });
             return false;
-        });
+        });  
     })
     
 </script>
