@@ -68,7 +68,7 @@
                     console.log(data);
                     if(data['status']=="success"){ 
                         review_html = '<div>' + '<img src=\"' + data['profile_avatar'] + '\" width=\"30\" height=\"30\" alt=\"Avatar\"' +'/>'
-                                     +  '<a href=\"/capturer/' + data['profile_name'] +'/profile/\">' + data['profile_name'] +'</a>'    
+                                     +  '<a href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">'+ data['profile_name'] +'</a>'    
                                      + ' ' +data['date'] + ':' + data['content'] + '</div>';
                         $('#show_reviews').prepend(review_html)
 
@@ -77,13 +77,13 @@
                     }else{
                         $('.error-message').text(data['message']).show();
                     }
-                }, 
+                },
                 error: function(xhr){
                     console.log(data);
                 }
             });
             return false;
-        });  
+        });
     })
     
 </script>
@@ -91,7 +91,33 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>show photo</h1>
+    <div class="position-relative overflow-hidden px-0 mt-5 pt-1 photoPage">
+        <div class = "photoPage-img">
+            <img class = "img-fluid" src="/static/tem-img/StockSnap_WTUVPDZYPO.jpg"  >
+        </div>
+        <div class = "author">
+            <div class = "row mx-0 mt-4 pt-4 px-2">
+                <div class ="col   mx-0 ">
+                    <div class="media px-2">
+                        <img class = "author-avatar" src="/static/tem-img/b28ce913b351f3870cbd55c23bbf52cdc7269193174b0-lbYvRZ_fw658.jpg" >
+                        <div class="media-body mx-2 pt-4 pr-3" style= "overflow: hidden; flow:left;">
+                            <p class="" style="font-family: 'Roboto', sans-serif; font-size:1.5rem; overflow: hidden; text-overflow: ellipsis;">Popoooooooooooooooooooooooo</p>
+                         </div>
+                    </div>      
+                </div>
+            </div>
+            <div class ="row">
+                <div class ="col  ">
+                    <div class="media-body text light ">
+                        <h3 class="mt-5 ml-3" style="font-weight: 400;color:white;">{{ selected_user.username }}</h3>
+                        <h6 class="mt-0 ml-3"style="font-weight: 400;color:white;">{{ user_profile.following.count }} followings</h5>
+                        <h6 class="mt-0 ml-3"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>show photo</h1>
     {% if photo.author == user %}
     <input type="button" id="delete_btn" data-url="{% url 'capturer:delete' photo.id %}" value="Delete">
     {% endif %}

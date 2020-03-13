@@ -8,50 +8,192 @@ Homepage
 {% endblock %}
 
 {% block body_block %}
-<div> 
-    {% if categories %} 
-        <ul> 
-            {% for category in categories %} 
-            <li><a href="{% url 'capturer:show_category' category.slug %}">{{ category.name }}</a></li>
-            {% endfor %} 
-        </ul> 
-            {% else %} 
-                <strong>There are no categories present.</strong> 
-    {% endif %} 
+
+<div class = "mt-5 pt-5"> 
 </div> 
 
 <p>
-{% for photo in category1 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
+<div class="container-fluid px-1">
+<div class="row d-flex mx-0 ">
+  
+  
+        <div class="col px-1 pb-2 d-flex justify-content-center" id="top-timer1">
+            {% for photo in category1 %}
+                <div class="col px-0 py-0 mx-0 top-card" >  
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
+                    <img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>
+                    <img class="enter" src="/static/icon/icon-enter.svg"/>    
+                    <div class="pt-2">
+                    <span >Still life</span>
+                        <ul class="py-0 ">
+                        <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for photo in category2 %}
+                <div class="col px-0 py-0 mx-0  top-card"  style="display:none;">
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>         
+                    <img class="enter" src="/static/icon/icon-enter.svg"/> 
+                    <div class="pt-2">
+                        <span >Portrait</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+       <div class="col px-1 pb-2 d-flex justify-content-center" id="top-timer2">
+            {% for photo in category3 %}
+                <div class="col px-0 mx-0  top-card" >  
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>    
+                    <img class="enter" src="/static/icon/icon-enter.svg"/> 
+                    <div class="pt-2">
+                        <span >Recording</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for photo in category4 %}
+                <div class="col px-0 mx-0 top-card"  style="display:none;">
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>         
+                    <img class="enter" src="/static/icon/icon-enter.svg"/> 
+                    <div class="pt-2">
+                        <span >Art</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col px-1 pb-2 d-flex justify-content-center" id="top-timer3">
+            {% for photo in category5 %}
+                <div class="col px-0 mx-0 top-card" >  
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>    
+                    <img class="enter" src="/static/icon/icon-enter.svg"/> 
+                     <div class="pt-2">
+                        <span >Pictorial</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
 
-{% for photo in category2 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
+                </div>
 
-{% for photo in category3 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
+            {% endfor %}
+            {% for photo in category6 %}
+                <div class="col px-0 top-card"  style="display:none;">
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid " src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>         
+                    <img class="enter" src="/static/icon/icon-enter.svg"/> 
+                    <div class="pt-2">
+                        <span >Commercial</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col px-1 pb-2 d-flex justify-content-center" id="top-timer4">
+            {% for photo in category7 %}
+                <div class="col px-0 mx-0 top-card" >  
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>    
+                      <img class="enter" src="/static/icon/icon-enter.svg"/> 
+                      <div class="pt-2">
+                        <span >Ink</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for photo in category8 %}
+                <div class="col px-0 mx-0 top-card"  style="display:none;">
+                    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img class="top-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
+                    <img class="enter" src="/static/icon/icon-enter.svg"/>        
+                    <div class="pt-2">
+                        <span >Holographic</span>
+                        <ul class="py-0 ">
+                            <li class="py-0 ">{{ photo.Title }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+   
+    <div class="w-100 "></div>
 
-{% for photo in category4 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
-</p>
-{% for photo in category5 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
+</div>
+</div>
 
-{% for photo in category6 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
 
-{% for photo in category7%}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
+<script>
 
-{% for photo in category8 %}
-    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="363" height="363" /></a>
-{% endfor %}
+var timer;
+var container1 = {
+    con : document.getElementById('top-timer1'),
+    ele : Array.from(document.getElementById('top-timer1').getElementsByClassName('col')),
+
+};
+
+var container2 = {
+    con : document.getElementById('top-timer2'),
+    ele : Array.from(document.getElementById('top-timer2').getElementsByClassName('col')),
+
+};
+var container3 = {
+    con : document.getElementById('top-timer3'),
+    ele : Array.from(document.getElementById('top-timer3').getElementsByClassName('col')),
+
+};
+var container4 = {
+    con : document.getElementById('top-timer4'),
+    ele : Array.from(document.getElementById('top-timer4').getElementsByClassName('col')),
+
+};
+
+console.log(container1.ele.length);
+function play(){
+timer=setInterval(function(){ 
+    Array.from(container1.ele).forEach(myFunction);
+    Array.from(container2.ele).forEach(myFunction);
+    Array.from(container3.ele).forEach(myFunction);
+    Array.from(container4.ele).forEach(myFunction);
+},3000)
+}
+
+
+play();
+container1.con.addEventListener("mouseover",function(){ stop();});
+container1.con.addEventListener("mouseout",function(){play();});
+container2.con.addEventListener("mouseover",function(){ stop();});
+container2.con.addEventListener("mouseout",function(){play();});
+container3.con.addEventListener("mouseover",function(){ stop();});
+container3.con.addEventListener("mouseout",function(){play();});
+container4.con.addEventListener("mouseover",function(){ stop();});
+container4.con.addEventListener("mouseout",function(){play();});
+
+function stop(){
+    clearInterval(timer);
+}
+
+
+
+function  myFunction(ele) {
+  if(ele['style'].display == 'none') {
+
+    ele['style'].display = 'block';
+  } else {
+    ele['style'].display = 'none';
+  }
+}
+</script>
+
+
 
 {% endblock%}
 

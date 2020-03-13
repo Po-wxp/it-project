@@ -5,7 +5,18 @@
 
 <html>
        <head>
-              <title>
+              <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+              <link rel="stylesheet" href={% static 'css/navbar.css' %} crossorigin="anonymous">
+              <link href="{% static 'css/icon/all.css' %}"  rel="stylesheet">
+              <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC|Playfair+Display:400i|Poiret+One|Raleway:300,400,500|Roboto:300,400&display=swap" rel="stylesheet">           
+              <link rel="apple-touch-icon" sizes="180x180" href="{% static 'fav/apple-touch-icon.png'%}">
+              <link rel="icon" type="image/png" sizes="32x32" href="{% static 'fav/favicon-32x32.png'%}">
+              <link rel="icon" type="image/png" sizes="16x16" href="{% static 'fav/favicon-16x16.png'%}">
+              <link rel="manifest" href="/site.webmanifest">
+               <title>
                      {% block title_block %}
                      {% endblock %}
               </title> 
@@ -15,26 +26,83 @@
        </head>
         <body>
               <div>
+                      <nav class="navbar navbar-expand-lg fixed-top py-1 mb-0" id="navbar" style="background-color: #ffffff;">    
+                            <a class="navbar-brand mb-0 h1 " href="{% url 'capturer:index' %}" style = " font: 400 20px 'Playfair Display SC', serif; color:black;">Capturer</a>
+                            <ul class="navbar-nav mr-auto">
+                                   <li class="nav-item">
+                                          <form class="mr-auto pb-0 mb-0"action="/search" method="get">
+                                                 <div class="input-group">
+                                                        
+                                                        <input type="text" class="form-control-nav"    aria-label="Search" size="auto" name="q" aria-describedby="inputGroup-sizing-default">
+                                                        <div class="input-group-prepend pt-3">
+                                                               <input type="image" src="/static/icon/icon-search.svg" href="{% url 'capturer:index' %}" class="" type="submit" style="height:16px;" />
+                                                        </div>
+                                                 </div>
+                                          </form>
+                                   </li>
+                            </ul>
+                            <ul class="navbar-nav ml-auto">
+                                   <li class="nav-item pt-2 px-3">
+                                           <a class="nav-link nav-word" href="{% url 'capturer:login' %}">Post <span class="fas fa-camera"></span></a>
+                                   </li>
+                                   <li class="nav-item pt-1">
+                                         
+                                   </li>
+                                   <li class="nav-item px-3  pt-2">
+                                           <a class="nav-link nav-word" href="{% url 'capturer:index' %}">Home</a>
+                                   </li>
+                                   {% if user.is_authenticated %}  
+                                   <li class="nav-item dropdown pt-1 pl-2" >
+                                          <a href="{% url  'capturer:profile' user.username %} " class=""><img class="avatar"   src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" /></a>
+                                          <a class="nav-link dropdown-toggle pl-0 ml-0 " style = "display:inline-block; font-size: 0.8rem;"  " id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ">
+                                          {{ user.username }}
+                                          </a>
+                                          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"  >
+                                                 <a class="dropdown-item" href="{% url  'capturer:profile' user.username%}" style="font-size: 12px;" >My account</a>
+                                                 <a class="dropdown-item" href="{% url 'auth_password_change' %}"style="font-size: 12px;" >Change password</a>
+                                                 <a class="dropdown-item" href="{% url 'capturer:logout' %}"style="font-size: 12px;">Logout</a>
+                                          </div>
+                                   </li>                                       
+                                   {% else %} 
+                                   <li class="nav-item pl-3"  style= "display:inline-block;">
+                                          <a class="nav-link" href="{% url 'capturer:login' %}">Login</a>
+                                   </li>
+                                   {% endif %}
+
+                                   <li class="nav-item pl-2 pt-2"  style= "display:inline-block;">
+                                          <input type="image" src="/static/icon/icon-burger.svg" href="{% url 'capturer:index' %}" class="" style="height:30px;" data-toggle="modal" data-target="#myModal2"/>
+                                   </li>
+                            </ul>
                      
-                     <strong>Capturer</strong>
-                     
-                            <form  style="display: inline" action="/search" method="get">
-                                   <input name="q" type="text" />
-                                   <input type="submit" />
-                            </form>
-                     
-                        
-                     {% if user.is_authenticated %}
-                            <img src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" />
-                            <a href="{% url 'capturer:profile' user.username %}">{{ user.username }}</a>
-                            <a href="{% url 'capturer:logout' %}">Logout</a>
-                            <a href="{% url 'auth_password_change' %}">Password Change</a>
-                     {% else %} 
-                            <a href="{% url 'capturer:login' %}">Login</a>
-                     {% endif %}
-                            <a href="{% url 'capturer:about' %}">About us</a>
-                            <a href="{% url 'capturer:contact' %}">Contact us</a>
-                            <a href="{% url 'capturer:index' %}">Home</a>
+                     </nav>
+                     	<!-- Modal -->
+                     <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" data-backdrop="false">
+                            <div class="modal-dialog" role="document">
+                                   <div class="modal-content">
+                                              
+                                          <div class="modal-header pt-4 mt-3">
+                                          <span class = "menu-title" >Category</span>  
+                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                 
+                                          </div>
+
+                                          <div class="modal-body pt-2 ">
+                                                 
+                                                 {% if categories %} 
+                                                        <ul class="pt-2 menu-list"> 
+                                                        {% for category in categories %} 
+                                                        <li ><a class ="menu" href="{% url 'capturer:show_category' category.slug %}">{{ category.name }}</a></li>
+                                                        {% endfor %} 
+                                                        </ul> 
+                                                        {% else %} 
+                                                               <strong>There are no categories present.</strong> 
+                                                 {% endif %} 
+                                          </div>
+
+                                   </div><!-- modal-content -->
+                            </div><!-- modal-dialog -->
+                     </div><!-- modal -->
+                            
                      
               </div>
 
@@ -46,6 +114,7 @@
 
 	       <div>
                      {% block body_block %}
+                     
                      {% endblock %}
               </div>
               
@@ -53,7 +122,53 @@
                      {% block side_block %}
                      {% endblock %}
               </div>
+              <script type="text/javascript">
+              var prevScrollpos = window.pageYOffset;
+              window.onscroll = function() {
+              var currentScrollPos = window.pageYOffset;
+              var heightOfMainNav = document.getElementById("navbar").getBoundingClientRect().bottom;
+              var accountNav =  document.getElementById('account-nav');
 
+              if (typeof(accountNav) != 'undefined' && accountNav != null)
+              {      
+                     console.log("s");
+                     var accountNavBottom = accountNav.getBoundingClientRect().bottom+50;
+                     if (prevScrollpos > currentScrollPos) {
+                            console.log("hey");
+                            document.getElementById("navbar").style.top = "0";
+                            document.getElementById("navbar").style.borderBottom="0rem solid #bbb";
+                     
+                            console.log(heightOfMainNav);
+                            accountNav.style.top ="3.2rem";
+                            accountNav.style.position= "fixed";
+                            accountNav.style.borderBottom="0.02142857rem solid #bbb";
+                            accountNav.style.zIndex= "1031";
+                     }
+                     if(accountNavBottom > currentScrollPos){
+                            accountNav.style.position= "initial";
+                            accountNav.style.borderBottom="0rem solid #bbb";
+                     }
+                     else if (prevScrollpos < currentScrollPos) {
+                            accountNav.style.top = "-200px";
+                            accountNav.style.borderBottom="0rem solid #bbb";
+                            document.getElementById("navbar").style.top = "-100px";
+                     }
+              }
+
+              if (prevScrollpos > currentScrollPos) {
+
+                     document.getElementById("navbar").style.top = "0";
+
+              } else {
+                     document.getElementById("navbar").style.top = "-100px";
+              }
+              
+                     prevScrollpos = currentScrollPos;
+              }
+              </script>
+              <script>
+          
+              </script>
        </body>
        
 </html>
