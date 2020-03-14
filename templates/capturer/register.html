@@ -7,22 +7,6 @@
 Register
 {% endblock %}
 
-{% block script_block %}
-<script>
-    // $('#id_image').change(function(){
-    //     var obj=$("#id_image")[0].files[0];
-    //     var fr=new FileReader();
-    //     fr.onload=function () {
-    //            $("#avatarPreview").attr('src',this.result);
-    //            console.log(this.result);
-    //            $("#avatar").val(this.result);
-    // })
-
-
-</script>
-
-{% endblock %}
-
 {% block body_block %}
     <h1 class = "mt-5 pt-5">Register for Capturer</h1>
     {% if registered %}
@@ -41,4 +25,36 @@ Register
             <input type="submit" name="submit" value="Register" />
         </form>
     {% endif %}
+    <div class = show_photo ></div>
+{% endblock %}
+
+
+{% block script_block %}
+<script>
+
+$(document).ready(function(){
+    $("#id_image").change(function () {
+
+        if (typeof (FileReader) != "undefined") {
+
+            var image_holder = $(".show_photo");
+            image_holder.empty();
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("<img />", {
+                "src": e.target.result,
+                "class": "thumb-image",
+                "height":"500px",  
+                }).appendTo(image_holder);
+            }
+            image_holder.show();
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            alert("This browser does not support FileReader.");
+        }
+    });
+});
+
+</script>
 {% endblock %}

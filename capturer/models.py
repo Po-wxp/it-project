@@ -28,12 +28,12 @@ class Photo(models.Model):
     TITLE_MAX_LENGTH=128
     DESCRIPTION_MAX_LENGTH=500
     
-    Image = models.ImageField(upload_to='upload_photos', blank=False)
+    Image = models.ImageField(upload_to='upload_photos', blank=False, null= False)
     Description = models.TextField(max_length=DESCRIPTION_MAX_LENGTH, null=True)
     Like = models.IntegerField(default=0)
     views = models.IntegerField(default=0)
     Tag = models.ManyToManyField(Tag)
-    Category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    Category = models.ForeignKey(Category, on_delete=models.CASCADE, null=False, blank=False)
     Date = models.DateField(default=datetime.now)
     Title = models.CharField(max_length=TITLE_MAX_LENGTH, null=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
@@ -75,3 +75,4 @@ class Contact(models.Model):
     date = models.DateField(default=datetime.now)
 
     def __str__(self): return self.user.username
+

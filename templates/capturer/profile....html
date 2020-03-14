@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+{% extends 'capturer/profile_base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+    {% if selected_user %}	
+        {{ selected_user.email }}
+    {% else %}
+        The specified user deos not exist.
+    {% endif %}
+    
+    {% if user_profile %}
+   
+        <ul>{{ user_profile.nikename }}</ul>  
+        <ul>{{ user_profile.gender }}</ul>
+        <ul>{{ user_profile.description }}</ul>
+        <ul>{{ user_profile.postcode }}</ul>
+        
+    {% else %}
+        The specified userprofile deos not exist.
+    {% endif %} 
+    
+
+
+    
+    
+
+{% endblock %}

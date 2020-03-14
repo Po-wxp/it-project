@@ -1,5 +1,5 @@
 from django import forms
-from capturer.models import Photo, UserProfile, Tag, Review, Contact
+from capturer.models import Photo, UserProfile, Tag, Review, Contact, Category
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import ObjectDoesNotExist
@@ -15,11 +15,11 @@ class PhotoForm(forms.ModelForm):
     Like = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     Tag = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple())
-    # Category = forms.CharField(widget=forms.HiddenInput(), max_length=30)
+    Category = forms.ModelChoiceField(queryset=Category.objects.all())
 
     class Meta:
         model = Photo
-        exclude = ('Category', 'author', 'Date')
+        exclude = ('author', 'Date')
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
