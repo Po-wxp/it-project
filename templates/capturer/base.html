@@ -5,9 +5,14 @@
 
 <html>
        <head>
+
               <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+               <script src="{% static 'js/select2.min.js' %}"defer></script>
+              
               <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
               <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+             
+              <link rel="stylesheet" href="{% static 'css/select2.min.css' %}"></link>
               <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
               <link rel="stylesheet" href={% static 'css/navbar.css' %} crossorigin="anonymous">
               <link href="{% static 'css/icon/all.css' %}"  rel="stylesheet">
@@ -15,7 +20,7 @@
               <link rel="apple-touch-icon" sizes="180x180" href="{% static 'fav/apple-touch-icon.png'%}">
               <link rel="icon" type="image/png" sizes="32x32" href="{% static 'fav/favicon-32x32.png'%}">
               <link rel="icon" type="image/png" sizes="16x16" href="{% static 'fav/favicon-16x16.png'%}">
-              <link rel="manifest" href="/site.webmanifest">
+
                <title>
                      {% block title_block %}
                      {% endblock %}
@@ -30,12 +35,11 @@
                             <a class="navbar-brand mb-0 h1 " href="{% url 'capturer:index' %}" style = " font: 400 20px 'Playfair Display SC', serif; color:black;">Capturer</a>
                             <ul class="navbar-nav mr-auto">
                                    <li class="nav-item">
-                                          <form class="mr-auto pb-0 mb-0"action="/search" method="get">
+                                          <form class="mr-auto pb-2 mb-0"action="/search" method="get">
                                                  <div class="input-group">
-                                                        
                                                         <input type="text" class="form-control-nav"    aria-label="Search" size="auto" name="q" aria-describedby="inputGroup-sizing-default">
                                                         <div class="input-group-prepend pt-3">
-                                                               <input type="image" src="/static/icon/icon-search.svg" href="{% url 'capturer:index' %}" class="" type="submit" style="height:16px;" />
+                                                               <input type="image" src="/static/icon/icon-search.svg"  class="" type="submit" style="height:16px;" />
                                                         </div>
                                                  </div>
                                           </form>
@@ -43,7 +47,11 @@
                             </ul>
                             <ul class="navbar-nav ml-auto">
                                    <li class="nav-item pt-2 px-3">
-                                          <a class="nav-link nav-word" href="{% url 'capturer:post_photo' %}">Post <span class="fas fa-camera"></span></a>
+                                          {% if user.is_authenticated %}  
+                                           <a class="nav-link nav-word btn-nav-post">Post <span class="fas fa-camera"></span></a>
+                                          {% else %}
+                                          <a class="nav-link nav-word" href="{% url 'capturer:login' %}">Post <span class="fas fa-camera"></span></a>
+                                          {% endif %}
                                    </li>
                                    <li class="nav-item pt-1">
                                          
@@ -52,9 +60,9 @@
                                            <a class="nav-link nav-word" href="{% url 'capturer:index' %}">Home</a>
                                    </li>
                                    {% if user.is_authenticated %}  
-                                   <li class="nav-item dropdown pt-1 pl-2" >
+                                   <li class="nav-item dropdown pt-1 pl-2 px-3" >
                                           <a href="{% url  'capturer:profile' user.username %} " class=""><img class="avatar"   src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" /></a>
-                                          <a class="nav-link dropdown-toggle pl-0 ml-0 " style = "display:inline-block; font-size: 0.8rem;"  " id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ">
+                                          <a class="nav-link dropdown-toggle pl-0 ml-0 " style = "cursor:pointer; display:inline-block; font-size: 0.8rem; "  " id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ">
                                           {{ user.username }}
                                           </a>
                                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"  >
@@ -64,13 +72,13 @@
                                           </div>
                                    </li>                                       
                                    {% else %} 
-                                   <li class="nav-item pl-3"  style= "display:inline-block;">
-                                          <a class="nav-link" href="{% url 'capturer:login' %}">Login</a>
+                                   <li class="nav-item  pt-2 px-3"  style= "display:inline-block;">
+                                          <a class="nav-link  nav-word" href="{% url 'capturer:login' %}">Login</a>
                                    </li>
                                    {% endif %}
 
                                    <li class="nav-item pl-2 pt-2"  style= "display:inline-block;">
-                                          <input type="image" src="/static/icon/icon-burger.svg" href="{% url 'capturer:index' %}" class="" style="height:30px;" data-toggle="modal" data-target="#myModal2"/>
+                                          <input type="image" src="/static/icon/icon-burger.svg"  class="" style="height:30px;" data-toggle="modal" data-target="#myModal2"/>
                                    </li>
                             </ul>
                      
@@ -102,8 +110,64 @@
                                    </div><!-- modal-content -->
                             </div><!-- modal-dialog -->
                      </div><!-- modal -->
-                            
-                     
+                    <div class="post-photo-panel fixed-top" id="post_photo">
+                            <form id="photo_form" method="post" action="{% url 'capturer:post_photo' %}" enctype="multipart/form-data">
+                       
+                                   <div class="post-photo col  px-4 mt-3  " id="post_photo">
+                                          
+                                          <div class="row mx-0 px-4 mt-3 pt-5  " >
+                                          </div>
+                                          <div class="row mx-0 px-4 mt-3 pt-5 d-flex " >
+                                                 
+                                                 <div class="img-area col mx-0 p-0">
+                                                        <img class="upload-img" src="" height="100%" width="100%" id="upload_img" style="display: none;"/>
+                                                 </div>
+                                                 
+                                                 <div class="col text-area mx-3">
+                                                 <input type="file" name="Image"  accept="image/*" id="id_Image">
+                                                        <div class="row mx-0 ">
+                                                        {% csrf_token %}
+                                                               <select id="category-1" required value="" placeholder="Select Your category" name="Category">
+                                                                      <option value="" >Select a category</option>
+                                                                      {% for category in categories %}
+                                                                      <option value="{{category.name}}">{{category.name}}</option>
+                                                                      {% endfor %}
+                                                               </select>
+                                                        </div>
+                                                        <div class="row mx-0 my-4">
+                                                               <input type="text" name="Title" maxlength="128" required id="id_Title">  
+                                                        </div>
+                                                        <div class="row mx-0 my-4">                                                   
+                                                               <input type="text" name="Description" maxlength="500" required id="id_Description">
+                                                        </div>
+                                                        
+                                                        <div class="tag_panel">
+                 
+                                                               <div class="dropdown">
+                                                                      <input type="text" onclick="searchTag()" placeholder="Try our tag!" id="myInput" onkeyup="filterFunction()">
+                                                                             <div id="myDropdown" class="dropdown-content" data-spy="scroll" >
+                                                                                    {% for tag in tags %}
+                                                                                           <a>{{tag}}</a>
+                                                                                    {% endfor %}
+                                                                             </div>
+                                                               </div>
+                                                              
+                                                              
+                                                               <button class="btn btn-dark btn-add-tag" type="button" value='' id='add_tag'>Add</button>
+                                                               <br/>
+                                                               <div id='tags_area'></div>
+                                                               <input id='tags_data_area' type="text" name="tags">
+                                                                      
+                                                        </div>
+                                                        
+                                                        <button class="btn btn-dark post-btn" type="submit">Post</button>
+                                                        <button class="btn btn-post-close fas fa-times" type="button"></button> 
+                                                 </div>       
+                                          
+                                          </div>
+                                   </div>
+                            </form>              
+                     </div>
               </div>
 
               
@@ -165,9 +229,121 @@
               
                      prevScrollpos = currentScrollPos;
               }
-              </script>
-              <script>
+
+
+              $("#categories_menu").on('click', 'a', function(){
+                     console.log("1");
+                     $("#dropdownMenuButton").html($(this).text() + ' <span class="caret"></span>');
+                     $("#dropdownMenuButton").val($(this).data('value'));
+              });    
+
+                     //Create the input element
+
+
+              $(document).ready(function(){
+                     console.log("21");    
+                     $("#id_Description").attr("placeholder","Description");
+                     $("#id_Title").attr("placeholder","Title");
+              });
+
+              $(document).ready(function() { 
+                     $('.btn-post-close').click(function() {
+                     $(".upload-img").hide(); 
+                     $('.post-photo-panel').hide();
+                     $("#id_Description").val("");
+                     $("#id_Title").val("");
+                     $("#dropdownMenuButton").html("Select a category" + ' <span class="caret"></span>');
+                     });
+
+              });
+
+              $(document).ready(function() { 
+                     $('.btn-nav-post').click(function() { 
+                            $('.post-photo-panel').show();
+                     });
+               });
+
+
+              //clear search text when user add
+
+              $(document).ready(function(){$('#myDropdown').on('click', 'a', function() {
+
+                     var val = $(this).text();
+                     console.log(val);
+                     $('#myInput').val(val);
+                      $("#myDropdown").hide();
+              });});
+
           
+              function searchTag(){ //show dropdown
+                     $("#myDropdown").show();
+              };
+              $(document).on('click','#delete_tag',function(){//do something})
+
+                            var node =$(this).parent();
+                            var node2 =$(this).parent().parent();
+                            console.log(node);
+                            console.log(node2);
+                            $(node).remove();
+                     
+              });
+              
+              $(document).mouseup(function(e)  //hide search dropdown
+                     {
+                     var container = $("#myDropdown");
+                     // if the target of the click isn't the container nor a descendant of the container
+                     if (!container.is(e.target) && container.has(e.target).length === 0) 
+                     {
+                            container.hide();
+                     }
+              });
+   
+            
+              function filterFunction() {
+                     var input, filter, ul, li, a, i;
+                     input = document.getElementById("myInput");
+                     filter = input.value.toUpperCase();
+                     div = document.getElementById("myDropdown");
+                     a = div.getElementsByTagName("a");
+                     for (i = 0; i < a.length; i++) {
+                            txtValue = a[i].textContent || a[i].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                   a[i].style.display = "";
+                            } else {
+                                   a[i].style.display = "none";
+                            }
+                     }
+              }
+
+              $('#add_tag').click(function(){
+                     var tag = $('#myInput').val()
+                     $("#myDropdown.a").filter(function() {
+                            return $(this).text() === tag;
+                     }).css("display", "none");
+              tag=tag.trim();
+              if(tag!=''&&tag!=null){
+               $('#tags_area').append( '<div class="tag" id="tag">'+
+                                   '<span class="fas fa-tag"></span>'+
+                                   '<span >'+tag+'</span>'+'<button type="button" id="delete_tag" ><span class="fas fa-times"></span></button></div>');
+              $('#tags_data_area').val($('#tags_data_area').val() + tag+' ');
+              $('#myInput').val("");}
+              console.log($('#tags_data_area').val());
+              });
+              
+              $(document).ready(function(){
+                     $("#id_Image").change(function () {
+                            if (typeof (FileReader) != "undefined") {
+                                   var reader = new FileReader();
+                                   reader.onload = function (e) {
+                                          $(".upload-img").attr('src',e.target.result)
+                                   }
+                                   $(".upload-img").show();
+                                   reader.readAsDataURL($(this)[0].files[0]);
+                            } else {
+                            alert("This browser does not support FileReader.");
+                            }
+                     });
+              });
               </script>
        </body>
        

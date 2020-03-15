@@ -8,55 +8,88 @@ Post a photo
 {% endblock %}
 
 {% block body_block %}
+
 <h1>Post a photo</h1>
-<div>  
-    <form id="photo_form" method="post" action="{% url 'capturer:post_photo' %}" 
+<div>  <div class="position-relative overflow-hidden px-0 mt-5 pt-1 photoPage ">
+        <div class = "photoPage-img" id="pic">
+            <img class = "img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"  >
+        </div>
+         <a class="review-back-btn fixed-top" id="review-back-btn">
+         <span class="fas fa-arrow-right"></span></a>
+         <a class="back-btn fixed-top" id="back-btn"href="{% url 'capturer:index' %}">
+         <span class="fas fa-arrow-right"></span></a>
+        <div class = "panel" id="main_panel">
+           
+            <div class = "row category mx-0 mt-4 pt-0 ">
+                <span>{{ photo.Category }}</span>;
+            </div>
+            <div class = "row author mt-4 mx-0  ">
+                <div class ="col px-0 mx-0 ">
+                    <div class="media ">
+                        <img class = "author-avatar" src="/static/tem-img/b28ce913b351f3870cbd55c23bbf52cdc7269193174b0-lbYvRZ_fw658.jpg" >
+                        <div class="media-body ml-1 mr-2 pt-1 pr-0 row" style= "overflow: hidden; flow:left;">
+                            <div class="col-md-auto mx-0 px-0 " style="max-width:50%;">
+                            <p class="mb-0" style="font-family: 'Roboto', sans-serif; font-size:1rem; overflow: hidden; text-overflow: ellipsis;">POOOOO</p>
+                            <p class="pt-0" style="max-width:5rem;font-family: 'Roboto', sans-serif; font-size:0.8rem; overflow: hidden; text-overflow: ellipsis; color: rgb(114,114,114,0.9)">Popoooooooooooooooooooooooo</p>
+                            </div>
+                            <div  class="col col-md-auto mr-auto pl-2 pt-1 mx-0 px-0" style="">
+                            <button class="btn btn-dark follow" style="font-size:0.8rem; ">Follow</button>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </div>
+                <div class ="row mx-0 "  >
+                    <h3 class="photo-title mt-2 mb-1">{{ photo.Title }}</h3>
+                </div>
+                <div class="row mt-0 mx-0 col-md-auto mx-0 px-0 photo-descrip">
+                            <span class=" mt-0 ">{{ photo.Description }}</span>
+                        </div>
+                        
+                </div>
+                <div class="row mx-0 mt-2 mb-0">
+                    <p class="photo-tag-area mb-0">
+                        {% for tag in tags %}
+                            <span class="fas fa-tag"></span>
+                            <span> </span>
+                            <span class="photo-tag">{{ tag.name }}
+                            <span> </span>
+                        {% endfor %}
+                    </p>
+                
+                </div>
+
+                <div class="row mt-0 mx-0 date">
+                    <span class="">{{ photo.Date }}</span>
+                </div>
+
+                <div class="row mx-0  my-1" style = "padding-top:0; padding-bottom:0.1rem; border-bottom: 0.01142857rem solid #bbb; " >   
+                </div>
+                <div class="row mx-0 statistic">
+                    <span class="">Views {{ photo.views }}</span>
+                    <span class="ml-2" id="like_count">Likes {{ photo.Like }}</span>
+                </div>
+                <div class=" action row mx-0 my-1 ">
+                    <span class="like-btn far fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
+                    <span class="ml-3  mr-3 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span>
+                    
+                </div>
+    <form id="photo_form" method="post" action="{% url 'capturer:post_photo' category.slug %}" 
           enctype="multipart/form-data">
         {% csrf_token %}
-        
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-        {% for field in form.visible_fields %}
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-        {% endfor %}
-                
+        {% if category %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+        {% else %}
+            The specified category does not exist.
+        {% endif %} 
     <input type="submit" name="submit" value="Post Photo">
     </form>
-
 </div>
-
-<div class = show_photo ></div>
-{% endblock %}
-
-{% block script_block %}
-<script>
-
-$(document).ready(function(){
-    $("#id_Image").change(function () {
-
-        if (typeof (FileReader) != "undefined") {
-
-            var image_holder = $(".show_photo");
-            image_holder.empty();
-
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("<img />", {
-                "src": e.target.result,
-                "class": "thumb-image",
-                "height":"500px",  
-                }).appendTo(image_holder);
-            }
-            image_holder.show();
-            reader.readAsDataURL($(this)[0].files[0]);
-        } else {
-            alert("This browser does not support FileReader.");
-        }
-    });
-});
-
-</script>
 {% endblock %}

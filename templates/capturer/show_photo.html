@@ -14,15 +14,45 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
 <script>
+    var reviewers = 0;
     $(document).ready(function(){
         $('#collection_btn').click(function() {
+
+            $.get($(this).data('url'), function(response) {
+                $('.message-section').text(response.message);
+                 console.log($('.message-section').text(response.message));
+                if($('.message-section').text() == "2"){
+                              
+                    $('#collection_btn').attr("class"," far fa-bookmark")
+                }else if ($('.message-section').text() == "1"){
+                               console.log("1");
+                    $('#collection_btn').attr("class","collection-btn fas fa-bookmark")
+                }
+                
+            });
+        });
+    })
+    
+    $(document).ready(function(){
+        $("#collection_btn").click(function() {    
+        if ($(this).hasClass("collection-btn-unactive")){
+            $(this).removeClass( ).addClass("collection-btn far fa-bookmark") 
+        }else{
+           $(this).removeClass( ).addClass("collection-btn-unactive fas fa-bookmark")
+        }            
+         });
+
+    });
+
+    $(document).ready(function(){
+        $('#follow-button').click(function() {
            
             $.get($(this).data('url'), function(response) {
                 $('.message-section').text(response.message);
                 if($('.message-section').text() == "2"){
-                    $('#collection_btn').attr("value","Collection")
+                    $('#follow-button').attr("value","Follow")
                 }else if ($('.message-section').text() == "1"){
-                    $('#collection_btn').attr("value","Cancel Collection")
+                    $('#follow-button').attr("value","Cancel Follow")
                 }
                 
             });
@@ -37,8 +67,8 @@
             $.get('/capturer/like_photo/', 
                 {'photo_id': IdVar}, 
                 function(data) { 
-                    $('#like_count').html(data); 
-                    $('#like_btn').hide(); 
+                    $('#like_count').html("Likes "+data); 
+                    $('#like_btn').replaceWith('<span class="like fas fa-heart"></span>'); 
                 })
         });
     });
@@ -67,9 +97,28 @@
                 success: function(data){
                     console.log(data);
                     if(data['status']=="success"){ 
-                        review_html = '<div>' + '<img src=\"' + data['profile_avatar'] + '\" width=\"30\" height=\"30\" alt=\"Avatar\"' +'/>'
-                                     +  '<a href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">'+ data['profile_name'] +'</a>'    
-                                     + ' ' +data['date'] + ':' + data['content'] + '</div>';
+                        review_html =  '<div class=\"rol mx-0 mb-4\">'+
+                                        '<div class=\"col mx-0 px-0 d-flex\">'+
+                                '<a href=\"{% url \'capturer:profile\' '+ data['profile_name'] +'\">'+
+                                '<img class=\"review-avatar\"src=\"' + data['profile_avatar'] +'\" alt=\"Avatar\" />'+'</a>'+
+                                '<div class=\"col mx-0\" style=\"\">'+
+                                    '<div class=\"row mx-0\">'+
+                                    '<a class=\"review-author\" href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">' + data['profile_name'] +'&nbsp;</a>'+
+                                    '<div class=\"review-content\">'+
+                                        data['content']+
+                                    '</div>'+
+                                    '</div>'+
+                                    '<div class=\"row mx-0\">'+
+                                        '<span class=\"review-time\">' +' ' +data['date'] + ':'+'</span>'+
+                                    '</div>'+
+                                '</div>'+                               
+                            '</div>'+                          
+                            '</div>';
+                        
+                        
+                        
+                        
+                       
                         $('#show_reviews').prepend(review_html)
 
                         CKEDITOR.instances['id_content'].setData('');
@@ -85,94 +134,199 @@
             return false;
         });
     })
-    
+    jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+                                                $(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+                                                $(window).scrollLeft()) + "px");
+    return this;
+    }
+
+    $(document).ready(function(){
+        $('#com_btn').click(function(){
+            $('#pic').hide();
+            $('#main_panel').css("width","70%");
+            $('#main_panel').css("margin","auto");
+            $('#main_panel').css("float","none");
+            $('#main_panel').css("min-height","500px");
+            $('#show_reviews').show();
+            $('#review_form').css("display","block");
+            $('#review_form').css("width","70%");
+            $('#review-back-btn').css("display","block");
+            $('#back-btn').css("display","none");
+                });
+        })
+
+
+        $(document).ready(function(){
+        $('#review-btn').click(function(){
+            $('#pic').hide();
+            $('#main_panel').css("width","70%");
+            $('#main_panel').css("margin","auto");
+            $('#main_panel').css("float","none");
+            $('#main_panel').css("min-height","500px");
+            $('#show_reviews').show();
+            $('#review_form').css("display","block");
+            $('#review_form').css("width","70%");
+            $('#review-back-btn').css("display","block");
+            $('#back-btn').css("display","none");
+                });
+        })
+        $(document).ready(function(){
+        $('#review-back-btn').click(function(){
+            $('#pic').show();
+            $('#main_panel').css("width","30%");
+            $('#main_panel').css("margin","0px");
+            $('#main_panel').css("float","left");
+            $('#main_panel').css("min-height","auto");
+            $('#show_reviews').hide();
+            $('#review_form').css("display","none");
+            $('#review-back-btn').css("display","none");
+                });
+        })
+
 </script>
 
 {% endblock %}
 
 {% block body_block %}
+{% if photo %}
     <div class="position-relative overflow-hidden px-0 mt-5 pt-1 photoPage">
-        <div class = "photoPage-img">
-            <img class = "img-fluid" src="/static/tem-img/StockSnap_WTUVPDZYPO.jpg"  >
+        <div class = "photoPage-img" id="pic">
+            <img class = "img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"  >
         </div>
-        <div class = "author">
-            <div class = "row mx-0 mt-4 pt-4 px-2">
-                <div class ="col   mx-0 ">
-                    <div class="media px-2">
-                        <img class = "author-avatar" src="/static/tem-img/b28ce913b351f3870cbd55c23bbf52cdc7269193174b0-lbYvRZ_fw658.jpg" >
-                        <div class="media-body mx-2 pt-4 pr-3" style= "overflow: hidden; flow:left;">
-                            <p class="" style="font-family: 'Roboto', sans-serif; font-size:1.5rem; overflow: hidden; text-overflow: ellipsis;">Popoooooooooooooooooooooooo</p>
-                         </div>
+         <a class="review-back-btn fixed-top" id="review-back-btn">
+         <span class="fas fa-times"></span></a>
+         <a class="back-btn fixed-top" id="back-btn"href="{% url 'capturer:index' %}">
+         <span class="fas fa-arrow-right"></span></a>
+        <div class = "panel" id="main_panel">
+           
+            <div class = "row category mx-0 mt-4 pt-0 ">
+                <span>{{ photo.Category }}</span>;
+            </div>
+            <div class = "row author mt-4 mx-0  ">
+                <div class ="col px-0 mx-0 ">
+                    <div class="media ">
+                        <a href="{% url  'capturer:profile' photo.author.username %} "><img class = "author-avatar" src="{{ MEDIA_URL }}{{ author_profile.image }}" ></a>
+                        <div class="media-body ml-1 mr-2 pt-1 pr-0 row" style= "overflow: hidden; flow:left;">
+                            <div class="col-md-auto mx-0 px-0 " style="max-width:50%;">
+                            <p class="mb-0" style="font-family: 'Roboto', sans-serif; font-size:1rem; overflow: hidden; text-overflow: ellipsis;">{{ photo.author.username }}</p>
+                            <p class="pt-0" style="max-width:5rem;font-family: 'Roboto', sans-serif; font-size:0.8rem; overflow: hidden; text-overflow: ellipsis; color: rgb(114,114,114,0.9)">Popoooooooooooooooooooooooo</p>
+                            </div>
+                            <div  class="col col-md-auto mr-auto pl-2 pt-1 mx-0 px-0" style="">
+                            {% if photo.author != user %}
+                                <div class="message-section" style="display:none;"></div>
+                                {% if photo.author in profile.following.all %}
+                                    <input data-url="{% url 'capturer:follow' photo.author.username %}" id="follow-button" type="button" value="Cancel Follow" class="btn btn-dark follow" style="font-size:0.8rem; "></input>
+                                {% else %}
+                                    <input data-url="{% url 'capturer:follow' photo.author.username %}" id="follow-button" type="button" value="Follow" class="btn btn-dark follow" style="font-size:0.8rem; "></input>
+                                {% endif %}
+                            {% endif %}    
+                            </div>
+                        </div>
                     </div>      
                 </div>
             </div>
-            <div class ="row">
-                <div class ="col  ">
-                    <div class="media-body text light ">
-                        <h3 class="mt-5 ml-3" style="font-weight: 400;color:white;">{{ selected_user.username }}</h3>
-                        <h6 class="mt-0 ml-3"style="font-weight: 400;color:white;">{{ user_profile.following.count }} followings</h5>
-                        <h6 class="mt-0 ml-3"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
-                    </div>
+                <div class ="row mx-0 "  >
+                    <h3 class="photo-title mt-2 mb-1">{{ photo.Title }}</h3>
                 </div>
+                <div class="row mt-0 mx-0 mb-2">
+                        <div class ="col-md-auto mx-0 px-0 photo-descrip">
+                            <span class=" mt-0 ">{{ photo.Description }}</span>
+                        </div>
+                        
+                </div>
+                <div class="row mx-0 mt-2 mb-0">
+                    <p class="photo-tag-area mb-0">
+                        {% for tag in photo_tags %}
+                            <span class="fas fa-tag"></span>
+                            <span> </span>
+                            <span class="photo-tag">{{ tag.name }}
+                            <span> </span>
+                        {% endfor %}
+                    </p>
+                
+                </div>
+
+                <div class="row mt-0 mx-0 date">
+                    <span class="">{{ photo.Date }}</span>
+                </div>
+
+                <div class="row mx-0  my-1" style = "padding-top:0; padding-bottom:0.1rem; border-bottom: 0.01142857rem solid #bbb; " >   
+                </div>
+                <div class="row mx-0 statistic">
+                    <span class="">Views {{ photo.views }}</span>
+                    <span class="ml-2" id="like_count">Likes {{ photo.Like }}</span>
+                </div>
+                <div class=" action row mx-0 my-1 ">
+                    <span class="like-btn far fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
+                    <span class="ml-3  mr-3 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span>
+                    {% if photo.author != user %}
+                        {% if photo in profile.favorite.all %}
+                            <span class=" collection-btn-unactive fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                        {% else %}
+                            <span class="collection-btn far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class=" review">
+                    {% if reviews %}
+                    <div class="rol  mx-0 mt-2 mb-3">
+                        <span class="review_title" id="review-btn">{{ reviews|length }} reviews <span class="fas fa-caret-down"></span></span> 
+                    </div>
+                    <div class="rol  mx-0" id="show_reviews" style="display:none">
+
+                        {% for review in reviews %}
+                            <div class="rol mx-0 mb-4">
+                            <div class="col mx-0 px-0 d-flex">
+                                <a href="{% url 'capturer:profile' review.profile.user.username %} ">
+                                <img class="review-avatar"src="{{ MEDIA_URL }}{{ review.profile.image }}" alt="Avatar" /></a>
+                                <div class="col mx-0" style="">
+                                    <div class="row mx-0">
+                                    <a class="review-author" href="{% url 'capturer:profile' review.profile.user.username %} ">{{ review.profile.user.username }}&nbsp;</a>
+                                    <div class="review-content">
+                                        {{ review.content|safe }}
+                                    </div>
+                                    </div>
+                                    <div class="row mx-0">
+                                        <span class="review-time">{{ review.date|date:"Y-m-d H:i:s" }}</span>
+                                    </div>
+                                </div>                               
+                            </div>                          
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="rol  mx-0 mt-2 mb-3">
+                        <span class="review_title_unactive">{{ reviews|length }} reviews</span> 
+                        
+                    </div>
+                    <div class="rol  mx-0" id="show_reviews" style="display:none">
+                    </div>
+                    {% endif %}
+                    </div>
+
+                </div>
+
+                    <form id="review_form" method="POST" style="display:none">
+                        <div class="review-write-panel rol fixed-top mx-0 my-1 ">
+                        <div class=" mx-3 my-1 "sty>
+                        {% csrf_token %}
+                        {% for field in form_review %}
+                            {{ field }}
+                        {% endfor %}
+                        <div class="error-message" style="display:none;"></div>
+                        <button class="review-submit-btn" id="comment_btn" type="submit" name="submit">Submit</button>
+                        </div>
+                    </form>
+
+                <div class="row mx-0">
+                    <h6 class="mt-0 ml-3"style="font-weight: 400;color:black;">{{ user_profile.description }}</h5>
+                 </div>    
             </div>
         </div>
     </div>
-    <h1>show photo</h1>
-    {% if photo.author == user %}
-    <input type="button" id="delete_btn" data-url="{% url 'capturer:delete' photo.id %}" value="Delete">
-    {% endif %}
-    
-    <div class="message-section" style="display:none;"></div>
-
-    {% if photo.author != user %}
-        {% if photo in profile.favorite.all %}
-            <p><input id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", value="Cancel Collection", type="button"></input></p>
-        {% else %}
-            <p><input id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", value="Collection", type="button"></input></p>
-        {% endif %}
-    {% endif %}
-
-    <p>Visits: {{ photo.views }}</p>
-    <div> 
-        <strong id="like_count">{{ photo.Like }}</strong> likes 
-        <button id="like_btn" data-photoid="{{ photo.id }}" class="btn btn-primary btn-sm" type="button">Like</button> 
-    </div>
-
-
-    {% if photo %}
-        <p><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="800" height="800" /></p>
-        <p>Description:{{ photo.Description }}</p>
-        <!-- <p>Likes:{{ photo.Like }}</p>
-        <p>Views:{{ photo.views }}</p> -->
-        <p>Tags:{% for tag in tags %}
-                {{ tag.name }}
-        {% endfor %}
-        </p>
-        <p>Date:{{ photo.Date }}</p>
-        <p>Title:{{ photo.Title }}</p>
-    
-
-        <form id="review_form" method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
-            <div class="error-message" style="display:none;"></div>
-            <input id="comment_btn" type="submit" name="submit" value="submit" style="margin-left:745px">
-        </form>
-
-        
-
-        <h2>Reviews:</h2>
-        <div id="show_reviews">
-            {% for review in reviews %}
-                <img src="{{ MEDIA_URL }}{{ review.profile.image }}" width="30" height="30" alt="Avatar" />
-                <a href="{% url 'capturer:profile' review.profile.user.username %} ">{{ review.profile.user.username }}</a>
-                    {{ review.date|date:"Y-m-d H:i:s" }}:
-                    <p>{{ review.content|safe }}</p>
-        </div>
-        {% empty %}
-            No review!
-        {% endfor %}
+  </div>
+ 
     {% endif %}
 {% endblock %}
