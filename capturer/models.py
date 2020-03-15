@@ -75,4 +75,3 @@ class Contact(models.Model):
     date = models.DateField(default=datetime.now)
 
     def __str__(self): return self.user.username
-

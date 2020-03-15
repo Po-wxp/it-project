@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from capturer.models import Category, Photo , UserProfile, Review
+from capturer.models import Category, Photo , UserProfile, Review, Tag
 from capturer.forms import PhotoForm, UserForm, UserProfileForm, UserProfileModifyForm, ReviewForm, ContactForm
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -23,11 +23,17 @@ def stable(request):
         user=None
         current_user_profile=None
     return current_user_profile
-
+def base_query():
+    context_dict = {
+        'post_photo_form' : PhotoForm(),
+        'categories': Category.objects.all(), 
+        'tags': Tag.objects.all(), 
+    }
+    return context_dict
 
 def index(request):
     context_dict = {}
-    
+
 
     category1_photo_list = Photo.objects.filter(Category = Category.objects.get(id=1)).order_by('-Like')[:1]
     category2_photo_list = Photo.objects.filter(Category = Category.objects.get(id=2)).order_by('-Like')[:1]
@@ -42,8 +48,9 @@ def index(request):
                     'category3': category3_photo_list, 'category4': category4_photo_list,
                     'category5': category5_photo_list, 'category6': category6_photo_list,
                     'category7': category7_photo_list, 'category8': category8_photo_list,
-                    'categories':Category.objects.all(), 'profile':stable(request)}
-
+                     'profile':stable(request),
+                    }
+    context_dict.update(base_query())
     # context_dict = {'categories':category_list, 'profile':stable(request)}
 
     return render(request, 'capturer/index.html', context=context_dict)
@@ -52,7 +59,7 @@ def about(request):
     context_dict = {}
     current_user_profile = stable(request)
     context_dict['profile'] = current_user_profile
-    context_dict['categories'] = Category.objects.all()
+    context_dict.update(base_query())
     return render(request, 'capturer/about.html', context=context_dict)
 
 @login_required
@@ -72,13 +79,13 @@ def contact(request):
         else:
             print(form.errors)
     context_dict['form'] = form
-    context_dict['categories'] = Category.objects.all()
+    context_dict.update(base_query())
     return render(request, 'capturer/contact.html', context=context_dict)
 
 def show_category(request, category_name_slug):
     context_dict = {}
     context_dict['profile'] = stable(request)
-    context_dict['categories'] = Category.objects.all()
+    context_dict.update(base_query())
     try:
         category = Category.objects.get(slug=category_name_slug)
         #The filter() will return a list of page objects or an empty list
@@ -96,35 +103,39 @@ def show_category(request, category_name_slug):
 @login_required
 def post_photo(request):
     
-    form = PhotoForm()
     user = request.user
 
     if request.method == 'POST':
+        # print(request.POST)
+        # print("123")
         form = PhotoForm(request.POST)
-
+        # print(Category.objects.get(name = request.POST.get('Category')).slug)
         if form.is_valid():
+
             photo = form.save(commit=False)
             photo.views = 0
             photo.Like = 0
             photo.Title = request.POST.get('Title')
             photo.Description = request.POST.get('Description')
             photo.author = user
-            # photo.tag=request.user
-            # category = request.POST.get('Category')
-            # photo.Category = Category.objects.get(name = category)
+            tags=request.POST.get('tags').split()
+            # print(tags)
+            photo.Category = Category.objects.get(name = request.POST.get('Category'))
             
             if 'Image' in request.FILES:
                 photo.Image = request.FILES['Image']
-        
             photo.save()
-            form.save_m2m()
+            for tag in tags:
+                if Tag.objects.filter(name = tag).exists(): 
+                    photo.Tag.add(Tag.objects.get(name = tag))
+                else:
+                    Tag.objects.create(name = tag)
+                    photo.Tag.add(Tag.objects.get(name = tag))
 
             return redirect(reverse('capturer:index'))
         else:
             print(form.errors)
-                
-    context_dict = {'form' : form, 'profile':stable(request), 'categories': Category.objects.all()}
-    return render(request, 'capturer/post_photo.html', context=context_dict) 
+    return redirect(reverse('capturer:index'))               
 
     
 def register(request):
@@ -167,7 +178,8 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
   
-    context_dict = {'user_form':user_form, 'profile_form':profile_form,'registered':registered, 'categories': Category.objects.all()}
+    context_dict = {'user_form':user_form, 'profile_form':profile_form,'registered':registered,}
+    context_dict.update(base_query())
     return render(request, 'capturer/register.html', context=context_dict)
 
 
@@ -197,7 +209,7 @@ def register(request):
 
 def user_login(request):
     context_dict = {}
-    context_dict['categories'] = Category.objects.all()
+    context_dict.update(base_query())
 
     if request.method == 'POST':
         username = request.POST.get('username')             
@@ -283,17 +295,20 @@ def visitor_cookie_handler(request):
 
 @login_required
 def profile(request, username):
+
     try:
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
         album = Photo.objects.filter(author=user)
+        best_photo = album.order_by('-Like')[:1]
     except user.DoesNotExist:
         user = None
     
     if user is None:
         return redirect('/capturer/')
-
-    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 'profile':stable(request), 'categories': Category.objects.all()}
+    
+    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 'profile':stable(request), 'best_photo':best_photo}
+    context_dict.update(base_query())
     return render(request, 'capturer/profile.html', context=context_dict)
 
 # @login_required
@@ -377,10 +392,11 @@ def show_photo(request, category_name_slug, photo_id):
         photo = Photo.objects.get(id=photo_id)
         tags = photo.Tag.all()
         reviews = Review.objects.filter(photo=photo).order_by('-id')
-        context_dict = {'photo':photo,'tags':tags, 'reviews':reviews}
+        author_profile = UserProfile.objects.get(user = photo.author)
+        context_dict = {'photo':photo,'photo_tags':tags, 'reviews':reviews, 'author_profile':author_profile}
     except Photo.DoesNotExist:
         context_dict['photo'] = None
-        context_dict['tags'] = None
+        context_dict['photo_tags'] = None
         context_dict['reviews'] = None
 
     # form = ReviewForm()
@@ -402,9 +418,9 @@ def show_photo(request, category_name_slug, photo_id):
     #     else:
     #         print(form.errors)
     # 
-    context_dict['form'] = ReviewForm()
+    context_dict['form_review'] = ReviewForm()
     context_dict['profile'] = stable(request)
-    context_dict['categories'] = Category.objects.all()
+    context_dict.update(base_query())
     visitor_cookie_handler(request)
     photo.views = request.session['visits']
     photo.save()
@@ -491,6 +507,3 @@ def delete_post(request, photo_id):
         photo.delete()
     
     return redirect(reverse('capturer:profile', kwargs={'username':user.username}))
-   
- 
-    

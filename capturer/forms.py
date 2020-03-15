@@ -6,20 +6,18 @@ from django.db.models import ObjectDoesNotExist
 from datetime import datetime
 
 
-class PhotoForm(forms.ModelForm):
-    Image = forms.ImageField(help_text="Please upload the image.", required=False) 
-    Title = forms.CharField(max_length=Photo.TITLE_MAX_LENGTH,
-                            help_text="Please input the title.")
-    Description = forms.CharField(max_length=Photo.DESCRIPTION_MAX_LENGTH,
-                                  help_text="Please description your art.")
-    Like = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
-    Tag = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple())
-    Category = forms.ModelChoiceField(queryset=Category.objects.all())
+class PhotoForm(forms.ModelForm):   
+
+    Image = forms.ImageField(required=False)
+    Title = forms.CharField(max_length=Photo.TITLE_MAX_LENGTH)
+    Description = forms.CharField(max_length=Photo.DESCRIPTION_MAX_LENGTH)
+    Tag = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple(),required=False)
+    # Category = forms.CharField(widget=forms.HiddenInput(), max_length=30)
 
     class Meta:
         model = Photo
-        exclude = ('author', 'Date')
+        exclude = ('author', 'Date','Like','views','Tag','Category')
+        
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -27,6 +25,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password', )
+        
 
 class UserProfileForm(forms.ModelForm):
     image = forms.ImageField(help_text="Please upload the image.", required=False) 
