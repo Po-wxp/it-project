@@ -306,15 +306,16 @@ def profile(request, username):
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
         album = Photo.objects.filter(author=user)
-        print( album.order_by('-Like')[:1])
         best_photo = album.order_by('-Like')[:1]
+        print( best_photo )
     except user.DoesNotExist:
         user = None
     
     if user is None:
         return redirect('/capturer/')
     
-    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 'profile':stable(request), 'best_photo':best_photo}
+    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 
+                    'profile':stable(request), 'best_photo': best_photo}
     context_dict.update(base_query())
     return render(request, 'capturer/profile.html', context=context_dict)
 

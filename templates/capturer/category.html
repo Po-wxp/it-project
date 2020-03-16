@@ -14,21 +14,19 @@
 
 {% block body_block %}
 <div> 
-    {% if category %}	
-        <h1>{{ category.name }}</h1>
-        {% if photos %}
-            <ul>
-                {% for photo in photos %}
-                <li><a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="100" height="100" /></a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>No photos currently in category.</strong>
-        {% endif %}
+    
+    <h1>{{ category.name }}</h1>
+    {% if photos %}
+        <ul>
+            {% for photo in photos %}
+            <li><a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}"><img src="{{ MEDIA_URL }}{{ photo.Image }}" width="100" height="100" /></a></li>
+            {% endfor %}
+        </ul>
     {% else %}
-        The specified category deos not exist.
+        <strong>No photos currently in category.</strong>
     {% endif %}
+    
 </div> 
-<li><a href="{% url 'capturer:post_photo' category.slug %}">Post a photo here!</a></li>
+
 {% endblock %}
 

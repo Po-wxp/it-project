@@ -22,16 +22,18 @@
     <div class="mt-5 pt-1"></div>
     {% if user_profile %}
                 <div class="position-relative overflow-hidden px-0 profile-container">
-                    <img class = "profile-background img-fluid" src="{{ MEDIA_URL }} {{ best_photo.Image }}"  >
-                     <div class="media profile">
-                        {% if selected_user != user %}
-                            {% if selected_user in profile.following.all %}
-                                <button type="button" class="btn btn-outline-light  follow cancel-follow " data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Cancel Follow">Cancel Follow</button>
-                            {% else %}
-                                <button type="button" class="btn btn-outline-light  follow can-follow" data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Follow">Follow</button>
-                            {% endif %}
-                            
+                    {% for photo in best_photo %}
+                    <img class = "profile-background img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}">
+                    {% endfor %}
+                    <div class="media profile">
+                    {% if selected_user != user %}
+                        {% if selected_user in profile.following.all %}
+                            <button type="button" class="btn btn-outline-light  follow cancel-follow " data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Cancel Follow">Cancel Follow</button>
+                        {% else %}
+                            <button type="button" class="btn btn-outline-light  follow can-follow" data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Follow">Follow</button>
                         {% endif %}
+                            
+                    {% endif %}
                         <div class = "profile-avatar">
                             <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}" >
                             {% if selected_user == user %}
@@ -43,9 +45,9 @@
                         <h3 class="mt-5 ml-3 name" style="font-weight: 400;color:white;">{{ selected_user.username }}</h3>
                         <h6 class="mt-0 ml-3 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings</h5>
                         <h6 class="mt-0 ml-3 descr"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
-                 </div> 
+                        </div> 
                     </div>
-                 </div>
+                </div>
                 
                 <!--
                 <div class="product-device box-shadow d-none d-md-block"></div>
@@ -69,7 +71,7 @@
                             <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                             <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                             <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
-                            <a class="author"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.image }}" width="50" height="50" alt="Avatar" />{{ photo.author }}</a>
+                            <a class="author"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" width="50" height="50" alt="Avatar" />{{ photo.author.username }}</a>
                             <a class="like far fa-heart"></a>
 
                              {% if photo.author != user %}
