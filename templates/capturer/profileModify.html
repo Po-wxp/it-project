@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
+{% extends 'capturer/base.html' %}  
 
-{% extends 'capturer/profile_base.html' %}
 {% load staticfiles %}
 
 {% block title_block %} 
@@ -9,13 +9,39 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>{{ selected_user.username }}'s Profile</h1> 
+ <div class="container  px-5   form-sign-up">
     {% if selected_user == user %} 
-        <form method="post" action="." enctype="multipart/form-data"> 
+    <a class="mr-auto mx-0 mt-2 ml-1 " style = " font: 300 4rem 'Playfair Display SC', serif; color:black;">Edit your Profile</a>
+        <div class="mb-3" style="width:100%">
+            <img class="edit-avatar" src="{{MEDIA_URL }}{{selected_user.userprofile.image}}"/>
+        </div>
+        <form class = "edit-profile-form"method="post" action="." enctype="multipart/form-data"> 
             {% csrf_token %} 
             {{ form.as_p }}
-            <input type="submit" value="Update" /> 
-        </form>
+        <div class="row pt-3">
+            <a class="btn btn-dark edit-btn mr-2" href="javascript:history.back()" type="button" name="" value="" />Back</a>
+            <button class="btn btn-dark edit-btn" type="submit" name="submit" value="Update" />Submit</button>
+        </div>
 
+        </form>
+        <script>
+        $(document).ready(function(){
+                     $("#id_image").change(function () {
+                            console.log("2");
+                            if (typeof (FileReader) != "undefined") {
+                                   var reader = new FileReader();
+                                   reader.onload = function (e) {
+                                          $(".edit-avatar").attr('src',e.target.result)
+                                          
+                                   }
+                                    $(".edit-avatar").show();
+                                   reader.readAsDataURL($(this)[0].files[0]);
+                            } else {
+                            alert("This browser does not support FileReader.");
+                            }
+                     });
+              });
+        </script>
     {% endif %}
+</div>
 {% endblock %}

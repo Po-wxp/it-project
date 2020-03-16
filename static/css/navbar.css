@@ -1,5 +1,6 @@
 .body{
     font-size:1.2rem;
+    font-family: 'Roboto', sans-serif;
 }
 button:focus {outline:0;}
 
@@ -229,12 +230,11 @@ input:focus
   }
 
   .top-img {
-    max-width:400px; 
-    height: auto;
-    max-height:300px; 
-    min-height:300px; 
+    float: left;
+    height: 60%;
+ 
     width:100%;
-    border-radius: 8px; 
+
     object-fit: cover;
 
   }
@@ -449,6 +449,8 @@ input{
 .top-card{
     padding-bottom: 20px;
     border-radius: 8px; 
+    margin: 0.2%;
+    width: 32.90%; float: left;
     object-fit: cover;
     -webkit-mask-image: -webkit-radial-gradient(center, white, black)
 }
@@ -661,6 +663,7 @@ padding-inline-start:10px;
     padding-top:0rem;
     padding-left:1.5rem;
     padding-right:1.5rem;
+    padding-bottom:0.2rem;
     width: 100%;
     border-bottom: 0.02142857rem solid #bbb;
   }
@@ -685,7 +688,7 @@ padding-inline-start:10px;
     font-family: 'Raleway', sans-serif;
     text-decoration: none;
     letter-spacing: 0.15em;
-    font-size: 12px;
+    font-size: 1.5rem;
     display: inline-block;
     padding-right: 20px;
     padding-left: 20px;
@@ -698,19 +701,22 @@ padding-inline-start:10px;
     bottom: 0;
     content: "";
     display: block;
-    height: 0.04rem;
+    height: 0.05rem;
     left: 50%;
     position: absolute;
-
     background: rgba(60, 60, 60, 0.7);
     transition: width 0.3s ease 0s, left 0.3s ease 0s;
-    width: 0;
+    width: 0%; 
+
   }
   .account-nav a:hover:after { 
     width: 100%; 
     left: 0; 
 
   }
+
+
+
   @media screen and (max-height: 300px) {
       ul {
           margin-top: 40px;
@@ -913,6 +919,8 @@ padding-inline-start:10px;
   }
   .form-sign-up{
       width: 70%;
+      margin-top: 10rem;
+      padding-top: 5rem;
     margin: auto;
 }
   .form-sign-up .form div p{
@@ -943,6 +951,13 @@ padding-inline-start:10px;
     width: 100%;
 }
 
+.helptext{
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    color: rgb(114,114,114,0.8);
+    padding-left: 0.7rem;
+}
+
 .form-sign-up .form .form-col .helptext{
     font-size: 1.2rem;
     font-family: 'Raleway', sans-serif;
@@ -968,11 +983,42 @@ padding-inline-start:10px;
 }
 .form-sign-up .form .form-col ul{
     list-style: none;
-    padding-left: 0REM;
+    padding-left: 0rem;
     padding-bottom: 0;
     margin-bottom: 0;
     font-family: 'Roboto', sans-serif;
 }
+.edit-profile-form label{
+    font-size: 1.5rem;
+    font-family: 'Raleway', sans-serif;
+    color: rgb(114,114,114,0.8);
+    padding-left: 0rem;
+
+}
+
+ .edit-avatar{
+    margin-top: 1rem;
+    width:200px;
+    height:200px;
+    border-radius: 8px;
+    border: 0.0542857rem solid rgb(114,114,114,0.2);
+    object-fit: cover;
+}
+
+
+
+ .edit-btn{
+
+    right:0;
+    bottom:0;
+    font-size: 1.5rem;
+    width: 20%;
+    font-family: 'Raleway', sans-serif;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
 
   .photoPage-img{
     width: 70%;
@@ -1491,4 +1537,86 @@ padding-inline-start:10px;
     padding-right: 0.3rem;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
+}
+
+
+.profile-area{
+    position: absolute;
+    top:0;
+    padding-left: 20em;
+    padding-right: 20rem;    
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: #fff;
+    padding-top: 10rem;  
+    display: none;
+}
+
+.profile-area .avatar-big-area{
+    object-fit: cover;
+    width: 40%;
+    height: 80%;
+    float: left;
+
+    box-shadow: 3px 3px 4px rgb(114,114,114,0.2);
+
+}
+
+.profile-area .photo{
+    object-fit: cover;
+    width: 100%;
+
+    height: 100%;
+    border-radius: 8px;     
+    -webkit-mask-image: -webkit-radial-gradient(center, white, black)
+}
+.profile-area .info-area{
+    width: 60%;
+    height: auto;
+    float: left;
+
+}
+.profile-area .info-area{
+    padding-left: 3rem;
+}
+
+.profile-area .info-area .name{
+    font-size: 10rem;
+    color:black;
+    display: flex;
+}
+.profile-area .info-area .statistic{
+    font-size: 1.8rem;
+
+    color: rgba(30, 30, 30, 1);
+}
+.profile-area .info-area .descr{
+    font-size: 1.8rem;
+    font-family: 'Raleway', sans-serif;
+    color: rgba(30, 30, 30, 0.3); 
+}
+
+.profile-area .info-area .gender{
+    position: absolute;
+    bottom:0.5rem;
+    left: 0;
+    margin-top: auto;
+}
+
+.profile-area .info-area .contact{
+    font-size: 1.8rem;
+
+    color: rgba(30, 30, 30, 0.3); 
+}
+.profile-area .info-area .btn-edit{
+    font-size: 1.2rem;
+    margin-top: 3rem;
+    font-family: 'Raleway', sans-serif;
+    background-color: #333;
+}
+.profile-area .info-area .btn-edit:hover{
+    color: #333;
+    background-color: #fff;
+    border-color: #333;
 }

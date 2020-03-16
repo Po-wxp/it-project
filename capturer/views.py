@@ -12,7 +12,7 @@ from capturer.bing_search import run_query
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
-
+from itertools import chain
 
 # helper method
 def stable(request):
@@ -44,12 +44,18 @@ def index(request):
     category6_photo_list = Photo.objects.filter(Category = Category.objects.get(id=6)).order_by('-Like')[:1]
     category7_photo_list = Photo.objects.filter(Category = Category.objects.get(id=7)).order_by('-Like')[:1]
     category8_photo_list = Photo.objects.filter(Category = Category.objects.get(id=8)).order_by('-Like')[:1]
-
+    top_photos =[]
+    for x in category1_photo_list:
+        top_photos.append(x)
+    for x in category2_photo_list:
+        top_photos.append(x)
+    print(top_photos)
+    print(category8_photo_list)
     context_dict = {'category1': category1_photo_list, 'category2': category2_photo_list,
                     'category3': category3_photo_list, 'category4': category4_photo_list,
                     'category5': category5_photo_list, 'category6': category6_photo_list,
                     'category7': category7_photo_list, 'category8': category8_photo_list,
-                     'profile':stable(request),
+                    'top_photos':top_photos, 'profile':stable(request),
                     }
     context_dict.update(base_query())
     # context_dict = {'categories':category_list, 'profile':stable(request)}
@@ -307,15 +313,13 @@ def profile(request, username):
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
         album = Photo.objects.filter(author=user)
         best_photo = album.order_by('-Like')[:1]
-        print( best_photo )
     except user.DoesNotExist:
         user = None
     
     if user is None:
         return redirect('/capturer/')
     
-    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 
-                    'profile':stable(request), 'best_photo': best_photo}
+    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 'profile':stable(request), 'best_photo':best_photo}
     context_dict.update(base_query())
     return render(request, 'capturer/profile.html', context=context_dict)
 
@@ -356,36 +360,41 @@ def profile(request, username):
 
 class ProfileModify(View): 
     def get_user_details(self, username): 
-        (user, user_profile, album) = profile_base(username)
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
+        user_profile = UserProfile.objects.get_or_create(user=user)[0]
+
         form = UserProfileModifyForm({'nickname': user_profile.nickname,
                                       'description': user_profile.description, 
                                       'postcode': user_profile.postcode,
                                       'image': user_profile.image})
-        return (user, user_profile, form, album)
+        return (user, user_profile, form)
 
     @method_decorator(login_required) 
     def get(self, request, username): 
         try: 
-            (user, user_profile, form, album) = self.get_user_details(username) 
+            (user, user_profile, form) = self.get_user_details(username) 
         except TypeError: 
             return redirect(reverse('capturer:index'))
         context_dict = {'user_profile': user_profile, 'selected_user': user, 'form': form,
-                        'album':album, 'profile':stable(request)}
+                         'profile':stable(request)}
         return render(request, 'capturer/profileModify.html', context_dict)
 
     @method_decorator(login_required) 
     def post(self, request, username): 
         try: 
-            (user, user_profile, form, album) = self.get_user_details(username) 
+            (user, user_profile, form) = self.get_user_details(username) 
         except TypeError: 
             return redirect(reverse('capturer:index'))
-        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        form = UserProfileModifyForm(request.POST, request.FILES, instance=user_profile)
         if form.is_valid(): 
             form.save(commit=True) 
             return redirect('capturer:profile', user.username) 
         else: 
             print(form.errors)
-        context_dict = {'user_profile': user_profile, 'selected_user': user, 'form': form,'album':'album', 'categories': Category.objects.all()}
+        context_dict = {'user_profile': user_profile, 'selected_user': user, 'form': form, 'categories': Category.objects.all()}
         return render(request, 'capturer/profileModify.html', context_dict)
 
 @login_required

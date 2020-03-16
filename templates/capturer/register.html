@@ -24,7 +24,7 @@ Register
 {% endblock %}
 
 {% block body_block %}
-   <div class="container mt-5 pt-3 px-5   form-sign-up">
+   <div class="container  px-5   form-sign-up">
         
     {% if registered %}
        <div  class = "row mx-0  mt-5 mb-1" style="width:100%">
@@ -35,8 +35,8 @@ Register
         <a  class="finished" href="{% url 'capturer:login' %}" style="font-family: 'Roboto', sans-serif; font-size:0.8rem ;color:rgba(62, 120, 240, 0.9);">Go to sign in!</a><br />
          </div>
     {% else %}
-        <a class="mr-auto mx-0 ml-1" style = " font: 400 30px 'Playfair Display SC', serif; color:black;">Create an Account</a>
-        <div  class = "row mx-0  mt-2 mb-3">
+        <a class="mr-auto mx-0 ml-1" style = " font: 400 4rem 'Playfair Display SC', serif; color:black;">Create an Account</a>
+        <div  class = "row mx-0  mt-2 mb-3 ">
             <span class="sign-in">Have a Capturer account? </span>
             <a class="sign-in font-weight-normal" 
             href="{% url 'capturer:login' %}" style="font-family: 'Roboto', sans-serif; font-size:0.8rem ;color:rgba(62, 120, 240, 0.9);"> Sign In</a>
@@ -65,8 +65,9 @@ Register
                     <div class = "row mx-0 form-col ml-2 mb-1">
                     <label for="id_gender_0" class="form-header" >Gender (Required)</label>
                     <ul id="id_gender">
-                        <li><label for="id_gender_0"><input id="id_gender_0" name="gender" required="" type="radio" value="male">Male</label></li>
-                        <li><label for="id_gender_1"><input id="id_gender_1" name="gender" required="" type="radio" value="female">Female</label></li>
+
+                        <li><input id="id_gender_0"  name="gender" required="" type="radio" value="male"><label for="id_gender_0">Male</label></li>
+                        <li><input id="id_gender_1"  name="gender" required="" type="radio" value="female"><label for="id_gender_1">Female</label></li>
                     </ul>
                     </div>
                     <div class = "row mx-0 form-col">
@@ -91,5 +92,23 @@ Register
                 </div>
             </div>
         </form>
+
+        <script>
+        $(document).ready(function(){
+                     $("#id_image").change(function () {
+                            if (typeof (FileReader) != "undefined") {
+                                   var reader = new FileReader();
+                                   reader.onload = function (e) {
+                                          $(".sign-up-avatar").attr('src',e.target.result)
+                                          
+                                   }
+                                    $(".sign-up-avatar").show();
+                                   reader.readAsDataURL($(this)[0].files[0]);
+                            } else {
+                            alert("This browser does not support FileReader.");
+                            }
+                     });
+              });
+        </script>
     {% endif %}
 {% endblock %}

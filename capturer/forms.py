@@ -40,10 +40,10 @@ class UserProfileForm(forms.ModelForm):
         fields = ('image', 'nickname', 'gender', 'description', 'postcode', )
 
 class UserProfileModifyForm(forms.ModelForm):
-    image = forms.ImageField(help_text="Please upload the image.", required=False) 
-    nickname = forms.CharField(max_length=UserProfile.NICKNAME_MAX_LENGTH, help_text="Please input your nickname")
-    description = forms.CharField(max_length=UserProfile.DESCRIPTION_MAX_LENGTH, help_text="Please input the description")
-    postcode = forms.CharField(max_length=UserProfile.POSTCODE_MAX_LENGTH, help_text="Please input the postcode")
+    image = forms.ImageField( required=False) 
+    nickname = forms.CharField(max_length=UserProfile.NICKNAME_MAX_LENGTH, required=False)
+    description = forms.CharField(max_length=UserProfile.DESCRIPTION_MAX_LENGTH, required=False)
+    postcode = forms.CharField(max_length=UserProfile.POSTCODE_MAX_LENGTH, required=False)
 
     class Meta:
         model = UserProfile

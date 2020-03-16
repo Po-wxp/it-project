@@ -22,18 +22,18 @@
     <div class="mt-5 pt-1"></div>
     {% if user_profile %}
                 <div class="position-relative overflow-hidden px-0 profile-container">
-                    {% for photo in best_photo %}
-                    <img class = "profile-background img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}">
+                    {% for photo in best_photo%}
+                        <img class = "profile-background img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"  >
                     {% endfor %}
-                    <div class="media profile">
-                    {% if selected_user != user %}
-                        {% if selected_user in profile.following.all %}
-                            <button type="button" class="btn btn-outline-light  follow cancel-follow " data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Cancel Follow">Cancel Follow</button>
-                        {% else %}
-                            <button type="button" class="btn btn-outline-light  follow can-follow" data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Follow">Follow</button>
-                        {% endif %}
+                     <div class="media profile">
+                        {% if selected_user != user %}
+                            {% if selected_user in profile.following.all %}
+                                <button type="button" class="btn btn-outline-light  follow cancel-follow " data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Cancel Follow">Cancel Follow</button>
+                            {% else %}
+                                <button type="button" class="btn btn-outline-light  follow can-follow" data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Follow">Follow</button>
+                            {% endif %}
                             
-                    {% endif %}
+                        {% endif %}
                         <div class = "profile-avatar">
                             <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}" >
                             {% if selected_user == user %}
@@ -45,9 +45,9 @@
                         <h3 class="mt-5 ml-3 name" style="font-weight: 400;color:white;">{{ selected_user.username }}</h3>
                         <h6 class="mt-0 ml-3 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings</h5>
                         <h6 class="mt-0 ml-3 descr"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
-                        </div> 
+                 </div> 
                     </div>
-                </div>
+                 </div>
                 
                 <!--
                 <div class="product-device box-shadow d-none d-md-block"></div>
@@ -56,11 +56,11 @@
                 </div>
                 <div class="nav account-nav mx-0 w-100" id="account-nav">
                 <ul>
-                    <li class="one"><a href="#">Album</a></li>
-                    <li class="two"><a href="#">Favorite</a></li>
-                    <li class="three"><a href="#">Review</a></li>
-                    <li class="four"><a href="#">Following</a></li>
-                    <li class="five"><a href="#">Profile</a></li>
+                    <li class="one" id="btn-Album"><a href="#">Album</a></li>
+                    <li class="two" id="btn-Favorite"><a href="#">Favorite</a></li>
+                    <li class="three" id="btn-Review"><a href="#">Review</a></li>
+                    <li class="four" id="btn-Following"><a href="#">Following</a></li>
+                    <li class="five" id="btn-Profile"><a href="#">Profile</a></li>
 
                 </ul>
                 </div>
@@ -84,12 +84,95 @@
                         </div>
                     {% endfor %}
                 </div> 
+
+
+
+
+
+                <div class=" profile-area flex-md-equal">
+                    <div class ="avatar-big-area">
+                        <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}">
+ 
+                    </div>
+                    <div class = "info-area">
+                    <div class = "row d-flex">
+                            <div class=""style="flex-basis: 0">
+                                <span class="mt-1 ml-3 name" >{{ selected_user.username }}</span>
+                            </div>
+                            <div class="col">
+                                <a type="button" class="btn btn-dark btn-edit" href="{% url 'capturer:profileModify' selected_user.username %}" value="Edit profile">Edit profile</a>  
+                                <span class=" ml-3 gender">{{ user_profile.gender }}</span>
+                            </div>
+
+                    </div>
+                    <div class = "row mb-2 d-flex">
+                        <span class="mt-0 ml-3 statistic">{{ album.count }} posts<span> 
+                        <span class="mt-0 ml-3 statistic">{{ user_profile.following.count }} followings</span>
+                        <span class="mt-0 ml-3 statistic">{{ album.count }} follower notyet<span>
+                    </div>
+                    <div class = "row mb-5 d-flex">
+                        <p class="ml-3  descr">{{ user_profile.description }}</p>
+                    </div>
+                    
+                    <div class = "row d-flex">
+                        <span class="mt-0 ml-3 contact"><span class="fas fa-envelope"></span> {{ selected_user.email }}</span>
+                    </div>
+                     <div class = "row d-flex">
+                        <span class="mt-4 ml-3 contact"><span class="fas fa-home"></span> {{ user_profile.postcode }}</span>
+                    </div>
+                    
+                </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
        
 {% else %}
         The specified userprofile deos not exist.
 {% endif %} 
     
 <script>
+
+
+
+
+
+
+
+
+
+    $(document).ready(function(){
+        $('#btn-Profile').click(function() {
+            $('.profile-area').show();
+            $('.account-nav').css("top","3.2rem");   
+            $('.account-nav').css("position","fixed");
+            $('.account-nav').css("z-index","1031");
+            $('.account-nav').css("borderBottom","0.02142857rem solid #bbb");
+            $('.photo_area').hide();
+            });
+        });
+
+    $(document).ready(function(){
+        $('#btn-Album').click(function() {
+            $('.profile-area').hide();
+            $('.account-nav').css("position","initial");
+            $('.account-nav').css("borderBottom","0rem solid #bbb");
+            $('.photo_area').show();
+            });
+        });
+
+
+
+
     $(document).ready(function(){
         $('#follow-button').click(function() {
            

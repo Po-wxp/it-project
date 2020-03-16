@@ -14,22 +14,7 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
 <script> 
-
-    $(document).ready(function(){
-        $('#follow-button').click(function() {
-
-            $.get($(this).data('url'), function(response) {
-                $('.message-section').text(response.message);
-                if($('.message-section').text() == "2"){
-                    $('#follow-button').attr("value","Follow")
-                }else if ($('.message-section').text() == "1"){
-                    $('#follow-button').attr("value","Cancel Follow")
-                }
-
-            });
-        });
-    })
-
+    
     var reviewers = 0;
     $(document).ready(function(){
         $('#collection_btn').click(function() {
@@ -185,6 +170,22 @@
                 });
         })
 
+        $(document).ready(function(){
+        $('#follow-button').click(function() {
+
+            $.get($(this).data('url'), function(response) {
+                $('.message-section').text(response.message);
+                if($('.message-section').text() == "2"){
+                    $('#follow-button').attr("value","Follow")
+                }else if ($('.message-section').text() == "1"){
+                    $('#follow-button').attr("value","Cancel Follow")
+                }
+
+            });
+        });
+    })
+
+
 </script>
 
 {% endblock %}
@@ -209,21 +210,21 @@
                     <div class="media ">
                        <a href="{% url  'capturer:profile' photo.author.username %} ">
                        
-                       <img class = "author-avatar" src="{{ MEDIA_URL }}{{ author_profile.image }}"></a>
+                       <img class = "author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image}}" ></a>
                         <div class="media-body ml-1 mr-2 pt-1 pr-0 row" style= "overflow: hidden; flow:left;">
                             <div class="col-md-auto mx-0 px-0 " style="max-width:50%;">
                             <p class="mb-0" style="font-family: 'Roboto', sans-serif; font-size:1rem; overflow: hidden; text-overflow: ellipsis;">{{photo.author.username }}</p>
                             <p class="pt-0" style="max-width:5rem;font-family: 'Roboto', sans-serif; font-size:0.8rem; overflow: hidden; text-overflow: ellipsis; color: rgb(114,114,114,0.9)">{{photo.author.description }}</p>
                             </div>
                             <div  class="col col-md-auto mr-auto pl-2 pt-1 mx-0 px-0" style="">
-                                {% if photo.author != user %}
-                                <div class="message-section" style="display:none;"></div>
+                             {% if photo.author != user %}
+                                    <div class="message-section" style="display:none;"></div>
                                 {% if photo.author in profile.following.all %}
                                     <input data-url="{% url 'capturer:follow' photo.author.username %}" id="follow-button" type="button" value="Cancel Follow" class="btn btn-dark follow" style="font-size:0.8rem; "></input>
                                 {% else %}
                                     <input data-url="{% url 'capturer:follow' photo.author.username %}" id="follow-button" type="button" value="Follow" class="btn btn-dark follow" style="font-size:0.8rem; "></input>
                                 {% endif %}
-                                {% endif %}   
+                            {% endif %}   
                             </div>
                         </div>
                     </div>      
