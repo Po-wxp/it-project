@@ -402,7 +402,7 @@ def show_photo(request, category_name_slug, photo_id):
         author_profile = UserProfile.objects.get(user = photo.author)
         tags = photo.Tag.all()
         reviews = Review.objects.filter(photo=photo).order_by('-id')
-        context_dict = {'photo':photo,'photo_tags':tags, 'reviews':reviews}
+        context_dict = {'photo':photo,'photo_tags':tags, 'reviews':reviews, 'author_profile':author_profile}
     except Photo.DoesNotExist:
         context_dict['photo'] = None
         context_dict['photo_tags'] = None
