@@ -1,5 +1,7 @@
-
-
+.body{
+    font-size:1.2rem;
+}
+button:focus {outline:0;}
 
 .btn-search{
     background: transparent url(/static/icon/icon-search.svg) no-repeat center center;
@@ -49,7 +51,7 @@
     display: block;
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 400;
     line-height: 1.5;
     color: #495057;
@@ -84,7 +86,7 @@ input:focus
 
 }
 .navbar {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
 
     border-bottom: 0.02142857rem solid #bbb;
 }
@@ -92,10 +94,11 @@ input:focus
     text-transform: uppercase;
     text-decoration: none;
     letter-spacing: 0.15em;
-    font-size: 0.7rem;
+    font-size: 1.2rem;
     display: inline-block;
     position: relative;
     color:  black; 
+    cursor:pointer; 
 }
 
 
@@ -106,8 +109,8 @@ input:focus
   .avatar {
 
     max-width: 100%;
-    width:40px;
-    height:40px;
+    width:60px;
+    height:60px;
     object-fit: cover;
     border-radius: 50%; 
     text-align: center;
@@ -134,7 +137,7 @@ input:focus
         padding-right: 0px !important;
         opacity: 0.92;
 		margin: auto;
-		width: 320px;
+		width: 30%;
 		height: 100%;
 		-webkit-transform: translate3d(0%, 0, 0);
 		    -ms-transform: translate3d(0%, 0, 0);
@@ -192,22 +195,27 @@ input:focus
       }
 
 .menu-title{
-    font-size: 30px;
+    font-size: 3rem;
     font-family: "Times New Roman", Times, serif;
     color: #000000;
 }     
 .menu{
-    font-size: 20px;
-     font-family: "Times New Roman", Times, serif;
-     color: #000000;
+   
 }
 
 
 .menu-title li {
     list-style-type: none;
-}     
+}   
+.menu-list li {  
+    padding-top: 1.5rem;
+    list-style-type: none;
+}
 
 .menu-list li a {
+    font-size: 1.5rem;
+    font-family: 'Raleway', sans-serif;
+     color: #000000;
     text-decoration: none;
     color: #000000;
 
@@ -230,19 +238,31 @@ input:focus
     object-fit: cover;
 
   }
+  .photo_area{
+    text-align: center;
+  }
+
+
+
   .card{
         border: 0;
         padding-bottom: 0px;
         border-radius: 8px; 
-        width:380px!important; 
+        margin: 0.2%;
+        width: 32.90%; float: left;
         -webkit-mask-image: -webkit-radial-gradient(center, white, black)
     }
-  .card-img{
-    max-width:380px; 
-    height: 22em;
-    min-width:380px; 
 
-    width:380px;
+    
+  @media only screen and (max-width: 1100px) {
+    .card{
+        margin: 0.1%;
+        width: 24.73%; float: left;
+    }
+  }
+  .card-img{
+    height: 30rem;
+    width:100%;
     border-radius: 8px; 
     object-fit: cover;
     overflow: hidden;
@@ -254,10 +274,11 @@ input:focus
     opacity: 0;
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
-    width: 40%;
-    padding-left: 0.8rem;
+    width: 90%;
+    padding: 0.2em;
+    padding-left: 1.2rem;
     line-height: 2rem;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
     text-align: left;
@@ -284,7 +305,7 @@ input:focus
     text-align: left;
     width: 30%;
     padding: 0.2em;
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     font-weight: 500;
     font-family: 'Raleway', sans-serif;
     border-radius: 30px;
@@ -315,45 +336,45 @@ input:focus
   }
 
 
-.card .star{
+.card .favorite{
     position: absolute;
-    top:88%;
+    top:85%;
     left: 74%;
     opacity: 0;
+    vertical-align: middle;
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     padding: 0em;
-    line-height: 2rem;
-    font-size: 0.8rem;
-    text-align: center;
+    line-height: 3rem;
+    font-size: 1.2rem;
     vertical-align: bottom;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.card:hover .star{
+.card:hover .favorite{
 
     opacity: 0.7;
   }
-.card .star:hover {
+.card .favorite:hover {
     opacity: 1;
 }
 
 .card .like{
     position: absolute;
     opacity:0;
-    top:88%;
+    top:85%;
     left: 85%;
+    vertical-align: middle;
     background-color: rgba(255, 255, 255, 1);
     text-align: center;
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
     padding: 0em;
-    line-height: 2rem;
-    font-size: 0.8rem;
-    text-align: center;
+    line-height: 3rem;
+    font-size: 1.2rem;
     vertical-align: bottom;
     border-radius: 50%;
     overflow: hidden;
@@ -638,8 +659,8 @@ padding-inline-start:10px;
     background-color: white;
     margin-top:0rem;
     padding-top:0rem;
-    padding-left:1rem;
-    padding-right:1rem;
+    padding-left:1.5rem;
+    padding-right:1.5rem;
     width: 100%;
     border-bottom: 0.02142857rem solid #bbb;
   }
@@ -796,7 +817,7 @@ padding-inline-start:10px;
   }
 .login-option li a{
     color:   rgb(30, 40, 120, 0.9);
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     font-family: 'Raleway', sans-serif;
 
 }
@@ -804,7 +825,7 @@ padding-inline-start:10px;
     padding-inline-start:0px;
 }
 .login-option li {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -857,32 +878,131 @@ padding-inline-start:10px;
   }
   .form-signin .register{
     font-family: 'Raleway', sans-serif;
-    font-size: 0.8rem;
-    color: #495057;
+    font-size: 1.2rem;
+    color: black;
     text-align: left;
 
   }
+  
+  .form-sign-up .finished{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.5rem;
+    color: black;
+    margin: auto;
+    text-align: center;
 
+  }
+  .form-sign-up .sign-in{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    color: black;
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+  .form-sign-up .sign-up-btn{
+    right:0;
+    bottom:0;
+    font-size: 1.5rem;
+    width: 50%;
+    margin:auto;
+    font-family: 'Raleway', sans-serif;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+  .form-sign-up{
+      width: 70%;
+    margin: auto;
+}
+  .form-sign-up .form div p{
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
 
+}
+.form-col #id_username, #id_email, #id_password, #id_nickname
+, #id_description, #id_postcode{
+    width: 100%;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-family: 'Roboto', sans-serif;
+    padding: .375rem .75rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2;
+    color:  black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 0rem;
+    border-bottom: 0.00142857rem solid black;
+    display:inline-block;
+}
+.form-sign-up .form .form-col{
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
 
+.form-sign-up .form .form-col .helptext{
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    color: rgb(114,114,114,0.8);
+    padding-left: 0.7rem;
+}
+.form-sign-up .form .form-col .form-header{
+    width:100%; font-size:1.5rem; padding-left:0;
+    font-family: 'Raleway', sans-serif;
+    color:  black;
+}
 
-
-
-
-
-
+.form-sign-up .form .form-col .sign-up-avatar{
+    width:100px;
+    height:100px;
+    border-radius: 8px;
+    border: 0.00142857rem solid black;
+    object-fit: cover;
+}
+.form-sign-up .form .form-col #id_image{
+    font-size:1.5rem; padding-left:0;
+    font-family: 'Raleway', sans-serif;
+}
+.form-sign-up .form .form-col ul{
+    list-style: none;
+    padding-left: 0REM;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-family: 'Roboto', sans-serif;
+}
 
   .photoPage-img{
     width: 70%;
     height: 100%;
     float: left;
     min-height:300px; 
+
+}
+
+ .relate-title{
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    font-weight: 400;
+    color: rgb(114,114,114,0.9);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 
+.related_photos_area{
 
-.photoPage{
+    box-shadow: 0px -2px 2px rgb(114,114,114,0.1);
+}
 
+
+.photoPage .follow{
+  
 }
 
 .photoPage-img img{
@@ -893,17 +1013,482 @@ padding-inline-start:10px;
     object-fit: cover;
 }
 .photoPage .author{
-    width: 30%;
-    float: left;
+
 }
 
+.photo-title{
+    font-weight: 400;
+    color:black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.photo-describ{
+    max-width:70%;
+    font-weight: 400;color:black;
+    font-family: 'Roboto', sans-serif;
+}
+.photo-descrip-more{
+    color: rgb(114,114,114,0.9);
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+}
+
+.photoPage .panel .category{
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    color:   rgb(114, 114, 120, 0.9);
+}
+
+.photoPage .panel .date{
+    font-size: 0.9rem;
+    font-weight: 400;
+    color:rgb(114,114,114,0.9);
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.photoPage .panel .statistic{
+    font-size: 1.2rem;
+    font-weight: 400;
+    color:black;
+    font-family: 'Roboto', sans-serif;
+}
+.photoPage .photo-tag-area{
+    color:   rgb(30, 40, 120, 0.9);
+    font-size: 1.2rem;
+}
+
+.photoPage .photo-tag{
+
+    font-family: 'Raleway', sans-serif;
+
+}
+.photoPage .panel{
+    width: 30%;
+    float: left;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+}
+.photoPage .panel .action .like-btn:hover{
+    color:  rgba(238, 73, 87, 0.8);
+
+}
+
+.photoPage .panel .action .comment-btn:hover{
+    color:  rgba(238, 73, 87, 0.8);
+
+}
+
+.photoPage .panel .action .collection-btn:hover{
+    color:  rgba(238, 73, 87, 0.8);
+
+}
 .photoPage .author .author-avatar {
-    width:100px;
-    height:100px;
+    width:50px;
+    height:50px;
     object-fit: cover;
     border-radius: 50%;
     text-align: center;
-    padding: 0.1rem;
+    padding: 0.1.5rem;
     border:  0.05142857rem solid rgba(1, 1, 1, 0.2);
 
   }
+  .photoPage .author .author-avatar:hover {
+  border:  0.1142857rem solid rgba(1, 1, 1, 0.1);
+    padding: 0.2rem;
+}
+.photoPage .panel  .review_title{
+    color: rgb(114,114,114,0.9);
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+}
+.photoPage .panel  .review_title:hover{
+    color:   rgb(30, 40, 120, 0.9);
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.photoPage .panel .review_title_unactive{
+    color: rgb(114,114,114,0.9);
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+}
+.photoPage .panel .review .review-avatar{
+    width:50px;
+    height:50px;
+    object-fit: cover;
+    border-radius: 50%; 
+    text-align: center;
+    border:  0.05142857rem solid rgba(1, 1, 1, 0.2);
+    padding: 0.1.5rem;
+
+}
+
+.photoPage .panel .review .review-avatar:hover{
+    border:  0.1142857rem solid rgba(1, 1, 1, 0.1);
+    padding: 0.2rem;
+
+}
+
+
+.photoPage .panel .review .review-author{
+    color:   black;
+    font-size: 1.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+  }
+.photoPage .panel .review .review-content p{
+    font-size: 1.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    max-width: 55%;
+    display: block!important;
+
+    overflow-wrap: break-word;
+    white-space: normal;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: N; 
+}
+
+.photoPage .panel .review .review-time{
+    font-size: 0.9rem;
+    font-weight: 300;
+    color:rgb(114,114,114,0.9);
+    font-family: 'Roboto', sans-serif;
+}
+
+.photoPage #review_form .review-write-panel{
+    top:77%;
+    left:16%;
+    opacity: 0.9;
+}
+
+.photoPage{
+    height: 100%;
+    box-shadow: 0px 1px 3px rgba(114, 114, 114, 0.1);
+}
+#cke_1_contents{
+    height: 5rem!important;
+
+
+}
+.django-ckeditor-widget{
+    width:70%;
+    margin:auto;
+
+}
+.django-ckeditor-widget #cke_id_content  {
+    border:  0.05rem solid #bbb!important;
+    -webkit-mask-image: -webkit-radial-gradient(center, white, black);
+    width:115%!important;
+}
+.django-ckeditor-widget textarea  {
+    border-radius: 8px!important;
+    border:  0rem solid #bbb!important;
+}
+.cke_top{
+    background: #fff!important;
+    padding: 2px 8px 2px!important;
+}
+.photoPage #review_form .review-submit-btn{
+    position: absolute;
+    top:8%;
+    left:72%;
+    font-size: 0.9rem;
+    color:rgba(1, 1, 1, 0.6);
+    background-color: #fff;
+    font-family: 'Raleway', sans-serif;
+    border: 0; 
+}
+.photoPage #review_form #cke_1_top{
+    display:none;
+}
+.photoPage #review_form .review-submit-btn:hover{
+    background-color: #fff;
+    color:rgba(1, 1, 1, 1);
+    border: 0; 
+}
+
+.photoPage .review-back-btn{
+    position: fixed;
+    top:13%;
+    
+    left:90%;
+    display: none;
+    font-size: 2rem;
+    color:rgb(114,114,114,0.7);
+}
+
+.photoPage .review-back-btn:hover{
+    color:rgb(30,40,70,1);
+}
+
+.photoPage .back-btn{
+    position: absolute;
+    top:7%;
+    left:90%;
+    display: none;
+    font-size: 2rem;
+    color:rgb(114,114,114,0.7);
+}
+
+.photoPage .back-btn:hover{
+
+    color:rgb(30,40,70,1);
+}
+
+.post-photo{
+    height: 100%;
+    background-color: #fff;
+    width: 80%;
+    margin: auto;
+}
+.post-photo-panel{
+    height: 100%;
+    z-index: 1029;
+    margin: auto;
+    display: none;
+    background-color: rgb(114,114,114,0.1);
+}
+.post-photo-panel form{
+    height: 100%;
+}
+
+.post-photo .img-area{ 
+    border:  0.05rem solid #bbb;
+    width: 60%;
+    height: 80%;
+    border-radius: 8px;
+    -webkit-mask-image: -webkit-radial-gradient(center, white, black)
+}
+.post-photo .panel{
+    width: 100%;
+    height: 80%;
+}
+.post-photo .upload-img{
+    width: 100%;
+    height: 100%;
+
+    min-height:300px; 
+    object-fit: cover;
+
+}
+.post-photo .categories{
+
+}
+
+
+
+.post-photo .btn-category{
+    color: #000000;
+    background-color: #ffffff;
+    border-color: #000000;
+    font-size: 0.9rem;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.3rem;
+}
+
+
+.post-photo .btn-category:hover{
+    color: #ffffff;
+    background-color: #000;
+    border-color: #000000;
+}
+
+.post-photo #id_Image{
+    position: absolute;
+    top:45%;
+    left: -82%;
+    opacity: 0.9;
+    background-color: #fff;
+    width: 55%;
+    padding: 0.5rem;
+    border: 0.05rem solid #fff;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+.post-photo #id_Description{
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-family: 'Roboto', sans-serif;
+    padding: .375rem .75rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2;
+    color:  black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 0rem;
+    border-bottom: 0.00142857rem solid black;
+    display:inline-block;
+    width: 100%;
+
+}
+::placeholder {
+    color: rgb(30, 40, 40, 0.9);
+  }
+
+.post-photo #id_Title{
+
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-family: 'Roboto', sans-serif;
+    padding: .375rem .75rem;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2;
+    color: black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 0rem;
+    border-bottom: 0.00142857rem solid black;
+    display:inline-block;
+    width: 100%;
+
+}   
+
+.post-photo #id_Tag{
+    position: absolute;
+    top:60%;
+}
+.post-photo .text-area{
+    width: 40%;
+}
+.post-photo .post-btn{
+    position: absolute;
+    right:0;
+    bottom:0;
+    font-size: 1.5rem;
+    width: 4rem;
+    font-family: 'Raleway', sans-serif;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+.post-photo .btn-post-close{
+    position: absolute;
+    right:0;
+    top:0;
+}
+
+
+.dropbtn {
+    background-color: white;
+    color: black;
+    width: 50%;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    border: 0.00142857rem solid black;
+    cursor: pointer;
+  }
+  
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: black;
+    color: white;
+  }
+  
+  /* The search field */
+  #myInput {
+    font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
+    background: white;
+    padding: .375rem .75rem;
+    font-size: 1.2rem;
+    width: 100%;
+    color: black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 0rem;
+    border-bottom: 0.00142857rem solid black;
+    display:inline-block;
+  }
+  
+  /* The search field when it gets focus/clicked on */
+  #myInput:focus {outline: 3px solid #ddd;}
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    position: absolute;
+    display: none;
+    background-color: white;
+    width: 100%;
+    border: 0.05rem solid #bbb;
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    background-color: white;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    color: black;
+    padding:  0.2rem;
+    text-decoration: none;
+    display: block;
+  }
+
+  
+  /* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #bbb}
+
+#tags_area{
+    padding-top: 2rem;
+    width: 90%;
+    overflow: hidden;
+}
+.tag{
+    float: left;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    border: 0.05rem solid #bbb;
+    border-radius: 3px;
+    padding-left: 0.2rem;
+    padding-right: 0.1.5rem;
+    margin-right: 0.2rem;
+}
+
+.tag:hover{
+    background-color: rgb(114,114,114,0.1);
+    float: left;
+
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    border: 0.05rem solid #bbb;
+    border-radius: 3px;
+    padding-left: 0.2rem;
+    padding-right: 0.1.5rem;
+    margin-right: 0.2rem;
+}
+#delete_tag{
+    background-color: transparent;
+    border: 0;
+
+}
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+#tags_data_area{
+    top:-1000px;
+    z-index: -1;
+    visibility:hidden;  
+}
+.btn-add-tag{
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}

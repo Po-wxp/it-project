@@ -22,7 +22,7 @@
     <div class="mt-5 pt-1"></div>
     {% if user_profile %}
                 <div class="position-relative overflow-hidden px-0 profile-container">
-                    <img class = "profile-background img-fluid" src="/static/tem-img/StockSnap_WTUVPDZYPO.jpg"  >
+                    <img class = "profile-background img-fluid" src="{{ MEDIA_URL }} {{ best_photo.Image }}"  >
                      <div class="media profile">
                         {% if selected_user != user %}
                             {% if selected_user in profile.following.all %}
@@ -168,6 +168,8 @@
 {% endblock %}
 
 {% block body_block %}
+
+
 
 
 

@@ -117,24 +117,25 @@
                                           
                                           <div class="row mx-0 px-4 mt-3 pt-5  " >
                                           </div>
-                                          <div class="row mx-0 px-4 mt-3 pt-5 d-flex " >
+                                          <div class="row mx-0 px-4 mt-3 pt-5 d-flex panel" >
                                                  
                                                  <div class="img-area col mx-0 p-0">
-                                                        <img class="upload-img" src="" height="100%" width="100%" id="upload_img" style="display: none;"/>
+                                                       <img class="upload-img" src="" height="100%" width="100%" id="upload_img" style="display: none;"/>
                                                  </div>
                                                  
                                                  <div class="col text-area mx-3">
-                                                 <input type="file" name="Image"  accept="image/*" id="id_Image">
+
                                                         <div class="row mx-0 ">
                                                         {% csrf_token %}
+                                                               <input type="file" name="Image" required accept="image/*" id="id_Image">
                                                                <select id="category-1" required value="" placeholder="Select Your category" name="Category">
                                                                       <option value="" >Select a category</option>
                                                                       {% for category in categories %}
                                                                       <option value="{{category.name}}">{{category.name}}</option>
                                                                       {% endfor %}
                                                                </select>
-                                                        </div>
-                                                        <div class="row mx-0 my-4">
+                                                         </div>
+                                                         <div class="row mx-0 my-4">
                                                                <input type="text" name="Title" maxlength="128" required id="id_Title">  
                                                         </div>
                                                         <div class="row mx-0 my-4">                                                   
@@ -247,8 +248,11 @@
               });
 
               $(document).ready(function() { 
-                     $('.btn-post-close').click(function() {
-                     $(".upload-img").hide(); 
+                     $('.btn-post-close').click(function() { 
+                     $("#id_Image").val('');
+                     $(".upload-img").hide();
+                     $('#tags_area').empty();
+                     $('#myInput').val('');
                      $('.post-photo-panel').hide();
                      $("#id_Description").val("");
                      $("#id_Title").val("");
@@ -324,26 +328,31 @@
               if(tag!=''&&tag!=null){
                $('#tags_area').append( '<div class="tag" id="tag">'+
                                    '<span class="fas fa-tag"></span>'+
-                                   '<span >'+tag+'</span>'+'<button type="button" id="delete_tag" ><span class="fas fa-times"></span></button></div>');
+                            '<span> </span>'+'<span >'+tag+'</span>'+'<button type="button" id="delete_tag" ><span class="fas fa-times"></span></button></div>');
               $('#tags_data_area').val($('#tags_data_area').val() + tag+' ');
               $('#myInput').val("");}
               console.log($('#tags_data_area').val());
               });
-              
+
+
               $(document).ready(function(){
                      $("#id_Image").change(function () {
                             if (typeof (FileReader) != "undefined") {
                                    var reader = new FileReader();
                                    reader.onload = function (e) {
                                           $(".upload-img").attr('src',e.target.result)
+                                          
                                    }
-                                   $(".upload-img").show();
+                                    $(".upload-img").show();
                                    reader.readAsDataURL($(this)[0].files[0]);
                             } else {
                             alert("This browser does not support FileReader.");
                             }
                      });
               });
+              </script>
+              <script>
+          
               </script>
        </body>
        

@@ -27,7 +27,8 @@ def base_query():
     context_dict = {
         'post_photo_form' : PhotoForm(),
         'categories': Category.objects.all(), 
-        'tags': Tag.objects.all(), 
+        'tags': Tag.objects.all(),
+        'authors' : UserProfile.objects.all(), 
     }
     return context_dict
 
@@ -106,10 +107,9 @@ def post_photo(request):
     user = request.user
 
     if request.method == 'POST':
-        # print(request.POST)
-        # print("123")
+        print(request.POST)
+        print("123")
         form = PhotoForm(request.POST)
-        # print(Category.objects.get(name = request.POST.get('Category')).slug)
         if form.is_valid():
 
             photo = form.save(commit=False)
@@ -118,19 +118,25 @@ def post_photo(request):
             photo.Title = request.POST.get('Title')
             photo.Description = request.POST.get('Description')
             photo.author = user
-            tags=request.POST.get('tags').split()
-            # print(tags)
+            input_tags=request.POST.get('tags').split()
+
             photo.Category = Category.objects.get(name = request.POST.get('Category'))
-            
             if 'Image' in request.FILES:
                 photo.Image = request.FILES['Image']
+        
             photo.save()
-            for tag in tags:
-                if Tag.objects.filter(name = tag).exists(): 
-                    photo.Tag.add(Tag.objects.get(name = tag))
+            for input_tag in input_tags:
+                if Tag.objects.filter(name = input_tag).exists(): 
+                           photo.Tag.add(Tag.objects.get(name = input_tag))
                 else:
-                    Tag.objects.create(name = tag)
-                    photo.Tag.add(Tag.objects.get(name = tag))
+                    Tag.objects.create(name = input_tag)
+                    photo.Tag.add(Tag.objects.get(name = input_tag))
+                
+
+            # print(tags)
+
+            
+          
 
             return redirect(reverse('capturer:index'))
         else:
@@ -300,6 +306,7 @@ def profile(request, username):
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
         album = Photo.objects.filter(author=user)
+        print( album.order_by('-Like')[:1])
         best_photo = album.order_by('-Like')[:1]
     except user.DoesNotExist:
         user = None
@@ -386,14 +393,16 @@ def show_photo(request, category_name_slug, photo_id):
     try:
         category = Category.objects.get(slug=category_name_slug)
         context_dict['category'] = category
+
+
     except Category.DoesNotExist:
         context_dict['category'] = None
     try:
         photo = Photo.objects.get(id=photo_id)
+        author_profile = UserProfile.objects.get(user = photo.author)
         tags = photo.Tag.all()
         reviews = Review.objects.filter(photo=photo).order_by('-id')
-        author_profile = UserProfile.objects.get(user = photo.author)
-        context_dict = {'photo':photo,'photo_tags':tags, 'reviews':reviews, 'author_profile':author_profile}
+        context_dict = {'photo':photo,'photo_tags':tags, 'reviews':reviews}
     except Photo.DoesNotExist:
         context_dict['photo'] = None
         context_dict['photo_tags'] = None
@@ -417,9 +426,10 @@ def show_photo(request, category_name_slug, photo_id):
     #                 # return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
     #     else:
     #         print(form.errors)
-    # 
+    related_photos = Photo.objects.filter(Category=category)
     context_dict['form_review'] = ReviewForm()
     context_dict['profile'] = stable(request)
+    context_dict['related_photos'] =related_photos
     context_dict.update(base_query())
     visitor_cookie_handler(request)
     photo.views = request.session['visits']

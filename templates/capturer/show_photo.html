@@ -13,7 +13,8 @@
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
-<script>
+<script> 
+    
     var reviewers = 0;
     $(document).ready(function(){
         $('#collection_btn').click(function() {
@@ -21,12 +22,11 @@
             $.get($(this).data('url'), function(response) {
                 $('.message-section').text(response.message);
                  console.log($('.message-section').text(response.message));
-                if($('.message-section').text() == "2"){
+                if($('.message-section').text() == "2"){ //not work     
                               
-                    $('#collection_btn').attr("class"," far fa-bookmark")
+
                 }else if ($('.message-section').text() == "1"){
                                console.log("1");
-                    $('#collection_btn').attr("class","collection-btn fas fa-bookmark")
                 }
                 
             });
@@ -44,20 +44,7 @@
 
     });
 
-    $(document).ready(function(){
-        $('#follow-button').click(function() {
-           
-            $.get($(this).data('url'), function(response) {
-                $('.message-section').text(response.message);
-                if($('.message-section').text() == "2"){
-                    $('#follow-button').attr("value","Follow")
-                }else if ($('.message-section').text() == "1"){
-                    $('#follow-button').attr("value","Cancel Follow")
-                }
-                
-            });
-        });
-    })
+    
 
     $(document).ready(function() { 
         $('#like_btn').click(function() { 
@@ -167,10 +154,7 @@
             $('#main_panel').css("float","none");
             $('#main_panel').css("min-height","500px");
             $('#show_reviews').show();
-            $('#review_form').css("display","block");
-            $('#review_form').css("width","70%");
             $('#review-back-btn').css("display","block");
-            $('#back-btn').css("display","none");
                 });
         })
         $(document).ready(function(){
@@ -208,21 +192,16 @@
             <div class = "row author mt-4 mx-0  ">
                 <div class ="col px-0 mx-0 ">
                     <div class="media ">
-                        <a href="{% url  'capturer:profile' photo.author.username %} "><img class = "author-avatar" src="{{ MEDIA_URL }}{{ author_profile.image }}" ></a>
+                       <a href="{% url  'capturer:profile' photo.author.username %} ">
+                       
+                       <img class = "author-avatar" src="{{ MEDIA_URL }}{{ photo.author.image}}" ></a>
                         <div class="media-body ml-1 mr-2 pt-1 pr-0 row" style= "overflow: hidden; flow:left;">
                             <div class="col-md-auto mx-0 px-0 " style="max-width:50%;">
-                            <p class="mb-0" style="font-family: 'Roboto', sans-serif; font-size:1rem; overflow: hidden; text-overflow: ellipsis;">{{ photo.author.username }}</p>
-                            <p class="pt-0" style="max-width:5rem;font-family: 'Roboto', sans-serif; font-size:0.8rem; overflow: hidden; text-overflow: ellipsis; color: rgb(114,114,114,0.9)">Popoooooooooooooooooooooooo</p>
+                            <p class="mb-0" style="font-family: 'Roboto', sans-serif; font-size:1rem; overflow: hidden; text-overflow: ellipsis;">{{photo.author.nickname }}</p>
+                            <p class="pt-0" style="max-width:5rem;font-family: 'Roboto', sans-serif; font-size:0.8rem; overflow: hidden; text-overflow: ellipsis; color: rgb(114,114,114,0.9)">{{photo.author.description }}</p>
                             </div>
                             <div  class="col col-md-auto mr-auto pl-2 pt-1 mx-0 px-0" style="">
-                            {% if photo.author != user %}
-                                <div class="message-section" style="display:none;"></div>
-                                {% if photo.author in profile.following.all %}
-                                    <input data-url="{% url 'capturer:follow' photo.author.username %}" id="follow-button" type="button" value="Cancel Follow" class="btn btn-dark follow" style="font-size:0.8rem; "></input>
-                                {% else %}
-                                    <input data-url="{% url 'capturer:follow' photo.author.username %}" id="follow-button" type="button" value="Follow" class="btn btn-dark follow" style="font-size:0.8rem; "></input>
-                                {% endif %}
-                            {% endif %}    
+                            <button class="btn btn-dark follow" style="font-size:0.8rem; ">Follow</button>
                             </div>
                         </div>
                     </div>      
@@ -264,9 +243,9 @@
                     <span class="ml-3  mr-3 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span>
                     {% if photo.author != user %}
                         {% if photo in profile.favorite.all %}
-                            <span class=" collection-btn-unactive fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                            <span class=" collection-btn-unactive fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:follow' photo.author.username %}", , type="button"></span>
                         {% else %}
-                            <span class="collection-btn far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                            <span class="collection-btn far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:follow' photo.author.username %}", , type="button"></span>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -280,7 +259,7 @@
                         {% for review in reviews %}
                             <div class="rol mx-0 mb-4">
                             <div class="col mx-0 px-0 d-flex">
-                                <a href="{% url 'capturer:profile' review.profile.user.username %} ">
+                                <a href="{% url 'capturer:profile' review.profile.user.nickname %} ">
                                 <img class="review-avatar"src="{{ MEDIA_URL }}{{ review.profile.image }}" alt="Avatar" /></a>
                                 <div class="col mx-0" style="">
                                     <div class="row mx-0">
@@ -320,12 +299,36 @@
                         </div>
                     </form>
 
-                <div class="row mx-0">
-                    <h6 class="mt-0 ml-3"style="font-weight: 400;color:black;">{{ user_profile.description }}</h5>
-                 </div>    
             </div>
         </div>
     </div>
+    <div class="row mx-0">
+        <h6 class="mt-0 ml-3 relate-title">More like this</h5>
+    </div>  
+    <div class="pt-1 related_photos_area row flex-md-equal">
+                    {% for photo in related_photos %}
+                        <div class="col px-0 py-0  card" id="album_area">  
+                            <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
+                            <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
+                            <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
+                            <a class="author"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.image }}" width="50" height="50" alt="Avatar" />{{ photo.author }}</a>
+                            <a class="like far fa-heart"></a>
+
+                             {% if photo.author != user %}
+                                {% if photo in profile.favorite.all %}
+                                    <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                {% else %}
+                                    <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                {% endif %}
+                            {% endif %}
+                    </div>
+            {% endfor %}
+        </div> 
+
+
+
+
+
   </div>
  
     {% endif %}
