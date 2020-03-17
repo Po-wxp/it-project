@@ -116,21 +116,21 @@
                     <div class="post-photo-panel fixed-top" id="post_photo">
                             <form id="photo_form" method="post" action="{% url 'capturer:post_photo' %}" enctype="multipart/form-data">
                        
-                                   <div class="post-photo col  px-4 mt-3  " id="post_photo">
+                                   <div class="post-photo col  px-4  " id="post_photo">
                                           
-                                          <div class="row mx-0 px-4 mt-3 pt-5  " >
-                                          </div>
-                                          <div class="row mx-0 px-4 mt-3 pt-5 d-flex panel" >
-                                                 
+                            
+                                          <div class="row mx-0 px-4  d-flex panel" >
+                                                  {% csrf_token %}
                                                  <div class="img-area col mx-0 p-0">
                                                        <img class="upload-img" src="" height="100%" width="100%" id="upload_img" style="display: none;"/>
+      
                                                  </div>
                                                  
-                                                 <div class="col text-area mx-3">
+                                                 <div class="text-area mx-3">
 
                                                         <div class="row mx-0 ">
-                                                        {% csrf_token %}
-                                                               <input type="file" name="Image" required accept="image/*" id="id_Image">
+           
+
                                                                <select id="category-1" required value="" placeholder="Select Your category" name="Category">
                                                                       <option value="" >Select a category</option>
                                                                       {% for category in categories %}
@@ -163,7 +163,10 @@
                                                                <input id='tags_data_area' type="text" name="tags">
                                                                       
                                                         </div>
-                                                        
+                                                        <label for="id_Image" class="image-upload">
+                                                        <i class="fas fa-cloud-upload-alt"></i> Upload here!
+                                                        </label>
+                                                         <input type="file" name="Image" required accept="image/*" id="id_Image">
                                                         <button class="btn btn-dark post-btn" type="submit">Post</button>
                                                         <button class="btn btn-post-close fas fa-times" type="button"></button> 
                                                  </div>       

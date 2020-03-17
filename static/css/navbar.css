@@ -179,7 +179,7 @@ input:focus
         border-top: none;
         border-bottom: none;
         border-right: none;
-        border-left: 0.02142857rem solid #000000;
+
 	}
 
 	.modal-header {
@@ -190,7 +190,7 @@ input:focus
         background-color: none;
      }
      .modal-header {
-        padding: 15px;
+        padding: 1rem;
         border-bottom: 0.05142857rem solid #bbb;
     }  
     body.modal-open {
@@ -199,8 +199,9 @@ input:focus
       }
 
 .menu-title{
+    margin-left: 2rem;
     font-size: 3rem;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Playfair Display SC', serif;
     color: #000000;
 }     
 .menu{
@@ -243,6 +244,7 @@ input:focus
         padding-bottom: 0px;
         border-radius: 8px; 
         margin: 0.2%;
+        color:white;
         width: 32.90%; float: left;
         -webkit-mask-image: -webkit-radial-gradient(center, white, black)
     }
@@ -251,6 +253,7 @@ input:focus
   @media only screen and (max-width: 1100px) {
     .card{
         margin: 0.1%;
+
         width: 24.73%; float: left;
     }
   }
@@ -266,19 +269,22 @@ input:focus
     top:3%;
     left: 5%;
     opacity: 0;
-    background-color: rgba(255, 255, 255, 1);
+
+    color:white;
     text-align: center;
-    width: 90%;
+    width: auto;
     padding: 0.2em;
-    padding-left: 1.2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     line-height: 2rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
     text-align: left;
     vertical-align: bottom;
     border-radius: 30px;
     overflow: hidden;
+    background-color:rgb(114,114,114,0.3);
 }
 
 .card:hover .category{
@@ -290,16 +296,25 @@ input:focus
     opacity: 1;
 }
 
+.card .author, .card .category, .card span{
+    font-size: 1.2rem;
+    background-color:rgb(114,114,114,0.3);
+    color: white;
+}
+  
+
+
   .card .author{
     position: absolute;
-    top:88%;
+    top:86%;
     left: 5%;
     opacity: 0;
-    background-color: rgba(255, 255, 255, 1);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     text-align: left;
-    width: 30%;
-    padding: 0.2em;
-    font-size: 1.2rem;
+    width: auto;
+
+
     font-weight: 500;
     font-family: 'Raleway', sans-serif;
     border-radius: 30px;
@@ -315,33 +330,32 @@ input:focus
     }
 
   .card .author .author-avatar {
-    width:3rem;
-    height:3rem;
+    width:1.5rem;
+    height:1.5rem;
     object-fit: cover;
     border-radius: 50%; 
     text-align: center;
-    border:  0.05142857rem solid rgba(1, 1, 1, 0.2);
+    border:  0.05142857rem solid rgba(255, 255, 255, 1);
 
   }
 
   .card .author .author-avatar:hover {
-    border: 0rem solid rgba(255, 255, 255, 0);
+    border: 0rem solid rgba(255, 255, 255, 1);
   }
-
+  .card span{
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height:2.5rem;
+  }
 
 .card .favorite{
     position: absolute;
     top:85%;
-    left: 74%;
+    left: 80%;
     opacity: 0;
     vertical-align: middle;
-    background-color: rgba(255, 255, 255, 1);
     text-align: center;
-    width: 3rem;
-    height: 3rem;
-    padding: 0em;
-    line-height: 3rem;
-    font-size: 1.2rem;
+
     vertical-align: bottom;
     border-radius: 50%;
     overflow: hidden;
@@ -359,15 +373,10 @@ input:focus
     position: absolute;
     opacity:0;
     top:85%;
-    left: 85%;
+    left: 88%;
     vertical-align: middle;
-    background-color: rgba(255, 255, 255, 1);
     text-align: center;
-    width: 3rem;
-    height: 3rem;
-    padding: 0em;
-    line-height: 3rem;
-    font-size: 1.2rem;
+
     vertical-align: bottom;
     border-radius: 50%;
     overflow: hidden;
@@ -581,13 +590,13 @@ padding-left: 1rem;
 }
 .top-card .photo-title span{
     font-family: 'Raleway', sans-serif;
-        font-size: 1.0rem;
-        padding-top:0px;
-        letter-spacing: 0.01em;
-        padding-left:0px;
-        text-align: left;
-        list-style-type: none;
-        color:  rgba(40, 40, 50, 1);
+    font-size: 1.0rem;
+    padding-top:0px;
+    letter-spacing: 0.01em;
+    padding-left:0px;
+    text-align: left;
+    list-style-type: none;
+    color:  rgba(40, 40, 50, 1);
 }
 
 .top-card .enter{    
@@ -1238,7 +1247,7 @@ padding-left: 1rem;
 
 
 }
-.photoPage .panel .action .like-btn:hover{
+.photoPage .panel .action .show-pic-like-btn:hover{
     color:  rgba(238, 73, 87, 0.8);
 
 }
@@ -1298,6 +1307,10 @@ text-overflow: ellipsis;
     border:  0.05142857rem solid rgba(1, 1, 1, 0.2);
     padding: 0.1.5rem;
 
+}
+
+a:hover{
+    text-decoration: none!important; 
 }
 .a-link{
     color:black;
@@ -1396,11 +1409,11 @@ text-overflow: ellipsis;
 
 .photoPage .review-back-btn{
     position: fixed;
-    top:13%;
+    top:10vh;
     
-    left:90%;
+    left: 190vh;
     display: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color:rgb(114,114,114,0.7);
 }
 
@@ -1410,10 +1423,9 @@ text-overflow: ellipsis;
 
 .photoPage .back-btn{
     position: absolute;
-    top:7%;
-    left:90%;
-    display: none;
-    font-size: 2rem;
+    top:2rem;
+    right:2rem;
+    font-size: 1.5rem;
     color:rgb(114,114,114,0.7);
 }
 
@@ -1423,7 +1435,9 @@ text-overflow: ellipsis;
 }
 
 .post-photo{
-    height: 100%;
+  
+    margin-top: 7rem;
+    height: 80%;
     background-color: #fff;
     width: 80%;
     margin: auto;
@@ -1433,22 +1447,25 @@ text-overflow: ellipsis;
     z-index: 1029;
     margin: auto;
     display: none;
-    background-color: rgb(114,114,114,0.1);
+    background-color: rgb(114,114,114,0.5);
 }
-.post-photo-panel form{
+.post-photo-panel form{ 
+    margin-top: 7rem;
     height: 100%;
 }
 
 .post-photo .img-area{ 
     border:  0.05rem solid #bbb;
     width: 60%;
-    height: 80%;
+    height: 100%;
     border-radius: 8px;
     -webkit-mask-image: -webkit-radial-gradient(center, white, black)
 }
 .post-photo .panel{
     width: 100%;
-    height: 80%;
+    height: 100%;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 .post-photo .upload-img{
     width: 100%;
@@ -1473,6 +1490,20 @@ text-overflow: ellipsis;
     padding: 0.3rem;
 }
 
+.post-photo input[type="file"] {
+    display: none;
+}   
+.post-photo .image-upload {
+    border: 0px solid #ccc;
+    display: inline-block;
+    padding: 15rem 15rem;
+    cursor: pointer;
+    font-size: 2rem;
+    position: absolute;
+    top:15%;
+
+    left: 4%;
+}
 
 .post-photo .btn-category:hover{
     color: #ffffff;
@@ -1481,9 +1512,7 @@ text-overflow: ellipsis;
 }
 
 .post-photo #id_Image{
-    position: absolute;
-    top:45%;
-    left: -82%;
+  
     opacity: 0.9;
     background-color: #fff;
     width: 55%;
@@ -1493,13 +1522,14 @@ text-overflow: ellipsis;
     font-size: 1.2rem;
 }
 .post-photo #id_Description{
+    margin-top: 1rem;
     display: block;
     height: calc(1.5em + .75rem + 2px);
     font-family: 'Roboto', sans-serif;
     padding: .375rem .75rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 400;
-    line-height: 2;
+    line-height: 2rem;
     color:  black;
     background-color: #fff;
     background-clip: padding-box;
@@ -1515,14 +1545,14 @@ text-overflow: ellipsis;
   }
 
 .post-photo #id_Title{
-
+    margin-top: 1rem;
     display: block;
     height: calc(1.5em + .75rem + 2px);
     font-family: 'Roboto', sans-serif;
     padding: .375rem .75rem;
-    font-size: 2rem;
+    font-size: 5rem;
     font-weight: 400;
-    line-height: 2;
+    line-height: 5rem;
     color: black;
     background-color: #fff;
     background-clip: padding-box;
@@ -1536,15 +1566,27 @@ text-overflow: ellipsis;
 
 .post-photo #id_Tag{
     position: absolute;
-    top:60%;
+    top:55%;
 }
 .post-photo .text-area{
-    width: 40%;
+    width: 45%;
+    padding-left: 3rem;
+    padding-right: 0rem;
+}
+.post-photo .tag_panel{
+    margin-top: 2rem;
+}
+.post-photo .text-area #category-1{
+    font-size: 2rem;
+    padding-left:0.2rem;
+    padding-top:0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 8px;
 }
 .post-photo .post-btn{
     position: absolute;
-    right:0;
-    bottom:0;
+    right:3rem;
+    bottom:4rem;
     font-size: 1.5rem;
     width: 4rem;
     font-family: 'Raleway', sans-serif;

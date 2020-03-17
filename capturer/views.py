@@ -112,16 +112,20 @@ def show_category(request, category_name_slug):
     context_dict.update(base_query())
     try:
         category = Category.objects.get(slug=category_name_slug)
+        
+        most_popular=Photo.objects.filter(Category=category).order_by('-Like')[:1]
+  
         #The filter() will return a list of page objects or an empty list
-        photos = Photo.objects.filter(Category=category)
+        photos = Photo.objects.filter(Category=category).exclude(Title= most_popular).order_by('-Like')#not work
         
         #Add results list to the template context under name pages
         context_dict['photos'] = photos
         context_dict['category'] = category
+        context_dict['most_popular'] = most_popular
     except Category.DoesNotExist:
         context_dict['photos'] = None
         context_dict['category'] = None
-
+        context_dict['most_popular'] = None
     return render(request, 'capturer/category.html', context=context_dict)
     
 @login_required
@@ -463,6 +467,7 @@ def show_photo(request, category_name_slug, photo_id):
     #     else:
     #         print(form.errors)
     related_photos = Photo.objects.filter(Category=category).exclude(id=photo_id)
+
     context_dict['form_review'] = ReviewForm()
     context_dict['profile'] = stable(request)
     context_dict['related_photos'] =related_photos
