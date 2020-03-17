@@ -35,7 +35,9 @@ def base_query():
 def index(request):
     context_dict = {}
 
-
+    most_popular_sub = Photo.objects.order_by('-views')[:3]
+    most_popular=Photo.objects.order_by('-Like')[:1]
+    all_photos = Photo.objects.order_by('-Like')
     category1_photo_list = Photo.objects.filter(Category = Category.objects.get(id=1)).order_by('-Like')[:1]
     category2_photo_list = Photo.objects.filter(Category = Category.objects.get(id=2)).order_by('-Like')[:1]
     category3_photo_list = Photo.objects.filter(Category = Category.objects.get(id=3)).order_by('-Like')[:1]
@@ -49,13 +51,28 @@ def index(request):
         top_photos.append(x)
     for x in category2_photo_list:
         top_photos.append(x)
+    for x in category3_photo_list:
+        top_photos.append(x)
+    for x in category4_photo_list:
+        top_photos.append(x)
+    for x in category5_photo_list:
+        top_photos.append(x)
+    for x in category6_photo_list:
+        top_photos.append(x)
+    for x in category7_photo_list:
+        top_photos.append(x)
+    for x in category8_photo_list:
+        top_photos.append(x)
+
     print(top_photos)
     print(category8_photo_list)
     context_dict = {'category1': category1_photo_list, 'category2': category2_photo_list,
                     'category3': category3_photo_list, 'category4': category4_photo_list,
                     'category5': category5_photo_list, 'category6': category6_photo_list,
                     'category7': category7_photo_list, 'category8': category8_photo_list,
-                    'top_photos':top_photos, 'profile':stable(request),
+                    'top_cat_photos':top_photos, 'most_popular_sub' : most_popular_sub,
+                    'most_popular': most_popular, 'all_photos': all_photos,
+                     'profile':stable(request),
                     }
     context_dict.update(base_query())
     # context_dict = {'categories':category_list, 'profile':stable(request)}
@@ -312,6 +329,12 @@ def profile(request, username):
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
         album = Photo.objects.filter(author=user)
+        favorite = user_profile.favorite.all()
+        followingAuthorsPhoto=[]
+        for follow_author in user_profile.following.all() :
+            followingAuthorsPhoto.append(Photo.objects.filter(author=follow_author))
+        print(followingAuthorsPhoto)
+        print(favorite)
         best_photo = album.order_by('-Like')[:1]
     except user.DoesNotExist:
         user = None
@@ -319,7 +342,10 @@ def profile(request, username):
     if user is None:
         return redirect('/capturer/')
     
-    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 'profile':stable(request), 'best_photo':best_photo}
+    context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 
+    'favorite':favorite,
+    'following':followingAuthorsPhoto,
+    'profile':stable(request), 'best_photo':best_photo,}
     context_dict.update(base_query())
     return render(request, 'capturer/profile.html', context=context_dict)
 
@@ -436,7 +462,7 @@ def show_photo(request, category_name_slug, photo_id):
     #                 # return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
     #     else:
     #         print(form.errors)
-    related_photos = Photo.objects.filter(Category=category)
+    related_photos = Photo.objects.filter(Category=category).exclude(id=photo_id)
     context_dict['form_review'] = ReviewForm()
     context_dict['profile'] = stable(request)
     context_dict['related_photos'] =related_photos

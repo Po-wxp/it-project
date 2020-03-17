@@ -16,7 +16,7 @@
               <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
               <link rel="stylesheet" href={% static 'css/navbar.css' %} crossorigin="anonymous">
               <link href="{% static 'css/icon/all.css' %}"  rel="stylesheet">
-              <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC|Playfair+Display:400i|Poiret+One|Raleway:300,400,500|Roboto:300,400&display=swap" rel="stylesheet">           
+              <link href="https://fonts.googleapis.com/css?family=Playfair+Display+SC|Playfair+Display:400|Poiret+One|Raleway:300,400,500|Roboto:300,400&display=swap" rel="stylesheet">           
               <link rel="apple-touch-icon" sizes="180x180" href="{% static 'fav/apple-touch-icon.png'%}">
               <link rel="icon" type="image/png" sizes="32x32" href="{% static 'fav/favicon-32x32.png'%}">
               <link rel="icon" type="image/png" sizes="16x16" href="{% static 'fav/favicon-16x16.png'%}">
@@ -39,7 +39,7 @@
                                                  <div class="input-group">
                                                         <input type="text" class="form-control-nav"    aria-label="Search" size="auto" name="q" aria-describedby="inputGroup-sizing-default">
                                                         <div class="input-group-prepend pt-3">
-                                                               <input type="image" src="/static/icon/icon-search.svg"  class="" type="submit" style="height:16px;" />
+                                                               <input type="image" src="/static/icon/icon-search.svg"  class="" type="submit" style="height:1.8rem;" />
                                                         </div>
                                                  </div>
                                           </form>
@@ -56,28 +56,31 @@
                                    <li class="nav-item pt-1">
                                          
                                    </li>
-                                   <li class="nav-item px-3  pt-2">
+                                   <li class="nav-item px-4  pt-2">
                                            <a class="nav-link nav-word" href="{% url 'capturer:index' %}">Home</a>
                                    </li>
                                    {% if user.is_authenticated %}  
-                                   <li class="nav-item dropdown pt-1 pl-2 px-3" >
+                                   <li class="nav-item dropdown pt-1 pl-4 pr-1" >
                                           <a href="{% url  'capturer:profile' user.username %} " class=""><img class="avatar"   src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" /></a>
-                                          <a class="nav-link dropdown-toggle pl-0 ml-0 " style = "cursor:pointer; display:inline-block; font-size: 0.8rem; "  " id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ">
+                                          
+                                   </li>     
+                                   <li class="nav-item dropdown pt-1 pl-2 pl-0 pr-4" >
+                                          <a class="nav-link dropdown-toggle pl-0 ml-0 nav-word " style = "cursor:pointer; display:inline-block;"  " id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ">
                                           {{ user.username }}
                                           </a>
                                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"  >
                                                  <a class="dropdown-item" href="{% url  'capturer:profile' user.username%}" style="font-size: 12px;" >My account</a>
                                                  <a class="dropdown-item" href="{% url 'auth_password_change' %}"style="font-size: 12px;" >Change password</a>
                                                  <a class="dropdown-item" href="{% url 'capturer:logout' %}"style="font-size: 12px;">Logout</a>
-                                          </div>
-                                   </li>                                       
+                                          </div> 
+                                   </li>                                   
                                    {% else %} 
-                                   <li class="nav-item  pt-2 px-3"  style= "display:inline-block;">
+                                   <li class="nav-item  pt-2 px-4"  style= "display:inline-block;">
                                           <a class="nav-link  nav-word" href="{% url 'capturer:login' %}">Login</a>
                                    </li>
                                    {% endif %}
 
-                                   <li class="nav-item pl-2 pt-2"  style= "display:inline-block;">
+                                   <li class="nav-item pr-4 pt-2"  style= "display:inline-block;">
                                           <input type="image" src="/static/icon/icon-burger.svg"  class="" style="height:30px;" data-toggle="modal" data-target="#myModal2"/>
                                    </li>
                             </ul>
@@ -204,7 +207,7 @@
                             document.getElementById("navbar").style.borderBottom="0rem solid #bbb";
                      
                             console.log(heightOfMainNav);
-                            accountNav.style.top ="3.2rem";
+                            accountNav.style.top ="4rem";
                             accountNav.style.position= "fixed";
                             accountNav.style.borderBottom="0.02142857rem solid #bbb";
                             accountNav.style.zIndex= "1031";

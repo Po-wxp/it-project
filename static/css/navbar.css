@@ -87,8 +87,10 @@ input:focus
 
 }
 .navbar {
-    padding: 0.5rem 1.5rem;
-
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     border-bottom: 0.02142857rem solid #bbb;
 }
 .nav-word{
@@ -107,11 +109,12 @@ input:focus
     color:  black; 
     border-bottom: 0.03142857rem solid rgb(30, 30, 30, 0.4);
 }
-  .avatar {
+
+.nav-item .avatar {
 
     max-width: 100%;
-    width:60px;
-    height:60px;
+    width:3rem;
+    height:3rem;
     object-fit: cover;
     border-radius: 50%; 
     text-align: center;
@@ -122,7 +125,7 @@ input:focus
 
   .avatar:hover {
 
-    border:  0.05142857rem solid rgba(238, 73, 87, 0.8);
+    border:  0.02142857rem solid rgb(30, 30, 30, 0.4);
     padding:0.2rem;
   }
   .modal-open {
@@ -229,20 +232,11 @@ input:focus
     border-bottom: 0.05142857rem solid #000000;
   }
 
-  .top-img {
-    float: left;
-    height: 60%;
- 
-    width:100%;
-
-    object-fit: cover;
-
-  }
+  
   .photo_area{
     text-align: center;
   }
-
-
+ 
 
   .card{
         border: 0;
@@ -278,7 +272,7 @@ input:focus
     padding: 0.2em;
     padding-left: 1.2rem;
     line-height: 2rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
     text-align: left;
@@ -321,9 +315,8 @@ input:focus
     }
 
   .card .author .author-avatar {
-    max-width: 100%;
-    width:25px;
-    height:25px;
+    width:3rem;
+    height:3rem;
     object-fit: cover;
     border-radius: 50%; 
     text-align: center;
@@ -445,20 +438,157 @@ input:focus
 input{
     shape-rendering: crispEdges;
 }
+.index-area {
+    margin-top:4.1rem;
+}
+.index-area .Info{
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    color: white;
+    background-color:rgb(114,114,114,0.3);
+    border-radius: 25px;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.12rem;
+    padding-bottom: 0.12rem;
+    opacity: 0;
+}
 
-.top-card{
-    padding-bottom: 20px;
-    border-radius: 8px; 
-    margin: 0.2%;
-    width: 32.90%; float: left;
+.index-area .most-popular-card:hover .Info{
+    opacity:0.9;
+}
+
+.index-area .most-popular-sub-card:hover .Info{
+    opacity:0.9;
+}
+
+.img_cover{
+    float: left;
+    height: 100%;
+    width:100%;
     object-fit: cover;
-    -webkit-mask-image: -webkit-radial-gradient(center, white, black)
+}
+.most-popular-card{
+    height: 40rem;
+    margin: 0%;
+    width: 100%; 
+    float: left;
+    box-shadow: 3px 3px 10px rgb(114,114,114,0.3);
+}
+.most-popular-sub{
+    margin-left: -0.1rem;
+    margin-right: -0.1rem;
+    display: flex;
+
+}
+.most-popular-sub-card{
+    height: 40rem;
+
+    margin: 0.1rem;
+    width: 33.22%; 
+    float: left;
+    box-shadow: 3px 10px 11px rgb(114,114,114,0.3);
+}
+.index-area .panel{
+
+}
+.index-area .title{
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    font-weight: 400;
+    color: rgb(30,30,30,0.9);
+    font-family: 'Playfair Display SC', serif;
+    font-size: 2.8rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+}
+.index-area .cat-title{
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    font-weight: 400;
+    color: rgb(30,30,30,0.9);
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
 }
 
 
+.top-card{
+    height: 30rem;
+    margin: 0.2%;
+    width: 24.5%; 
+    float: left;
+
+}
+.top-card .img-box{
+    height: 85%;
+    width:100%; 
+    border-radius: 0px;
+/* 1em = 10px 
+    -webkit-mask-image: -webkit-radial-gradient(center, white, black);*/
+    box-shadow: 3px 3px 10px rgb(114,114,114,0.3);
+}
 
 
+.top-img {
+    float: left;
+    height: 100%;
 
+    width:100%;
+    object-fit: cover;
+    
+}
+.top-img:hover {
+
+    opacity: 0.8;
+    width:100%;
+
+    
+}
+
+.top-card .info{
+padding-left: 1rem;
+
+}
+.top-card .category-title{
+    width: 100%;
+}
+.top-card .category-title span{
+    color: rgba(40, 40, 50, 1);
+    background: rgba(40, 40, 70, 0);
+    opacity: 1;
+    font-size: 1.2rem;
+    font-style: normal;
+    text-align: left;
+    font-weight: 400;
+    border-radius:0px;     
+    line-height: 30px;
+    opacity: 1;
+    height: 30%;
+
+    -webkit-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+
+}
+
+.top-card .photo-title{
+    width: 100%;
+}
+.top-card .photo-title span{
+    font-family: 'Raleway', sans-serif;
+        font-size: 1.0rem;
+        padding-top:0px;
+        letter-spacing: 0.01em;
+        padding-left:0px;
+        text-align: left;
+        list-style-type: none;
+        color:  rgba(40, 40, 50, 1);
+}
 
 .top-card .enter{    
     background: rgba(255, 255, 255, 0.9);
@@ -479,38 +609,6 @@ input{
 }
 
 
-.top-card span{    
-    color: rgba(40, 40, 50, 0.8);
-    background: rgba(40, 40, 70, 0);
-    opacity: 1;
-    padding-left:10px;
-    font-size: 16px;
-    font-style: normal;
-    font-family: 'Playfair Display';
-    text-align: left;
-    font-weight: 400;
-    border-radius:0px;     
-    line-height: 30px;
-    opacity: 1;
-    height: 30%;
-
-    -webkit-transition: all 0.5s ease-in-out;
-            transition: all 0.5s ease-in-out;
-}
-
-
-.top-card ul {
-padding-inline-start:10px;
-}
-.top-card ul li {
-    font-family: 'Raleway', sans-serif;
-    font-size: 12px;
-    padding-top:0px;
-    letter-spacing: 0.01em;
-    padding-left:0px;
-    list-style-type: none;
-    color: rgba(160, 160, 160, 1);
-} 
 
 
 .top-card div span{
@@ -543,7 +641,7 @@ padding-inline-start:10px;
 /*profile*/
 .profile{
     position: absolute;
-    top: 15%;
+    top: 20%;
     left: 5%;
     
 }
@@ -572,11 +670,12 @@ padding-inline-start:10px;
     opacity: 0;
 
 }
-
+.profile_page{
+    margin-top: 4.2rem;
+}
 .profile-data .name{
     font-family: 'Roboto', sans-serif;
-
-
+    font-size: 5rem;
 }
 
 
@@ -610,30 +709,24 @@ padding-inline-start:10px;
 
 }
 .profile-avatar{
-    max-width: 100%;
     margin: 0px;
-    width:180px;
-    height:180px;
+    width:16rem;
+    height:16rem;
     border-radius: 50%; 
-    background-color: rgba(6, 22, 87, 1);
+    background-color: rgba(255, 255, 255, 1);
+    cursor: pointer;
 }
 
 .profile-avatar:hover .photo{
-    max-width: 100%;
     margin: 0px;
-    width:180px;
-    height:180px;
     border-radius: 50%; 
-    object-fit: cover;
     opacity: 0.9;
 
 }
 
 .profile-avatar .photo {
-    max-width: 100%;
-    margin: 0px;
-    width:180px;
-    height:180px;
+    width: 100%;
+    height:100%;
     border-radius: 50%; 
     object-fit: cover;
     border:  0.2rem solid #fff;
@@ -645,13 +738,11 @@ padding-inline-start:10px;
 }
 
 .profile-background{
-    height: auto;
-    max-height:300px; 
+    height:30rem;
     width:100%;
     object-fit: cover;
     filter: blur(1px);
     -webkit-filter: blur(1px);
-    height: auto;
     opacity: 0.8;
 
 }
@@ -661,7 +752,7 @@ padding-inline-start:10px;
     background-color: white;
     margin-top:0rem;
     padding-top:0rem;
-    padding-left:1.5rem;
+    padding-left:0rem;
     padding-right:1.5rem;
     padding-bottom:0.2rem;
     width: 100%;
@@ -669,13 +760,14 @@ padding-inline-start:10px;
   }
 
   .account-nav ul { 
-    margin:0px;
+    margin:auto;
     padding: 0px 0; 
     list-style: none; 
     display: table;
     width: 100%;
     display: inline-block;
     text-align:center;
+    
   }
   .account-nav li { 
     display: table-cell; 
@@ -688,7 +780,7 @@ padding-inline-start:10px;
     font-family: 'Raleway', sans-serif;
     text-decoration: none;
     letter-spacing: 0.15em;
-    font-size: 1.5rem;
+    font-size: 1rem;
     display: inline-block;
     padding-right: 20px;
     padding-left: 20px;
@@ -849,6 +941,24 @@ padding-inline-start:10px;
 }
 
 
+
+.btn-black-border{
+
+    color: #000000;
+    background-color: #fff;
+    border-color: #000000;
+}
+
+   
+
+
+.btn-black-border:hover{
+    color: #fff;
+    background-color: #000000;
+    border-color: #000000;
+}
+    
+
   .form-signin {
     width: 100%;
     max-width: 330px;
@@ -974,7 +1084,7 @@ padding-inline-start:10px;
     width:100px;
     height:100px;
     border-radius: 8px;
-    border: 0.00142857rem solid black;
+    border: 0.0142857rem solid black;
     object-fit: cover;
 }
 .form-sign-up .form .form-col #id_image{
@@ -1033,9 +1143,9 @@ padding-inline-start:10px;
     margin: auto;
     width: 100%;
     font-weight: 400;
-    color: rgb(114,114,114,0.9);
+    color: rgb(160,160,160,0.8);
     font-family: 'Roboto', sans-serif;
-    font-size: 1.2rem;
+    font-size: 2rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
@@ -1043,7 +1153,7 @@ padding-inline-start:10px;
 
 .related_photos_area{
 
-    box-shadow: 0px -2px 2px rgb(114,114,114,0.1);
+    box-shadow: 0px -2px 4px rgb(160,160,160,0.1);
 }
 
 
@@ -1062,14 +1172,18 @@ padding-inline-start:10px;
 
 }
 
-.photo-title{
+.photoPage .photo-title{
+    font-size: 5rem;
     font-weight: 400;
     color:black;
     font-family: 'Roboto', sans-serif;
 }
-
+.photo-describ-area{
+    max-height: 10rem;
+}
 .photo-describ{
     max-width:70%;
+    font-size: 1.8rem;
     font-weight: 400;color:black;
     font-family: 'Roboto', sans-serif;
 }
@@ -1080,28 +1194,29 @@ padding-inline-start:10px;
 }
 
 .photoPage .panel .category{
-    font-size: 1.2rem;
+    font-size: 0.5rem;
     font-family: 'Raleway', sans-serif;
     color:   rgb(114, 114, 120, 0.9);
 }
 
 .photoPage .panel .date{
-    font-size: 0.9rem;
+    font-size: 0.5rem;
     font-weight: 400;
-    color:rgb(114,114,114,0.9);
+    
+    color:rgb(160,160,160,0.8);
     font-family: 'Roboto', sans-serif;
 }
 
 
 .photoPage .panel .statistic{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 400;
     color:black;
     font-family: 'Roboto', sans-serif;
 }
 .photoPage .photo-tag-area{
     color:   rgb(30, 40, 120, 0.9);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .photoPage .photo-tag{
@@ -1114,6 +1229,13 @@ padding-inline-start:10px;
     float: left;
     padding-left: 2rem;
     padding-right: 2rem;
+
+
+}
+
+.photoPage .panel  .action{
+    font-size: 2rem;
+
 
 }
 .photoPage .panel .action .like-btn:hover{
@@ -1131,8 +1253,8 @@ padding-inline-start:10px;
 
 }
 .photoPage .author .author-avatar {
-    width:50px;
-    height:50px;
+    width:6rem;
+    height:6rem;
     object-fit: cover;
     border-radius: 50%;
     text-align: center;
@@ -1144,25 +1266,32 @@ padding-inline-start:10px;
   border:  0.1142857rem solid rgba(1, 1, 1, 0.1);
     padding: 0.2rem;
 }
+
+
+.photoPage .author .name {
+font-family: 'Roboto', sans-serif; 
+font-size:2.5rem; overflow: hidden; 
+text-overflow: ellipsis;
+}
 .photoPage .panel  .review_title{
-    color: rgb(114,114,114,0.9);
-    font-size: 1.2rem;
+    color: rgb(160,160,160,0.9);
+    font-size: 1.5rem;
     font-family: 'Roboto', sans-serif;
+    cursor: pointer;
 }
 .photoPage .panel  .review_title:hover{
     color:   rgb(30, 40, 120, 0.9);
-    font-size: 1.2rem;
     font-family: 'Roboto', sans-serif;
 }
 
 .photoPage .panel .review_title_unactive{
-    color: rgb(114,114,114,0.9);
-    font-size: 1.2rem;
+    color: rgb(160,160,160,0.9);
+    font-size: 1.5rem;
     font-family: 'Roboto', sans-serif;
 }
 .photoPage .panel .review .review-avatar{
-    width:50px;
-    height:50px;
+    width:6rem;
+    height:6rem;
     object-fit: cover;
     border-radius: 50%; 
     text-align: center;
@@ -1170,7 +1299,15 @@ padding-inline-start:10px;
     padding: 0.1.5rem;
 
 }
+.a-link{
+    color:black;
+}
 
+.a-link:hover{
+    color: rgb(160,160,160,0.9);
+    text-decoration: none; 
+
+}
 .photoPage .panel .review .review-avatar:hover{
     border:  0.1142857rem solid rgba(1, 1, 1, 0.1);
     padding: 0.2rem;
@@ -1180,12 +1317,12 @@ padding-inline-start:10px;
 
 .photoPage .panel .review .review-author{
     color:   black;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
   }
 .photoPage .panel .review .review-content p{
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     max-width: 55%;
@@ -1204,11 +1341,14 @@ padding-inline-start:10px;
     color:rgb(114,114,114,0.9);
     font-family: 'Roboto', sans-serif;
 }
+#review_form{
+    width: 100%;
+    height: 100%;
+}
+.photoPage .review-write-panel{
+    width: 100%;
+    height:8rem;
 
-.photoPage #review_form .review-write-panel{
-    top:77%;
-    left:16%;
-    opacity: 0.9;
 }
 
 .photoPage{
@@ -1221,18 +1361,15 @@ padding-inline-start:10px;
 
 }
 .django-ckeditor-widget{
-    width:70%;
-    margin:auto;
 
 }
 .django-ckeditor-widget #cke_id_content  {
-    border:  0.05rem solid #bbb!important;
+
     -webkit-mask-image: -webkit-radial-gradient(center, white, black);
-    width:115%!important;
 }
 .django-ckeditor-widget textarea  {
     border-radius: 8px!important;
-    border:  0rem solid #bbb!important;
+    border:  1rem solid #bbb!important;
 }
 .cke_top{
     background: #fff!important;
@@ -1241,8 +1378,8 @@ padding-inline-start:10px;
 .photoPage #review_form .review-submit-btn{
     position: absolute;
     top:8%;
-    left:72%;
-    font-size: 0.9rem;
+    left:82%;
+    font-size: 1.2rem;
     color:rgba(1, 1, 1, 0.6);
     background-color: #fff;
     font-family: 'Raleway', sans-serif;
