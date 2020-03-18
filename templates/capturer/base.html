@@ -61,7 +61,7 @@
                                    </li>
                                    {% if user.is_authenticated %}  
                                    <li class="nav-item dropdown pt-1 pl-4 pr-1" >
-                                          <a href="{% url  'capturer:profile' user.username %} " class=""><img class="avatar"   src="{{ MEDIA_URL }}{{ profile.image }}" width="30" height="30" alt="Avatar" /></a>
+                                          <a href="{% url  'capturer:profile' user.username %} " class=""><img class="avatar"   src="{{ MEDIA_URL }}{{ user.userprofile.image }}" width="30" height="30" alt="Avatar" /></a>
                                           
                                    </li>     
                                    <li class="nav-item dropdown pt-1 pl-2 pl-0 pr-4" >

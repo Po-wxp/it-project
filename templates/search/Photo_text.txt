@@ -1,5 +1,11 @@
 {{ object.Title }}
 {{ object.Description }}
+
+{{ object.Category }}
+
+
 {% for a in object.Tag.all %}
     {{ a.name }}
 {% endfor %}
+
+

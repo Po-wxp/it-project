@@ -1,2 +1,1 @@
-{{ object.nickname }}
 {{ object.user.username }}

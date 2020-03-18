@@ -23,6 +23,7 @@ def stable(request):
         user=None
         current_user_profile=None
     return current_user_profile
+
 def base_query():
     context_dict = {
         'post_photo_form' : PhotoForm(),
@@ -569,3 +570,6 @@ def delete_post(request, photo_id):
         photo.delete()
     
     return redirect(reverse('capturer:profile', kwargs={'username':user.username}))
+
+
+
