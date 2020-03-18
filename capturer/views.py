@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from capturer.models import Category, Photo , UserProfile, Review, Tag
 from capturer.forms import PhotoForm, UserForm, UserProfileForm, UserProfileModifyForm, ReviewForm, ContactForm
-from django.shortcuts import redirect
 from django.urls import reverse
 from datetime import datetime
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -13,6 +13,9 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from itertools import chain
+from django.contrib import messages
+
+
 
 # helper method
 def stable(request):
@@ -561,6 +564,7 @@ def follow(request, username):
         # "You are now following {}".format(selected_user)
     return JsonResponse(data, safe=False)
 
+@login_required
 def delete_post(request, photo_id):
     user = request.user
     photo = Photo.objects.get(id=int(photo_id))
@@ -571,4 +575,18 @@ def delete_post(request, photo_id):
     return redirect(reverse('capturer:profile', kwargs={'username':user.username}))
 
 
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('capturer:index')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
 
+    return render(request, 'capturer/passwordChange.html', {'form': form, 'categories': Category.objects.all()})

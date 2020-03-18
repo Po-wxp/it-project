@@ -26,6 +26,7 @@ urlpatterns = [
      path('collection/<photo_id>/', views.collection, name='collection'),
      path('<photo_id>/delete/', views.delete_post, name='delete'),
      path('<photo_id>/upload_comment/', views.upload_comment, name='upload_comment'),
+     path('passwordChange/', views.change_password, name='change_password'),
      # path('display_photo/', views.display_photo, name='display_photo'),
 
      # path('search/', views.search, name='search'),

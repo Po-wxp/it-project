@@ -70,7 +70,7 @@
                                           </a>
                                           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"  >
                                                  <a class="dropdown-item" href="{% url  'capturer:profile' user.username%}" style="font-size: 12px;" >My account</a>
-                                                 <a class="dropdown-item" href="{% url 'auth_password_change' %}"style="font-size: 12px;" >Change password</a>
+                                                 <a class="dropdown-item" href="{% url 'capturer:change_password' %}"style="font-size: 12px;" >Change password</a>
                                                  <a class="dropdown-item" href="{% url 'capturer:logout' %}"style="font-size: 12px;">Logout</a>
                                           </div> 
                                    </li>                                   
