@@ -334,11 +334,16 @@ def profile(request, username):
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
         album = Photo.objects.filter(author=user)
         favorite = user_profile.favorite.all()
+        review = Review.objects.filter(profile = user_profile)
+        review_photos = set() 
+        for r in review:
+            review_photos.add(r.photo)
+        print(review_photos)
         followingAuthorsPhoto=[]
         for follow_author in user_profile.following.all() :
             followingAuthorsPhoto.append(Photo.objects.filter(author=follow_author))
-        print(followingAuthorsPhoto)
-        print(favorite)
+        # print(followingAuthorsPhoto)
+        # print(favorite)
         best_photo = album.order_by('-Like')[:1]
     except user.DoesNotExist:
         user = None
@@ -349,16 +354,22 @@ def profile(request, username):
     context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 
     'favorite':favorite,
     'following':followingAuthorsPhoto,
+    'review_photos':review_photos,
     'profile':stable(request), 'best_photo':best_photo,}
     context_dict.update(base_query())
     return render(request, 'capturer/profile.html', context=context_dict)
 
 # @login_required
 # def favorite(request, username):
-#     (user, user_profile, album) = profile_base(username)
-#     photos = user_profile.favorite.all()
     
-#     context_dict = {'selected_user': user,'photos':photos,'user_profile':user_profile,'album':album, 'profile':stable(request)}
+
+#     user = User.objects.get(username=username)
+#     user_profile = UserProfile.objects.get_or_create(user=user)[0]
+#     favorite = user_profile.favorite.all()
+#     # (user, user_profile, album) = profile_base(username)
+#     # photos = user_profile.favorite.all()
+#     context_dict= {'favorite', favorite}
+#     # context_dict = {'selected_user': user,'photos':photos,'user_profile':user_profile,'album':album, 'profile':stable(request)}
 #     return render(request, 'capturer/favorite.html', context=context_dict) 
 
 # @login_required
