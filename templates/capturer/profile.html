@@ -79,7 +79,7 @@
                                     {% if photo in profile.favorite.all %}
                                         <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
                                     {% else %}
-                                        <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                        <span class="collection-btn favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -241,20 +241,20 @@
 
         });
 
-        $(document).ready(function(){
-        $('.collection-btn').click(function() {
-            $.get($(this).data('url'), function(response) {
-                $('.message-section').text(response.message);
-                 console.log($('.message-section').text(response.message));
-                if($('.message-section').text() == "2"){
+        // $(document).ready(function(){
+        // $('.collection-btn').click(function() {
+        //     $.get($(this).data('url'), function(response) {
+        //         $('.message-section').text(response.message);
+        //          console.log($('.message-section').text(response.message));
+        //         if($('.message-section').text() == "2"){
                  
-                }else if ($('.message-section').text() == "1"){
-                               console.log("1");
-                }
+        //         }else if ($('.message-section').text() == "1"){
+        //                        console.log("1");
+        //         }
                 
-            });
-            });
-        })
+        //     });
+        //     });
+        // })
 
         $(document).ready(function(){
         $('#follow').click(function() {

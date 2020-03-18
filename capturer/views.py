@@ -117,7 +117,7 @@ def show_category(request, category_name_slug):
         most_popular=Photo.objects.filter(Category=category).order_by('-Like')[:1]
   
         #The filter() will return a list of page objects or an empty list
-        photos = Photo.objects.filter(Category=category).exclude(Title= most_popular).order_by('-Like')#not work
+        photos = Photo.objects.filter(Category=category).order_by('-Like')[1:]
         
         #Add results list to the template context under name pages
         context_dict['photos'] = photos
@@ -155,12 +155,10 @@ def post_photo(request):
             photo.save()
             for input_tag in input_tags:
                 if Tag.objects.filter(name = input_tag).exists(): 
-                           photo.Tag.add(Tag.objects.get(name = input_tag))
+                    photo.Tag.add(Tag.objects.get(name = input_tag))
                 else:
                     Tag.objects.create(name = input_tag)
                     photo.Tag.add(Tag.objects.get(name = input_tag))
-                
-
             # print(tags)
 
             
@@ -490,6 +488,7 @@ def show_photo(request, category_name_slug, photo_id):
     response = render(request, 'capturer/show_photo.html', context=context_dict)
     return response
 
+@login_required
 def upload_comment(request, photo_id):
     form = ReviewForm(request.POST)
     user = request.user

@@ -23,27 +23,33 @@
 
          $('#review-btn').text(reviews+' reviews')
           })
+
     $(document).ready(function(){
         $('#show_pic_collection_btn').click(function() {
-
             $.get($(this).data('url'), function(response) {
-                $('.message-section').text(response.message);
-                 console.log($('.message-section').text(response.message));
-                 if ($(this).hasClass("collection-btn-unactive")){
-                        $(this).removeClass( ).addClass("collection-btn far fa-bookmark"); 
-                    }else{
-                        $(this).removeClass( ).addClass("collection-btn-unactive fas fa-bookmark");
-                }      
-                if($('.message-section').text() == "2"){ //not work     
-                              
-
-                }else if ($('.message-section').text() == "1"){
-                               console.log("1");
+                if(response.message == "2"){
+                    $('#show_pic_collection_btn').removeClass( ).addClass("collection-btn far fa-bookmark");
+                }else if (response.message == "1"){     
+                    $('#show_pic_collection_btn').removeClass( ).addClass("collection-btn-unactive fas fa-bookmark");
                 }
                 
             });
         });
     })
+
+    $(document).ready(function(){
+        $('#collection_btn').click(function() {
+            $.get($(this).data('url'), function(response) {
+                if(response.message == "2"){
+                    $('#collection_btn').removeClass( ).addClass("collection-btn favorite far fa-bookmark");
+                }else if (response.message == "1"){     
+                    $('#collection_btn').removeClass( ).addClass("collection-btn-unactive favorite fas fa-bookmark");
+                }
+                
+            });
+        });
+    })
+
     //for related picts
    $(document).ready(function() { 
         $('.like-btn').click(function() { 
@@ -293,9 +299,11 @@
                     <span class="mx-4 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span>
                     {% if photo.author != user %}
                         {% if photo in profile.favorite.all %}
-                            <span class=" collection-btn-unactive fas fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                            <span class="collection-btn-unactive fas fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button" style="display:inline"></span>
+                            
                         {% else %}
-                            <span class="collection-btn far fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.author.id  %}", , type="button"></span>
+                            <span class="collection-btn far fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id  %}" type="button"></span>
+                            
                         {% endif %}
                     {% endif %}
                 </div>
@@ -374,9 +382,9 @@
                                 <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
                                 {% if photo.author != user %}
                                     {% if photo in profile.favorite.all %}
-                                        <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                        <span class="collection-btn-unactive favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
                                     {% else %}
-                                        <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                        <span class="collection-btn favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -388,4 +396,4 @@
   </div>
  
     {% endif %}
-{% endblock %}
+{% endblock %}                    

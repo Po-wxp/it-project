@@ -39,9 +39,9 @@
                                 <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
                                 {% if photo.author != user %}
                                     {% if photo in profile.favorite.all %}
-                                        <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                        <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
                                     {% else %}
-                                        <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
+                                        <span class="collection-btn favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -54,3 +54,38 @@
 {% endblock %}
 
 
+{% block script_block %}
+<script>
+    $(document).ready(function(){
+        $(document).ready(function(){
+            $(".collection-btn").click(function() {    
+            if ($(this).hasClass("fas")){
+                $(this).removeClass( ).addClass("collection-btn favorite far fa-bookmark");
+            }else{
+            $(this).removeClass( ).addClass("collection-btn favorite fas fa-bookmark");
+            }            
+            });
+
+        });
+    })
+
+    $(document).ready(function() { 
+        $('.like-btn').click(function() { 
+            var IdVar; 
+            IdVar = $(this).attr('data-photoid');
+            var btn = this;
+            $.get('/capturer/like_photo/', 
+                {'photo_id': IdVar}, 
+                function(data) { 
+                    $('#like_count').html("Likes "+data); 
+                    $(btn).replaceWith('<span class="like fas fa-heart"></span>');
+
+                })
+        });
+    });
+
+
+
+</script>
+
+{% endblock %}
