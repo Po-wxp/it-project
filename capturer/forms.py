@@ -55,14 +55,6 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ('content', )
-    # def clean(self):
-    #     # content = self.cleaned_data['content']
-    #     try:
-    #         model_class = ContentType.objects.get(model=content).model_class()
-    #     except ObjectDoesNotExist:
-    #         raise forms.ValidationError('review is not exist!')
-    #     return self.cleaned_data
-
 
 class ContactForm(forms.ModelForm):
 

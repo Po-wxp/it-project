@@ -8,19 +8,7 @@ Register
 {% endblock %}
 
 {% block script_block %}
-<script>
-    // $('#id_image').change(function(){
-    //     var obj=$("#id_image")[0].files[0];
-    //     var fr=new FileReader();
-    //     fr.onload=function () {
-    //            $("#avatarPreview").attr('src',this.result);
-    //            console.log(this.result);
-    //            $("#avatar").val(this.result);
-    // })
-
-
-</script>
-
+<script type="text/javascript" src="{% static "js/register.js" %}"></script>
 {% endblock %}
 
 {% block body_block %}
@@ -92,23 +80,7 @@ Register
                 </div>
             </div>
         </form>
-
-        <script>
-        $(document).ready(function(){
-                     $("#id_image").change(function () {
-                            if (typeof (FileReader) != "undefined") {
-                                   var reader = new FileReader();
-                                   reader.onload = function (e) {
-                                          $(".sign-up-avatar").attr('src',e.target.result)
-                                          
-                                   }
-                                    $(".sign-up-avatar").show();
-                                   reader.readAsDataURL($(this)[0].files[0]);
-                            } else {
-                            alert("This browser does not support FileReader.");
-                            }
-                     });
-              });
-        </script>
     {% endif %}
 {% endblock %}
+
+

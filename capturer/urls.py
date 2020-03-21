@@ -15,10 +15,6 @@ urlpatterns = [
      path('contact/', views.contact, name='contact'),
      path('<username>/profile/', views.profile, name='profile'),
      path('<username>/profile/modify/', views.ProfileModify.as_view(), name='profileModify'),
-     # path('<username>/album/', views.album, name='album'),
-     # path('<username>/favorite/', views.favorite, name='favorite'),
-     # path('<username>/myreview/', views.myreview, name='myreview'),
-     # path('<username>/following/', views.following, name='following'),
      path('category/<slug:category_name_slug>/<photo_id>/', views.show_photo, name='show_photo'),
      path('accounts/', include('registration.backends.simple.urls')),
      path('like_photo/', views.LikePhotoView.as_view(), name='like_photo'),
@@ -28,6 +24,5 @@ urlpatterns = [
      path('<photo_id>/upload_comment/', views.upload_comment, name='upload_comment'),
      path('passwordChange/', views.change_password, name='change_password'),
      path('<tag_name>/', views.tag_photo, name='tag_photo'),
-     # path('display_photo/', views.display_photo, name='display_photo'),
 
 ]

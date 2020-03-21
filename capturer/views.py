@@ -163,10 +163,6 @@ def post_photo(request):
                     Tag.objects.create(name = input_tag)
                     photo.Tag.add(Tag.objects.get(name = input_tag))
             # print(tags)
-
-            
-          
-
             return redirect(reverse('capturer:index'))
         else:
             print(form.errors)
@@ -216,31 +212,6 @@ def register(request):
     context_dict = {'user_form':user_form, 'profile_form':profile_form,'registered':registered,}
     context_dict.update(base_query())
     return render(request, 'capturer/register.html', context=context_dict)
-
-
-# def display_photo(request):
-#     # file_obj = request.FILES.get('Image')
-    
-#     # file_path = os.path.join('static/image/', file_obj.name)
-
-#     # with open(file_path, 'wb') as f:
-#     #     for chunk in file_obj.chunks():
-#     #         f.write(chunk)
-
-#     # data = {'file_path':file_path,}
-#     # return JsonResponse(data)
-#     data = {}
-#     if request.is_ajax():
-#         image = request.FILES.get('Image')
-#         data['url'] = image.url
-#         uploaded_image = temp_photo(img = image)
-#         uploaded_image.save()
-#         photo = temp_photo.objects.first()
-#         # data['url'] = photo.img.url
-        
-#     return JsonResponse(data)
-  
-
 
 def user_login(request):
     context_dict = {}
@@ -309,25 +280,6 @@ def visitor_cookie_handler(request):
     # Update/set the visits cookie
     request.session['visits'] = visits   
 
-# def profile_base(username):
-#     try:
-#         user = User.objects.get(username=username)
-#         user_profile = UserProfile.objects.get_or_create(user=user)[0]
-#         album = Photo.objects.filter(author=user)
-#     except user.DoesNotExist:
-#         user = None
-    
-#     if user is None:
-#         return redirect('/capturer/')
-
-#     return (user,user_profile, album)
-
-# @login_required
-# def profile(request, username):
-#     (user, user_profile, album) = profile_base(username)
-#     context_dict = {'selected_user': user, 'user_profile':user_profile, 'album':album, 'profile':stable(request)}
-#     return render(request, 'capturer/profile.html', context=context_dict) 
-
 @login_required
 def profile(request, username):
 
@@ -363,46 +315,6 @@ def profile(request, username):
     'profile':stable(request), 'best_photo':best_photo,}
     context_dict.update(base_query())
     return render(request, 'capturer/profile.html', context=context_dict)
-
-# @login_required
-# def favorite(request, username):
-    
-
-#     user = User.objects.get(username=username)
-#     user_profile = UserProfile.objects.get_or_create(user=user)[0]
-#     favorite = user_profile.favorite.all()
-#     # (user, user_profile, album) = profile_base(username)
-#     # photos = user_profile.favorite.all()
-#     context_dict= {'favorite', favorite}
-#     # context_dict = {'selected_user': user,'photos':photos,'user_profile':user_profile,'album':album, 'profile':stable(request)}
-#     return render(request, 'capturer/favorite.html', context=context_dict) 
-
-# @login_required
-# def myreview(request, username):
-#     (user, user_profile, album) = profile_base(username)
-#     reviews = Review.objects.filter(profile = user_profile)
-#     context_dict = {'selected_user': user,'reviews':reviews,'user_profile':user_profile,'album':album,'profile':stable(request)}
-#     return render(request, 'capturer/myreview.html', context=context_dict) 
-
-# @login_required
-# def following(request, username):
-#     (user, user_profile, album) = profile_base(username)
-#     followings = user_profile.following.all()
-#     context_dict = {'selected_user': user,'followings':followings, 'user_profile':user_profile,'album':album,'profile':stable(request)}
-#     return render(request, 'capturer/following.html', context=context_dict)
-
-
-
-# def search(request):
-#     result_list = []
-
-#     if request.method == 'POST':
-#         query = request.POST['query'].strip()
-#         if query:
-#             result_list = run_query(query)
-
-#     return render(request, 'capturer/search.html',{'result_list': result_list})
-
 
 class ProfileModify(View): 
     def get_user_details(self, username): 
@@ -463,25 +375,6 @@ def show_photo(request, category_name_slug, photo_id):
         context_dict['photo'] = None
         context_dict['photo_tags'] = None
         context_dict['reviews'] = None
-
-    # form = ReviewForm()
-    # user = request.user
-    # user_profile = UserProfile.objects.get(user=user)
-
-    # if request.method == 'POST':
-    #     form = ReviewForm(request.POST)
-    #     if form.is_valid():
-    #         if category:
-    #             if photo:
-    #                 form = form.save(commit=False)
-    #                 form.photo = photo            
-    #                 form.profile = user_profile
-    #                 form.like = 0
-    #                 form.content = request.POST.get('content')
-    #                 form.save()
-    #                 # return redirect(reverse('capturer:show_category', kwargs={'category_name_slug':category_name_slug}))
-    #     else:
-    #         print(form.errors)
     related_photos = Photo.objects.filter(Category=category).exclude(id=photo_id)
 
     context_dict['form_review'] = ReviewForm()

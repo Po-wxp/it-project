@@ -8,6 +8,11 @@
     Profile for {{ selected_user.username }} 
 {% endblock %}
 
+{% block script_block %}
+<script type="text/javascript" src="{% static "js/profileModify.js" %}"></script>
+{% endblock %}
+
+
 {% block body_block %}
  <div class="container  px-5   form-sign-up">
     {% if selected_user == user %} 
@@ -24,24 +29,7 @@
         </div>
 
         </form>
-        <script>
-        $(document).ready(function(){
-                     $("#id_image").change(function () {
-                            console.log("2");
-                            if (typeof (FileReader) != "undefined") {
-                                   var reader = new FileReader();
-                                   reader.onload = function (e) {
-                                          $(".edit-avatar").attr('src',e.target.result)
-                                          
-                                   }
-                                    $(".edit-avatar").show();
-                                   reader.readAsDataURL($(this)[0].files[0]);
-                            } else {
-                            alert("This browser does not support FileReader.");
-                            }
-                     });
-              });
-        </script>
     {% endif %}
 </div>
 {% endblock %}
+
