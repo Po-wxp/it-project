@@ -297,9 +297,18 @@ input:focus
 }
 
 .card .author, .card .category, .card span{
-    font-size: 1.2rem;
-    background-color:rgb(114,114,114,0.3);
+    bottom: 0.5rem;
+    left: 0.5rem;
     color: white;
+    background-color:rgb(114,114,114,0.3);
+    border-radius: 25px;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.12rem;
+    padding-bottom: 0.12rem;
+    opacity: 0;
+
+    height: 2rem;
 }
   
 
@@ -655,9 +664,7 @@ padding-left: 1rem;
     
 }
 .profile .follow{
-    position: absolute;
-    top: 10%;
-    left:69%;
+    height: 1.5rem;
     font-size: 0.7rem;
     padding:0.2rem 0.2rem;
     font-family: 'Roboto', sans-serif;
@@ -689,8 +696,7 @@ padding-left: 1rem;
 
 
 .profile-data .statistic{
-    font-family: 'Raleway', sans-serif;
-
+    font-family: 'Roboto', sans-serif;
 
 }
 
@@ -1392,7 +1398,7 @@ a:hover{
 
 }
 .django-ckeditor-widget{
-
+    width: 100%;
 }
 .django-ckeditor-widget #cke_id_content  {
 
@@ -1408,8 +1414,8 @@ a:hover{
 }
 .photoPage #review_form .review-submit-btn{
     position: absolute;
-    top:8%;
-    left:82%;
+    top:0.5rem;
+    right:0.5rem;
     font-size: 1.2rem;
     color:rgba(1, 1, 1, 0.6);
     background-color: #fff;
@@ -1427,9 +1433,8 @@ a:hover{
 
 .photoPage .review-back-btn{
     position: fixed;
-    top:10vh;
-    
-    left: 190vh;
+    top:6rem;
+    left: 80%;
     display: none;
     font-size: 1.5rem;
     color:rgb(114,114,114,0.7);

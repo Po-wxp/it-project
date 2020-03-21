@@ -164,8 +164,9 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink'],
             ["Smiley", "SpecialChar", 'Blockquote'],
         ],
-        'width': '800',
-        'height': '180',
+
+        'width': '100%',
+        'height': '3rem',
         'tabSpaces': 4,
         'removePlugins': 'elementspath',
         'resize_enabled': False,

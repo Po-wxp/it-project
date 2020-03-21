@@ -24,14 +24,7 @@
                         <img class = "profile-background img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"  >
                     {% endfor %}
                      <div class="media profile">
-                        {% if selected_user != user %}
-                            {% if selected_user in profile.following.all %}
-                                <button type="button" class="btn btn-outline-light  follow cancel-follow " data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Cancel Follow">Cancel Follow</button>
-                            {% else %}
-                                <button type="button" class="btn btn-outline-light  follow can-follow" data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Follow">Follow</button>
-                            {% endif %}
-                            
-                        {% endif %}
+                        
                         <div class = "profile-avatar">
                             <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}" >
                             {% if selected_user == user %}
@@ -39,10 +32,19 @@
                             {% endif %}
                         </div>
                         <div class="media-body text light profile-data">
-                
-                        <h3 class="mt-2 ml-3 name" style="font-weight: 400;color:white;">{{ selected_user.username }}</h3>
-                        <h6 class="mt-0 ml-3 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings</h5>
-                        <h6 class="mt-0 ml-3 descr"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
+                        <div class = "row mx-0" >
+                        <h3 class="mt-2 ml-4 name" style="font-weight: 400;color:white;">{{ selected_user.username }}</h3>
+                        {% if selected_user != user %}
+                            {% if selected_user in profile.following.all %}
+                                <button type="button" class="btn btn-outline-light  follow cancel-follow " data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Cancel Follow">Cancel Follow</button>
+                            {% else %}
+                                <button type="button" class="btn btn-outline-light  follow can-follow" data-url="{% url 'capturer:follow' selected_user.username %}" id="follow" value="Follow">Follow</button>
+                            {% endif %}                           
+                        {% endif %}
+                        </div>
+    
+                        <h6 class="mt-0 ml-4 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings .{{ album.count }} follower notFinish!!!</h5>
+                        <h6 class="mt-0 ml-4 descr"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
                  </div> 
                     </div>
                  </div>
@@ -167,7 +169,9 @@
                                 <span class="mt-1 ml-3 name" >{{ selected_user.username }}</span>
                             </div>
                             <div class="col">
+                            {% if selected_user == user %}
                                 <a type="button" class="btn btn-dark btn-edit" href="{% url 'capturer:profileModify' selected_user.username %}" value="Edit profile">Edit profile</a>  
+                            {% endif %}    
                                 <span class=" ml-3 gender">{{ user_profile.gender }}</span>
                             </div>
 
