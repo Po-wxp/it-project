@@ -106,8 +106,8 @@ input:focus
 
 
 .nav-word:hover{
-    color:  black; 
-    border-bottom: 0.03142857rem solid rgb(30, 30, 30, 0.4);
+    color:  black;     
+    border-bottom: 0.01142857rem solid #bbb;
 }
 
 .nav-item .avatar {
@@ -699,6 +699,8 @@ padding-left: 1rem;
 
 
 }
+
+
 .profile-avatar:hover .edit{
     position: absolute;
     height: 16px;
@@ -1036,7 +1038,7 @@ padding-left: 1rem;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
   }
-  .form-sign-up{
+  .form-sign-up, .form-change-password{
       width: 70%;
       margin-top: 10rem;
       padding-top: 5rem;
@@ -1049,6 +1051,24 @@ padding-left: 1rem;
 }
 .form-col #id_username, #id_email, #id_password, #id_nickname
 , #id_description, #id_postcode{
+    width: 100%;
+    display: block;
+    height: calc(1.5em + .75rem + 2px);
+    font-family: 'Roboto', sans-serif;
+    padding: .375rem .75rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 2;
+    color:  black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 0rem;
+    border-bottom: 0.00142857rem solid black;
+    display:inline-block;
+}
+
+#id_old_password,#id_new_password1, #id_new_password2{
     width: 100%;
     display: block;
     height: calc(1.5em + .75rem + 2px);
@@ -1338,10 +1358,8 @@ a:hover{
     font-size: 2rem;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    max-width: 55%;
     display: block!important;
 
-    overflow-wrap: break-word;
     white-space: normal;
    display: -webkit-box;
    -webkit-box-orient: vertical;
@@ -1775,7 +1793,9 @@ a:hover{
     font-family: 'Raleway', sans-serif;
     color: rgba(30, 30, 30, 0.3); 
 }
-
+.profile-area .info-area .descr:hover{
+    color: rgba(60, 60, 60, 0.7);
+}
 .profile-area .info-area .gender{
     position: absolute;
     bottom:0.5rem;
@@ -1787,6 +1807,10 @@ a:hover{
     font-size: 1.8rem;
 
     color: rgba(30, 30, 30, 0.3); 
+}
+
+.profile-area .info-area .contact:hover{
+    color: rgba(60, 60, 60, 0.7);
 }
 .profile-area .info-area .btn-edit{
     font-size: 1.2rem;

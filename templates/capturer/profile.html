@@ -89,7 +89,7 @@
                     {% endif %}
                     </div>
                 
-                    <class="" id="favorite_area" style="display: none;">
+                    <div id="favorite_area" style="display: none;">
                     {% if favorite %}  
                         {% for photo in favorite %}
                             <div class="col px-0 py-0  card" id="album">  
@@ -110,8 +110,8 @@
                     {% else %}
                         <span> No photo</span>
                     {% endif %}
-
-                    <class="" id="review_area" style="display: none;">
+                    </div>
+                    <div id="review_area" style="display: none;">
                     {% if review_photos %}  
                         {% for photo in review_photos %}
                             <div class="col px-0 py-0  card" id="album">  
@@ -132,8 +132,8 @@
                     {% else %}
                         <span> No photo</span>
                     {% endif %}
+                    </div>
                 </div>
-                
 
                 <div class=" profile-area flex-md-equal">
                     <div class ="avatar-big-area">
@@ -175,16 +175,7 @@
     
 <script>
 
-    $(document).ready(function(){
-        $('#btn-Profile').click(function() {
-            $('.profile-area').show();
-            $('.account-nav').css("top","3.2rem");   
-            $('.account-nav').css("position","fixed");
-            $('.account-nav').css("z-index","1031");
-            $('.account-nav').css("borderBottom","0.02142857rem solid #bbb");
-            $('.photo_area').hide();
-            });
-        });
+
 
     // $(document).ready(function(){
     //     $('#btn-Album').click(function() {
@@ -288,19 +279,16 @@
 
     $(document).ready(function(){
         $('#btn-Favorite').click(function(){
-            
-            $('#review_area').hide();
-            $('#album_area').hide();
-            $('#favorite_area').show();
-              
+            $('.photo_area').show();
+            clear();
+            $('#favorite_area').show();            
         })
     });
 
     $(document).ready(function(){
         $('#btn-Album').click(function(){
-
-            $('#review_area').hide();
-            $('#favorite_area').hide();
+            $('.photo_area').show();
+            clear();
             $('#album_area').show();
             
 
@@ -309,14 +297,32 @@
 
     $(document).ready(function(){
         $('#btn-Review').click(function(){
-            $('#favorite_area').hide();
-            $('#album_area').hide();
+            $('.photo_area').show();
+            clear();
             $('#review_area').show();
 
         })
     });
+    function clear(){
+            $('.profile-area').hide();
+            $('#favorite_area').hide();
+            $('#album_area').hide();
+            $('#review_area').hide();
+            $('.account-nav').css("position","initial");
+            $('.account-nav').css("borderBottom","0rem solid #bbb");
+    };
 
 
+    $(document).ready(function(){
+        $('#btn-Profile').click(function() {
+            $('.profile-area').show();
+            $('.account-nav').css("top","3.8rem");   
+            $('.account-nav').css("position","fixed");
+            $('.account-nav').css("z-index","1031");
+            $('.account-nav').css("borderBottom","0.02142857rem solid #bbb");
+            $('.photo_area').hide();
+            });
+        });
     
 </script>
          

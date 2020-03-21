@@ -6,12 +6,11 @@
 
 {% block title_block %}
 {% if category %}
-    <h1>{{ category.name }}</h1>
+{{ category.name }}
 {% else %}
     Unknown Category
 {% endif %}
 {% endblock %}
-
 {% block body_block %}
  <div class="index-area mx-0 ">
     <div class="panel  w-100 mx-0">
@@ -51,6 +50,8 @@
                     {% endif %}
     
 </div>
+
+
 {% endblock %}
 
 
@@ -72,6 +73,7 @@
     $(document).ready(function() { 
         $('.like-btn').click(function() { 
             var IdVar; 
+            
             IdVar = $(this).attr('data-photoid');
             var btn = this;
             $.get('/capturer/like_photo/', 

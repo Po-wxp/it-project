@@ -9,7 +9,7 @@
 
 {% block body_block %}
 
-  <body class="login text-center">
+  <div class="login text-center">
 
     <form  id="login_form" method="post" action="{% url 'capturer:login' %}" class="mt-5 pt-2 form-signin">
         {% csrf_token %}
@@ -54,6 +54,6 @@
              </div>
         
     </form>
-  </body>
+  </div>
 
 {% endblock %}

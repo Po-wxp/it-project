@@ -29,5 +29,4 @@ urlpatterns = [
      path('passwordChange/', views.change_password, name='change_password'),
      # path('display_photo/', views.display_photo, name='display_photo'),
 
-     # path('search/', views.search, name='search'),
 ]

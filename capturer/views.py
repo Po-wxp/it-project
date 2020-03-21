@@ -109,7 +109,7 @@ def contact(request):
     context_dict['form'] = form
     context_dict.update(base_query())
     return render(request, 'capturer/contact.html', context=context_dict)
-
+@login_required
 def show_category(request, category_name_slug):
     context_dict = {}
     context_dict['profile'] = stable(request)
