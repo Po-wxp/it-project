@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% extends 'capturer/base.html' %}
+{% load staticfiles %}
+
+
+
+{% block title_block %}
+    tag photo
+{% endblock %}
+
+{% block body_block %}
+    {% for photo in photos %}
+    
+    
+
+    <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
+    <img  src="{{ MEDIA_URL }}{{ photo.Image }}"/></a> 
+
+    {% endfor %}
+
+    
+{% endblock %}

@@ -18,6 +18,7 @@ HAYSTACK_CONNECTIONS = {
         'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
     },
 }
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 # HAYSTACK_SEARCH_RESULTS_PER_PAGE = 5
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

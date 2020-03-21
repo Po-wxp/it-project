@@ -277,7 +277,7 @@
                         {% for tag in photo_tags %}
                             <span class="fas fa-tag"></span>
                             <span> </span>
-                            <span class="photo-tag">{{ tag.name }}
+                            <span class="photo-tag"><a href="{% url 'capturer:tag_photo' tag.name %}">{{ tag.name }}</a></span>
                             <span> </span>
                         {% endfor %}
                     </p>
@@ -336,7 +336,7 @@
                             {% for review in reviews %}
                                 <div class="rol mx-0 mb-4">
                                     <div class="col mx-0 px-0 d-flex">
-                                        <a href="{% url 'capturer:profile' review.profile.user.username %} ">
+                                        <a href="{% url 'capturer:profile' review.profile.user.username %} "></a>
                                         <img class="review-avatar"src="{{ MEDIA_URL }}{{ review.profile.image }}" alt="Avatar" /></a>
                                         <div class="col mx-0" style="width:70%">
                                             <div class="row mx-0">

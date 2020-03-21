@@ -27,6 +27,7 @@ urlpatterns = [
      path('<photo_id>/delete/', views.delete_post, name='delete'),
      path('<photo_id>/upload_comment/', views.upload_comment, name='upload_comment'),
      path('passwordChange/', views.change_password, name='change_password'),
+     path('<tag_name>/', views.tag_photo, name='tag_photo'),
      # path('display_photo/', views.display_photo, name='display_photo'),
 
 ]

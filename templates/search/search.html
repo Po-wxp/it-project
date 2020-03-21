@@ -15,14 +15,7 @@ SearchPage
                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ result.object.Image }}"/></a>  
                 <a class="category" href="{% url 'capturer:show_category' result.object.Category.slug %}" >{{ result.object.Category }}<a class="far fa-arrow"></a></a>
                 <a class="author" href="{% url 'capturer:profile' result.object.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ result.object.author.userprofile.image }}" alt="Avatar" />&nbsp{{ result.object.author.username }}</a>
-                <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ result.object.id }}"></span>
-                {% if photo.author != user %}
-                        {% if photo in profile.favorite.all %}
-                            <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' result.object.id %}", , type="button"></span>
-                        {% else %}
-                            <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' result.object.id %}", , type="button"></span>
-                        {% endif %}
-                {% endif %}
+                
             </div>
         </div>    
     {% endif %}
@@ -32,18 +25,9 @@ SearchPage
     {% if result.object.user %}
         <div >
             <div class="col px-0 py-0  card">  
-                <a href="{% url 'capturer:show_photo' result.object.Category.slug result.object.id %}">
-                <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ result.object.Image }}"/></a>  
-                <a class="category" href="{% url 'capturer:show_category' result.object.Category.slug %}" >{{ result.object.Category }}<a class="far fa-arrow"></a></a>
-                <a class="author" href="{% url 'capturer:profile' result.object.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ result.object.author.userprofile.image }}" alt="Avatar" />&nbsp{{ result.object.author.username }}</a>
-                <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ result.object.id }}"></span>
-                {% if photo.author != user %}
-                        {% if photo in profile.favorite.all %}
-                            <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' result.object.id %}", , type="button"></span>
-                        {% else %}
-                            <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' result.object.id %}", , type="button"></span>
-                        {% endif %}
-                {% endif %}
+                <a href="{% url  'capturer:profile' result.object.user.username %}">
+                <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ result.object.user.userprofile.image }}"/></a>  
+                <a class="author">{{ result.object.user.username }}</a>
             </div>
         </div>  
     {% endif %}
@@ -54,7 +38,8 @@ SearchPage
     {% endif %} -->
 
 {% empty %}           
-        No results found.
+    No results found.
 {% endfor %}
 
 {% endblock %}
+

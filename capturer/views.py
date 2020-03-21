@@ -341,12 +341,15 @@ def profile(request, username):
         for r in review:
             review_photos.add(r.photo)
         print(review_photos)
-        followingAuthorsPhoto=[]
+        followingAuthorsPhoto= set()
         for follow_author in user_profile.following.all() :
-            followingAuthorsPhoto.append(Photo.objects.filter(author=follow_author))
+            photos = Photo.objects.filter(author = follow_author)
+            for photo in photos:
+                followingAuthorsPhoto.add(photo)
         # print(followingAuthorsPhoto)
         # print(favorite)
         best_photo = album.order_by('-Like')[:1]
+        
     except user.DoesNotExist:
         user = None
     
@@ -590,3 +593,21 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
 
     return render(request, 'capturer/passwordChange.html', {'form': form, 'categories': Category.objects.all()})
+
+def tag_photo(request, tag_name):
+    context_dict = {}
+    photos = set()
+    try:
+        tag = Tag.objects.get(name = tag_name)
+        all_photo = Photo.objects.all()
+        for photo in all_photo:
+            tags = photo.Tag.all()
+            for t in tags:
+                if t == tag:
+                    photos.add(photo)
+        # print(photos)
+        context_dict['photos'] = photos
+    except tag.DoesNotExist:
+        context_dict['photos'] = None
+    context_dict.update(base_query())
+    return render(request,'capturer/tag_photo.html', context = context_dict)
