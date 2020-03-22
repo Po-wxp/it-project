@@ -163,17 +163,21 @@
                         <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}">
  
                     </div>
+
                     <div class = "info-area">
                     <div class = "row d-flex">
                             <div class=""style="flex-basis: 0">
                                 <span class="mt-1 ml-3 name" >{{ selected_user.username }}</span>
                             </div>
-                            <div class="col">
-                            {% if selected_user == user %}
-                                <a type="button" class="btn btn-dark btn-edit" href="{% url 'capturer:profileModify' selected_user.username %}" value="Edit profile">Edit profile</a>  
-                            {% endif %}    
-                                <span class=" ml-3 gender">{{ user_profile.gender }}</span>
-                            </div>
+
+                    <div class="col">
+                    <br><br><br>
+                    {% if user_profile.gender == 'male' %}
+                        <i class="fa fa-mars" style="font-size:36px"></i>
+                    {% else %}
+                        <i class="fa fa-venus" style="font-size:36px"></i>
+                    {% endif %}
+                    </div>
 
                     </div>
                     <div class = "row mb-2 d-flex">
@@ -191,7 +195,12 @@
                      <div class = "row d-flex">
                         <span class="mt-4 ml-3 contact"><span class="fas fa-home"></span> {{ user_profile.postcode }}</span>
                     </div>
-                    
+
+
+                    {% if selected_user == user %}
+                        <a type="button" class="btn btn-dark btn-edit" href="{% url 'capturer:profileModify' selected_user.username %}" value="Edit profile">Edit profile</a>
+                    {% endif %}
+
                 </div> 
 
 {% else %}
