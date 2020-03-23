@@ -43,7 +43,7 @@
                         {% endif %}
                         </div>
     
-                        <h6 class="mt-0 ml-4 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings .{{ album.count }} follower notFinish!!!</h5>
+                        <h6 class="mt-0 ml-4 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings .{{ follower_length }} follower</h5>
                         <h6 class="mt-0 ml-4 descr"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
                  </div> 
                     </div>
@@ -183,7 +183,7 @@
                     <div class = "row mb-2 d-flex">
                         <span class="mt-0 ml-3 statistic">{{ album.count }} posts<span> 
                         <span class="mt-0 ml-3 statistic">{{ user_profile.following.count }} followings</span>
-                        <span class="mt-0 ml-3 statistic">{{ album.count }} follower notyet<span>
+                        <span class="mt-0 ml-3 statistic">{{ follower_length }} follower<span>
                     </div>
                     <div class = "row mb-5 d-flex">
                         <p class="ml-3  descr">{{ user_profile.description }}</p>

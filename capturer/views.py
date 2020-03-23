@@ -298,10 +298,18 @@ def profile(request, username):
             photos = Photo.objects.filter(author = follow_author)
             for photo in photos:
                 followingAuthorsPhoto.add(photo)
+        follower = set()
+        users = User.objects.all()
+        for u in users:
+            profile  = UserProfile.objects.get_or_create(user=u)[0]
+            followers = profile.following.all()
+            if u in followers:
+                follower.add(u)
+            
         # print(followingAuthorsPhoto)
         # print(favorite)
-        best_photo = album.order_by('-Like')[:1]
-        
+        best_photo = album.order_by('-Like')[:1] 
+        follower_length = len(follower)
     except user.DoesNotExist:
         user = None
     
@@ -311,6 +319,7 @@ def profile(request, username):
     context_dict = {'selected_user': user, 'album': album, 'user_profile':user_profile, 
     'favorite':favorite,
     'following':followingAuthorsPhoto,
+    'follower_length':follower_length,
     'review_photos':review_photos,
     'profile':stable(request), 'best_photo':best_photo,}
     context_dict.update(base_query())

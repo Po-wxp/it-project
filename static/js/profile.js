@@ -112,6 +112,7 @@ function clear(){
         $('#favorite_area').hide();
         $('#album_area').hide();
         $('#review_area').hide();
+        $('#following_area').hide();
         $('.account-nav').css("position","initial");
         $('.account-nav').css("borderBottom","0rem solid #bbb");
 };
