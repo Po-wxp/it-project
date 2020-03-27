@@ -43,7 +43,7 @@
                         {% endif %}
                         </div>
     
-                        <h6 class="mt-0 ml-4 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts .{{ user_profile.following.count }} followings .{{ follower_length }} follower</h5>
+                        <h6 class="mt-0 ml-4 statistic"style="font-weight: 400;color:white;">{{ album.count }} posts {{ user_profile.following.count }} followings {{ follower_length }} followers</h5>
                         <h6 class="mt-0 ml-4 descr"style="font-weight: 400;color:white;">{{ user_profile.description }}</h5>
                  </div> 
                     </div>
@@ -121,7 +121,7 @@
                             <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
                             <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
                             {% if photo.author != user %}
-                                {% if photo in profile.favorite.all %}
+                                {% if photo in profile.review.all %}
                                     <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
                                 {% else %}
                                     <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}", , type="button"></span>
@@ -144,7 +144,7 @@
                                 <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
                                 <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
                                 {% if photo.author != user %}
-                                    {% if photo in profile.favorite.all %}
+                                    {% if photo in profile.following.all %}
                                         <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
                                     {% else %}
                                         <span class="collection-btn  favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
@@ -167,23 +167,31 @@
                     <div class = "info-area">
                     <div class = "row d-flex">
                             <div class=""style="flex-basis: 0">
-                                <span class="mt-1 ml-3 name" >{{ selected_user.username }}</span>
+                                <span class="mt-1 ml-3 name" >{{ user.username }}</span>
+                            </div>
+                            <div class="col">
+                            
+                            {% if selected_user == user %}
+                            <div class="row mx-0">
+                                <a type="button" class="btn btn-dark btn-edit" href="{% url 'capturer:profileModify' selected_user.username %}" value="Edit profile">Edit profile</a>  
+                            </div>
+                            {% endif %}    
+                            <div class="row mx-0">
+                             {% if user_profile.gender == 'male' %}
+                                <span class="gender ml-3 fa fa-mars"></span>
+                            {% else %}
+                                <span class="gender ml-3 fa fa-venus"></span>
+                            {% endif %}
+                             </div>
                             </div>
 
-                    <div class="col">
-                    <br><br><br>
-                    {% if user_profile.gender == 'male' %}
-                        <i class="fa fa-mars" style="font-size:36px"></i>
-                    {% else %}
-                        <i class="fa fa-venus" style="font-size:36px"></i>
-                    {% endif %}
                     </div>
 
-                    </div>
                     <div class = "row mb-2 d-flex">
                         <span class="mt-0 ml-3 statistic">{{ album.count }} posts<span> 
-                        <span class="mt-0 ml-3 statistic">{{ user_profile.following.count }} followings</span>
-                        <span class="mt-0 ml-3 statistic">{{ follower_length }} follower<span>
+                        <span class="mt-0 ml-3 statistic">. {{ follower_length }} followers<span>
+                        <span class="mt-0 ml-3 statistic">. {{ user_profile.following.count }} followings</span>
+                        
                     </div>
                     <div class = "row mb-5 d-flex">
                         <p class="ml-3  descr">{{ user_profile.description }}</p>
@@ -195,12 +203,6 @@
                      <div class = "row d-flex">
                         <span class="mt-4 ml-3 contact"><span class="fas fa-home"></span> {{ user_profile.postcode }}</span>
                     </div>
-
-
-                    {% if selected_user == user %}
-                        <a type="button" class="btn btn-dark btn-edit" href="{% url 'capturer:profileModify' selected_user.username %}" value="Edit profile">Edit profile</a>
-                    {% endif %}
-
                 </div> 
 
 {% else %}

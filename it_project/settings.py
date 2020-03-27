@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'capturer.context_processor.nav_bar',
             ],
         },
     },

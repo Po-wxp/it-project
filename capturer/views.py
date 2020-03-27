@@ -29,10 +29,7 @@ def stable(request):
 
 def base_query():
     context_dict = {
-        'post_photo_form' : PhotoForm(),
-        'categories': Category.objects.all(), 
-        'tags': Tag.objects.all(),
-        'authors' : UserProfile.objects.all(), 
+        
     }
     return context_dict
 
@@ -442,14 +439,18 @@ class LikePhotoView(View):
 def collection(request, photo_id): 
     use_profile = stable(request)
     photo = Photo.objects.get(id=int(photo_id)) 
-    
+    print(photo_id)
     data = {}
     if use_profile.favorite.filter(id = photo.id).exists():
+
         use_profile.favorite.remove(photo)
         data['message'] = "2"
     else:
         use_profile.favorite.add(photo)
+
         data['message'] = "1"
+
+    print(use_profile.favorite.all())
     return JsonResponse(data, safe=False)
 
 
@@ -467,6 +468,8 @@ def follow(request, username):
         current_user_profile.following.add(selected_user)
         data['message'] = "1"
         # "You are now following {}".format(selected_user)
+
+    print(current_user_profile.favorite.all())
     return JsonResponse(data, safe=False)
 
 @login_required

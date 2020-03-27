@@ -79,7 +79,7 @@
                         {% for tag in photo_tags %}
                             <span class="fas fa-tag"></span>
                             <span> </span>
-                            <span class="photo-tag"><a href="{% url 'capturer:tag_photo' tag.name %}">{{ tag.name }}</a></span>
+                            <span class="photo-tag"><a href="/search/?q={{ tag.name }}">{{ tag.name }}</a></span>
                             <span> </span>
                         {% endfor %}
                     </p>
@@ -101,10 +101,10 @@
                     <span class="mx-4 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span>
                     {% if photo.author != user %}
                         {% if photo in profile.favorite.all %}
-                            <span class="collection-btn-unactive fas fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button" style="display:inline"></span>
+                            <span class="show_pic_collection-btn fas fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button" style="display:inline"></span>
                             
                         {% else %}
-                            <span class="collection-btn far fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id  %}" type="button"></span>
+                            <span class="show_pic_collection-btn far fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id  %}" type="button"></span>
                             
                         {% endif %}
                     {% endif %}

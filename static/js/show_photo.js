@@ -6,13 +6,19 @@ $(document).ready(function(){
     $('#review-btn').text(reviews+' reviews')
 })
 
+
+
+
+
 $(document).ready(function(){
     $('#show_pic_collection_btn').click(function() {
         $.get($(this).data('url'), function(response) {
+            console.log(response.message);
+            console.log("one");
             if(response.message == "2"){
-                $('#show_pic_collection_btn').removeClass( ).addClass("collection-btn far fa-bookmark");
+                $('#show_pic_collection_btn').removeClass( ).addClass("show_pic_collection-btn far fa-bookmark");
             }else if (response.message == "1"){     
-                $('#show_pic_collection_btn').removeClass( ).addClass("collection-btn-unactive fas fa-bookmark");
+                $('#show_pic_collection_btn').removeClass( ).addClass("show_pic_collection-btn fas fa-bookmark");
             }
             
         });
@@ -23,11 +29,11 @@ $(document).ready(function(){
 $(document).ready(function(){
     $(".collection-btn").click(function() {    
         $.get($(this).data('url'), function(response) {
-            if ($(".collection-btn").hasClass("fas")){
+            if(response.message == "2"){
                 $(".collection-btn").removeClass( ).addClass("collection-btn favorite far fa-bookmark");
-            }else{
-            $(".collection-btn").removeClass( ).addClass("collection-btn favorite fas fa-bookmark");
-            }   
+            }else if (response.message == "1"){     
+                $(".collection-btn").removeClass( ).addClass("collection-btn favorite fas fa-bookmark");
+            }
         });    
     });
 })
@@ -161,6 +167,12 @@ $(document).ready(function(){
         $('#back-btn').css("display","none");           
     });
 })
+
+
+
+
+
+
 $(document).ready(function(){
     $('#review-back-btn').click(function(){
         $('#pic').show();
@@ -176,11 +188,11 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $('#follow-button').click(function() {
+
         $.get($(this).data('url'), function(response) {
-            $('.message-section').text(response.message);
-            if($('.message-section').text() == "2"){
+            if(response.message == "2"){
                 $('#follow-button').attr("value","Follow")
-            }else if ($('.message-section').text() == "1"){
+            }else if (response.message == "1"){
                 $('#follow-button').attr("value","Cancel Follow")
             }
         });
