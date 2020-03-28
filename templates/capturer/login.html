@@ -22,12 +22,12 @@
                 <div  class = "row mx-0  mt-2 mb-1">
                     <div class ="col">
                         <a class="register">Don't have an account? </a>
-                        <a class="register font-weight-normal" href="{% url 'capturer:register' %}" style="font-family: 'Roboto', sans-serif; font-size:0.9rem ;color:rgba(62, 120, 240, 0.9);">Sign up</a>
+                        <a class="register font-weight-normal" href="{% url 'capturer:register' %}" style="font-family: 'Roboto', sans-serif; font-size:0.9rem ;color:rgba(62, 120, 240, 0.9); cursor: pointer">Sign up</a>
                     
                 <label for="inputEmail" class="sr-only" >Username</label>
-                <input name="username" type="text" id="inputEmail" class="form-control mt-1" placeholder="User name" required autofocus style="font-family: 'Roboto', sans-serif; font-size:0.6rem ;">
+                <input name="username" type="text" id="inputEmail" class="form-control mt-1" placeholder="User name" required autofocus style="font-family: 'Roboto', sans-serif;font-size:0.8rem ;">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="password" id="inputPassword" class="form-control mt-2 " placeholder="Password" required style="font-family: 'Roboto', sans-serif; font-size:0.6rem ;">
+                <input type="password" name="password" id="inputPassword" class="form-control mt-2 " placeholder="Password" required style="font-family: 'Roboto', sans-serif;font-size:0.8rem ;">
                 <!--
                 <div class="checkbox mb-1">
                     <label style="font-size:0.8rem; pb-1"> 
@@ -35,7 +35,7 @@
                     </label>
                 </div>
                 -->
-                <button class="btn  btn-dark btn-block mb-2" type="submit" style="font-family: 'Raleway', sans-serif; font-size:0.7rem ;">Sign in</button>
+                <button class="btn  btn-dark btn-block mb-2" type="submit" style="font-family: 'Raleway', sans-serif; font-size:0.8rem ;">Sign in</button>
                 </div>
                 </div>
                 <div class="row mx-0 mt-1">
@@ -43,9 +43,9 @@
                     <ul class = "login-option">
                         <li>
                             <a class="mb-2" style="color:black;">Login with </a>
-                            <a  href="{% url "social:begin" "github" %}" ><span class="fab fa-github"></span>  GitHub</a>
+                            <a  href="{% url "social:begin" "github" %}"   style="cursor: pointer"><span class="fab fa-github"></span>  GitHub</a>
                             <a class="mt-5 mb-3" style="color:black;" > or </a >
-                            <a href="{% url "social:begin" "google-oauth2" %}"><span class="fab fa-google"></span> Google</a>
+                            <a href="{% url "social:begin" "google-oauth2" %}" style="cursor: pointer"><span class="fab fa-google"></span> Google</a>
                         </li>
                         <li class="mt-4 mb-2 text-muted">&copy; 2020-2020</li>
                     </ul>
