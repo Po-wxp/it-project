@@ -24,8 +24,8 @@
             {% csrf_token %} 
             {{ form.as_p }}
         <div class="row pt-3">
-            <a class="btn btn-dark edit-btn mr-2" href="javascript:history.back()" type="button" name="" value="" />Back</a>
-            <button class="btn btn-dark edit-btn" type="submit" name="submit" value="Update" />Submit</button>
+            <a class="btn btn-dark edit-btn mr-2" id="modify-btn" href="javascript:history.back()" type="button" name="" value="" />Back</a>
+            <button class="btn btn-dark edit-btn" id="modify-btn" type="submit" name="submit" value="Update" />Submit</button>
         </div>
 
         </form>

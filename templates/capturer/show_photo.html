@@ -97,8 +97,8 @@
                     <span class=" ml-auto date">{{ photo.Date }}</span>
                 </div>
                 <div class=" action row mx-0 my-1 ">
-                    <span class="show-pic-like-btn far fa-heart" id="show_pic_like_btn" data-photoid="{{ photo.id }}"></span>
-                    <span class="mx-4 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span>
+                    <span class="show-pic-like-btn far fa-heart mr-3" id="show_pic_like_btn" data-photoid="{{ photo.id }}"></span>
+                    {% comment %} <span class="mx-4 comment-btn far fa-comment" id="com_btn" data-photoid="{{ photo.id }}"></span> {% endcomment %}
                     {% if photo.author != user %}
                         {% if photo in profile.favorite.all %}
                             <span class="show_pic_collection-btn fas fa-bookmark" id="show_pic_collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button" style="display:inline"></span>
@@ -181,13 +181,17 @@
                                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                                 <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
                                 <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
-                                <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
+                                <div class= "like-btn" data-photoid="{{ photo.id }}">
+                                    <span class=" far like fa-heart" id="" ></span>
+                                </div>
                                 {% if photo.author != user %}
-                                    {% if photo in profile.favorite.all %}
-                                        <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
-                                    {% else %}
-                                        <span class="collection-btn favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
-                                    {% endif %}
+                                    <div class= "collection-btn" data-url="{% url 'capturer:collection' photo.id %}" type="button">
+                                        {% if photo in profile.favorite.all %}
+                                            <span class=" favorite fas fa-bookmark"  ></span>
+                                        {% else %}
+                                            <span class=" favorite far fa-bookmark" ></span>
+                                        {% endif %}
+                                    </div>
                                 {% endif %}
                             </div>
                         {% endfor %}

@@ -14,3 +14,10 @@ $(document).ready(function(){
            }
     });
 });
+
+
+
+$(document).ready(function(){$('#modify-btn').click(function() {
+       menuClicked = 5;      
+       localStorage.setItem("menuClicked", menuClicked);
+   });});

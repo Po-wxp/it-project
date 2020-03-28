@@ -236,6 +236,7 @@ input:focus
   
   .photo_area{
     text-align: center;
+
   }
  
 
@@ -257,36 +258,7 @@ input:focus
         width: 24.73%; float: left;
     }
   }
-  .card-img{
-    height: 30rem;
-    width:100%;
-    border-radius: 8px; 
-    object-fit: cover;
-    overflow: hidden;
-  }
-  .card .category{
-    position: absolute;
-    top:3%;
-    left: 5%;
-    opacity: 0;
-
-    color:white;
-    text-align: center;
-    width: auto;
-    padding: 0.2em;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    line-height: 2rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    font-family: 'Roboto', sans-serif;
-    text-align: left;
-    vertical-align: bottom;
-    border-radius: 30px;
-    overflow: hidden;
-    background-color:rgb(114,114,114,0.3);
-}
-
+  
 .card:hover .category{
     opacity: 0.7;
 
@@ -311,6 +283,35 @@ input:focus
     height: 2rem;
 }
   
+.card-img{
+    height: 30rem;
+    width:100%;
+    border-radius: 8px; 
+    object-fit: cover;
+    overflow: hidden;
+  }
+  .card .category{
+    position: absolute;
+    top:3%;
+    left: 5%;
+    opacity: 0;
+
+    color:white;
+    text-align: center;
+    width: auto;
+    padding: 0.2em;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    vertical-align: bottom;
+    border-radius: 30px;
+    overflow: hidden;
+    background-color:rgb(114,114,114,0.3);
+}
 
 
   .card .author{
@@ -771,9 +772,10 @@ padding-left: 1rem;
     padding-top:0rem;
     padding-left:0rem;
     padding-right:1.5rem;
-    padding-bottom:0.2rem;
+    padding-bottom:0.5rem;
     width: 100%;
     border-bottom: 0.02142857rem solid #bbb;
+
   }
 
   .account-nav ul { 
@@ -789,7 +791,7 @@ padding-left: 1rem;
   .account-nav li { 
     display: table-cell; 
     position: relative; 
-    padding-bottom:10px;
+    padding-bottom:1rem;
   }
   .account-nav a {
     color: black;
@@ -799,10 +801,12 @@ padding-left: 1rem;
     letter-spacing: 0.15em;
     font-size: 1rem;
     display: inline-block;
-    padding-right: 20px;
-    padding-left: 20px;
-    padding-top:20px;
-    padding-bottom:10px;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    padding-top:2rem;
+    padding-bottom:0.3rem;
     position: relative;
   }
   .account-nav a:after {    
@@ -818,11 +822,27 @@ padding-left: 1rem;
     width: 0%; 
 
   }
-  .account-nav a:hover:after { 
+
+.account-nav a:hover:after { 
     width: 100%; 
     left: 0; 
 
-  }
+}
+    a.account-nav-click:after { 
+        background: none repeat scroll 0 0 transparent;
+        bottom: 0;
+        content: "";
+        display: block;
+        height: 0.05rem;
+        left: 50%;
+        position: absolute;
+        background: rgba(60, 60, 60, 0.7);
+        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        width: 100%; 
+        left: 0rem; 
+    }
+
+  
 
 
 
@@ -1269,12 +1289,18 @@ padding-left: 1rem;
 }
 
 .photoPage .panel  .action{
-    font-size: 2rem;
+    font-size: 1.5rem;
+
+
+}
+
+.photoPage .panel .action .show-pic-like-btn{
 
 
 }
 .photoPage .panel .action .show-pic-like-btn:hover{
     color:  rgba(238, 73, 87, 0.8);
+
 
 }
 
@@ -1671,10 +1697,12 @@ a:hover{
   .dropdown-content {
     position: absolute;
     display: none;
+    height: 9rem;
     background-color: white;
     width: 100%;
     border: 0.05rem solid #bbb;
     z-index: 1;
+    overflow:scroll;
   }
   
   /* Links inside the dropdown */
@@ -1806,6 +1834,7 @@ a:hover{
     bottom:0.5rem;
     left: 0;
     margin-top: auto;
+    font-size: 1.5rem;
 }
 
 .profile-area .info-area .contact{

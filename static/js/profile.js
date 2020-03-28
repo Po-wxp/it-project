@@ -13,17 +13,7 @@ $(document).ready(function(){
     });
 })
 
-$(document).ready(function(){
-    $(".collection-btn").click(function() {    
-        $.get($(this).data('url'), function(response) {
-            if(response.message == "2"){
-                $(".collection-btn").removeClass( ).addClass("collection-btn favorite far fa-bookmark");
-            }else if (response.message == "1"){     
-                $(".collection-btn").removeClass( ).addClass("collection-btn favorite fas fa-bookmark");
-            }
-        });    
-    });
-})
+
 
 
 
@@ -60,19 +50,6 @@ $(document).ready(function(){
     })
 
 
-$(document).ready(function() { 
-    $('.like-btn').click(function() { 
-        var IdVar; 
-        IdVar = $(this).attr('data-photoid');
-        var btn = this;
-        $.get('/capturer/like_photo/', 
-            {'photo_id': IdVar}, 
-            function(data) { 
-                $('#like_count').html("Likes "+data); 
-                $(btn).replaceWith('<span class="like fas fa-heart"></span>'); 
-            })
-    });
-});
 
 
 
@@ -115,17 +92,6 @@ function clear(){
 };
 
 
-$(document).ready(function(){
-    $('#btn-Profile').click(function() {
-        $('.profile-area').show();
-        $('.account-nav').css("top","3.8rem");   
-        $('.account-nav').css("position","fixed");
-        $('.account-nav').css("z-index","1031");
-        $('.account-nav').css("borderBottom","0.02142857rem solid #bbb");
-        $('.photo_area').hide();
-        favoritedClicked = false;
-    });
-});
 
 var menuClicked = localStorage.getItem("menuClicked");
 
@@ -133,22 +99,28 @@ $(document).ready(function(){
     console.log(menuClicked);
     if (menuClicked==1) {
         showAlbum();       
-        $('#btn-Album a').addClass('hover');
+        $('#btn-Album a').addClass('account-nav-click');
     }
     else if (menuClicked==2) {
         console.log( "showFavorite");
         showFavorite();
+        $('#btn-Favorite a').addClass('account-nav-click');
     }
     else if (menuClicked==3) {
         showReview();
+        $('#btn-Review a').addClass('account-nav-click');
     }
     else if (menuClicked==4) {
         showFollowing();
+        $('#btn-Following a').addClass('account-nav-click');
+    }
+    else if (menuClicked==5) {
+        showProfile();
+        $('#btn-Profile a').addClass('account-nav-click');
     }
 });
 
 $(document).ready(function(){$('#btn-Album').click(function() {
-    
     menuClicked = 1;      
     localStorage.setItem("menuClicked", menuClicked);
     location.reload();
@@ -175,7 +147,11 @@ $(document).ready(function(){$('#btn-Following').click(function() {
     location.reload();
 });});
 
-
+$(document).ready(function(){$('#btn-Profile').click(function() {
+    menuClicked = 5;      
+    localStorage.setItem("menuClicked", menuClicked);
+    location.reload();
+});});
 
 
 function showAlbum(){
@@ -202,4 +178,13 @@ function showFollowing(){
     $('.photo_area').show();
     clear();
     $('#following_area').show();            
+}
+
+function showProfile(){
+        $('.profile-area').show();
+        $('.account-nav').css("top","3.8rem");   
+        $('.account-nav').css("position","fixed");
+        $('.account-nav').css("z-index","1031");
+        $('.account-nav').css("borderBottom","0.02142857rem solid #bbb");
+        $('.photo_area').hide();       
 }

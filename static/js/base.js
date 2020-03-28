@@ -9,7 +9,7 @@ if (typeof(accountNav) != 'undefined' && accountNav != null)
         console.log("s");
         var accountNavBottom = accountNav.getBoundingClientRect().bottom+50;
         if (prevScrollpos > currentScrollPos) {
-            console.log("hey");
+
             document.getElementById("navbar").style.top = "0";
             document.getElementById("navbar").style.borderBottom="0rem solid #bbb";
         
@@ -48,8 +48,15 @@ $("#categories_menu").on('click', 'a', function(){
         $("#dropdownMenuButton").val($(this).data('value'));
 });    
 
-        //Create the input element
 
+var menuClicked = localStorage.getItem("menuClicked");
+        //Create the input element
+$(document).ready(function(){
+        if (!$('#btn-Album').length){
+                menuClicked=1;
+                localStorage.setItem("menuClicked", menuClicked);
+        }
+});
 
 $(document).ready(function(){
         console.log("21");    
@@ -160,3 +167,34 @@ $(document).ready(function(){
             }
         });
 });
+
+
+        $(document).ready(function(){
+                $(".collection-btn").click(function() {    
+                var btn = $(this).children('span')
+                $.get($(this).data('url'), function(response) {
+                        console.log($(this).children());
+                        if(response.message == "2"){              
+                        btn.removeClass( ).addClass("favorite far fa-bookmark");
+                        }else if (response.message == "1"){     
+                        btn.removeClass( ).addClass("favorite fas fa-bookmark");
+                        }
+                });    
+                });
+        })
+
+    $(document).ready(function() { 
+        $('.like-btn').click(function() { 
+            var IdVar; 
+            IdVar = $(this).attr('data-photoid');
+            var btn = this;
+            $.get('/capturer/like_photo/', 
+                {'photo_id': IdVar}, 
+                function(data) { 
+                    $('#like_count').html("Likes "+data); 
+                    console.log("hey")
+                    $(btn).children('span').removeClass().addClass('like fas fa-heart'); 
+                })
+        });
+    });
+    

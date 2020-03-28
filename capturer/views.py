@@ -65,8 +65,6 @@ def index(request):
     for x in category8_photo_list:
         top_photos.append(x)
 
-    print(top_photos)
-    print(category8_photo_list)
     context_dict = {'category1': category1_photo_list, 'category2': category2_photo_list,
                     'category3': category3_photo_list, 'category4': category4_photo_list,
                     'category5': category5_photo_list, 'category6': category6_photo_list,

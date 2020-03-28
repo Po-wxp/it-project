@@ -25,36 +25,37 @@ $(document).ready(function(){
     });
 })
 
-
-$(document).ready(function(){
-    $(".collection-btn").click(function() {    
-        $.get($(this).data('url'), function(response) {
-            if(response.message == "2"){
-                $(".collection-btn").removeClass( ).addClass("collection-btn favorite far fa-bookmark");
-            }else if (response.message == "1"){     
-                $(".collection-btn").removeClass( ).addClass("collection-btn favorite fas fa-bookmark");
-            }
-        });    
-    });
-})
-
-
+// in base.js
+// $(document).ready(function(){
+//     $(".collection-btn").click(function() {    
+//         $.get($(this).data('url'), function(response) {
+//             if(response.message == "2"){
+//                 $(".collection-btn span").removeClass( ).addClass("collection-btn favorite far fa-bookmark");
+//             }else if (response.message == "1"){     
+//                 $(".collection-btn span").removeClass( ).addClass("collection-btn favorite fas fa-bookmark");
+//             }
+//         });    
+//     });
+// })
 
 
-//for related picts
-$(document).ready(function() { 
-    $('.like-btn').click(function() { 
-        var IdVar; 
-        IdVar = $(this).attr('data-photoid');
-        var btn = this;
-        $.get('/capturer/like_photo/', 
-            {'photo_id': IdVar}, 
-            function(data) { 
-                $('#like_count').html("Likes "+data); 
-                $(btn).replaceWith('<span class="like fas fa-heart"></span>'); 
-            })
-    });
-});
+
+// //for related picts
+// $(document).ready(function() { 
+//     $('.like-btn').click(function() { 
+//         var IdVar; 
+//         IdVar = $(this).attr('data-photoid');
+//         var btn = this;
+//         $.get('/capturer/like_photo/', 
+//             {'photo_id': IdVar}, 
+//             function(data) { 
+//                 $('#like_count').html("Likes "+data); 
+//                 console.log("hey")
+//                 $(btn).children('span').removeClass().addClass('like fas fa-heart'); 
+//             })
+//     });
+// });
+
 
 
 
@@ -67,7 +68,7 @@ $(document).ready(function() {
             {'photo_id': IdVar}, 
             function(data) { 
                 $('#like_count').html("Likes "+data); 
-                $(btn).replaceWith('<span class="like-btn fas fa-heart"></span>'); 
+                $(btn).replaceWith('<span class="like-btn fas fa-heart mr-3"></span>'); 
             })
     });
 });
