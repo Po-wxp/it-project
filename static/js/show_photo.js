@@ -83,53 +83,53 @@ $(document).ready(function(){
     });
 })
 
-$(document).ready(function(){
-    $('#review_form').submit(function(event) {
-        event.preventDefault();
-        $('.error-message').text('');
-        CKEDITOR.instances['id_content'].updateElement();
-        
-        $.ajax({
-            url: "{% url 'capturer:upload_comment' photo.id %}",
-            type: 'POST',
-            data: $(this).serialize(),
-            // async: false,
-            success: function(data){
-                console.log(data);
-                if(data['status']=="success"){ 
-                    review_html =  '<div class=\"rol mx-0 mb-4\">'+
-                                    '<div class=\"col mx-0 px-0 d-flex\">'+
-                            '<a href=\"{% url \'capturer:profile\' '+ data['profile_name'] +'\">'+
-                            '<img class=\"review-avatar\"src=\"' + data['profile_avatar'] +'\" alt=\"Avatar\" />'+'</a>'+
-                            '<div class=\"col mx-0\" style=\"\">'+
-                                '<div class=\"row mx-0\">'+
-                                '<a class=\"review-author\" href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">' + data['profile_name'] +'&nbsp;</a>'+
-                                '<div class=\"review-content\">'+
-                                    data['content']+
-                                '</div>'+
-                                '</div>'+
-                                '<div class=\"row mx-0\">'+
-                                    '<span class=\"review-time\">' +' ' +data['date'] + ':'+'</span>'+
-                                '</div>'+
-                            '</div>'+                               
-                        '</div>'+                          
-                        '</div>';
-                    $('#show_reviews').prepend(review_html)
-
-                    CKEDITOR.instances['id_content'].setData('');
-                    reviews=reviews+1;
-                        $('#review-btn').text(reviews+' reviews');
-                }else{
-                    $('.error-message').text(data['message']).show();
-                }
-            },
-            error: function(xhr){
-                console.log(data);
-            }
-        });
-        return false;
-    });
-})
+//$(document).ready(function(){
+//    $('#review_form').submit(function(event) {
+//        event.preventDefault();
+//        $('.error-message').text('');
+//        CKEDITOR.instances['id_content'].updateElement();
+//        
+//        $.ajax({
+//            url: "{% url 'capturer:upload_comment' photo.id %}",
+//            type: 'POST',
+//            data: $(this).serialize(),
+//            // async: false,
+//            success: function(data){
+//                console.log(data);
+//                if(data['status']=="success"){ 
+//                    review_html =  '<div class=\"rol mx-0 mb-4\">'+
+//                                    '<div class=\"col mx-0 px-0 d-flex\">'+
+//                            '<a href=\"{% url \'capturer:profile\' '+ data['profile_name'] +'\">'+
+//                            '<img class=\"review-avatar\"src=\"' + data['profile_avatar'] +'\" alt=\"Avatar\" />'+'</a>'+
+//                            '<div class=\"col mx-0\" style=\"\">'+
+//                                '<div class=\"row mx-0\">'+
+//                                '<a class=\"review-author\" href=\"{% url \'capturer:profile\''+ data['profile_name'] +'\">' + data['profile_name'] +'&nbsp;</a>'+
+//                                '<div class=\"review-content\">'+
+//                                    data['content']+
+//                                '</div>'+
+//                                '</div>'+
+//                                '<div class=\"row mx-0\">'+
+//                                    '<span class=\"review-time\">' +' ' +data['date'] + ':'+'</span>'+
+//                                '</div>'+
+//                            '</div>'+                               
+//                        '</div>'+                          
+//                        '</div>';
+//                    $('#show_reviews').prepend(review_html)
+//
+//                    CKEDITOR.instances['id_content'].setData('');
+//                    reviews=reviews+1;
+//                        $('#review-btn').text(reviews+' reviews');
+//                }else{
+//                    $('.error-message').text(data['message']).show();
+//                }
+//            },
+//            error: function(xhr){
+//                console.log(data);
+//            }
+//        });
+//        return false;
+//    });
+//})
 
 jQuery.fn.center = function () {
 this.css("position","absolute");

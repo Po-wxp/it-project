@@ -1442,7 +1442,7 @@ a:hover{
 .photoPage #review_form .review-submit-btn{
     position: absolute;
     top:0.5rem;
-    right:0.5rem;
+    right:0.8rem;
     font-size: 1.2rem;
     color:rgba(1, 1, 1, 0.6);
     background-color: #fff;
