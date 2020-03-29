@@ -531,7 +531,7 @@ input{
     font-weight: 400;
     color: rgb(30,30,30,0.9);
     font-family: 'Playfair Display', serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     padding-top: 3rem;
     padding-bottom: 2rem;
 }
@@ -688,7 +688,7 @@ padding-left: 1rem;
 
 }
 .profile_page{
-    margin-top: 4.2rem;
+    margin-top: 4.15rem;
 }
 .profile-data .name{
     font-family: 'Roboto', sans-serif;
@@ -752,7 +752,7 @@ padding-left: 1rem;
 
 
 .profile-container{
-    background-color: rgba(6, 22, 87, 0.5);
+    background-color: rgba(6, 22, 87, 0.8);
 }
 
 .profile-background{
@@ -772,7 +772,7 @@ padding-left: 1rem;
     padding-top:0rem;
     padding-left:0rem;
     padding-right:1.5rem;
-    padding-bottom:0.5rem;
+    padding-bottom:0rem;
     width: 100%;
     border-bottom: 0.02142857rem solid #bbb;
 
@@ -1192,6 +1192,7 @@ padding-left: 1rem;
     float: left;
     min-height:300px; 
 
+
 }
 
  .relate-title{
@@ -1201,7 +1202,7 @@ padding-left: 1rem;
     font-weight: 400;
     color: rgb(160,160,160,0.8);
     font-family: 'Roboto', sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
@@ -1253,6 +1254,10 @@ padding-left: 1rem;
     font-size: 0.5rem;
     font-family: 'Raleway', sans-serif;
     color:   rgb(114, 114, 120, 0.9);
+    cursor: pointer;
+}
+.photoPage .panel .category:hover{
+    opacity: 0.7;
 }
 
 .photoPage .panel .date{
@@ -1273,13 +1278,20 @@ padding-left: 1rem;
 .photoPage .photo-tag-area{
     color:   rgb(30, 40, 120, 0.9);
     font-size: 1.5rem;
+    padding-top: 1rem;
 }
 
-.photoPage .photo-tag{
+.photoPage .photo-tag a{
 
     font-family: 'Raleway', sans-serif;
-
+    color:   rgb(30, 40, 120, 0.9);
+    cursor: pointer;
 }
+
+.photoPage .photo-tag a:hover{
+    opacity: 0.5;
+}
+
 .photoPage .panel{
     width: 30%;
     float: left;
@@ -1300,8 +1312,8 @@ padding-left: 1rem;
 
 }
 .photoPage .panel .action .show-pic-like-btn:hover{
-    color:  rgba(238, 73, 87, 0.8);
-
+    /* color:  rgba(238, 73, 87, 0.8); */
+    opacity: 0.3;
 
 }
 
@@ -1310,9 +1322,9 @@ padding-left: 1rem;
 
 }
 
-.photoPage .panel .action .collection-btn:hover{
-    color:  rgba(238, 73, 87, 0.8);
-
+.photoPage .panel .action .show_pic_collection-btn:hover{
+    /* color:  rgba(238, 73, 87, 0.8); */
+    opacity: 0.3;
 }
 .photoPage .author .author-avatar {
     width:6rem;
@@ -1342,7 +1354,7 @@ text-overflow: ellipsis;
     cursor: pointer;
 }
 .photoPage .panel  .review_title:hover{
-    color:   rgb(30, 40, 120, 0.9);
+    color: black;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -1418,6 +1430,7 @@ a:hover{
 .photoPage{
     height: 100%;
     box-shadow: 0px 1px 3px rgba(114, 114, 114, 0.1);
+    margin-top: 3rem;
 }
 #cke_1_contents{
     height: 5rem!important;
@@ -1647,8 +1660,8 @@ a:hover{
 }
 .post-photo .btn-post-close{
     position: absolute;
-    right:0;
-    top:0;
+    right:1.5rem;
+    top:1.5rem;
 }
 
 
@@ -1799,8 +1812,7 @@ a:hover{
     width: 100%;
 
     height: 100%;
-    border-radius: 8px;     
-    -webkit-mask-image: -webkit-radial-gradient(center, white, black)
+   
 }
 .profile-area .info-area{
     width: 60%;

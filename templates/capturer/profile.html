@@ -20,15 +20,20 @@
     <div class="profile_page"></div>
     {% if user_profile %}
                 <div class="position-relative overflow-hidden px-0 profile-container">
+                    {% if best_photo%}
                     {% for photo in best_photo%}
                         <img class = "profile-background img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"  >
                     {% endfor %}
+                    {% else %}
+                        <img class = "profile-background img-fluid" src="{% static "default-img/white.jpg" %}" style="opacity:0.3;" >
+                    {% endif %}
                      <div class="media profile">
                         
                         <div class = "profile-avatar">
+                            {% if user_profile.image%}
                             <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}" >
-                            {% if selected_user == user %}
-                                <a class="edit ml-0" href="{% url 'capturer:index' %}"><img class="edit ml-0" src="/static/icon/icon-edit.svg"  /></a>
+                            {% else %}
+                            <img class ="photo" src="{% static "default-img/avatar.png" %}"  >
                             {% endif %}
                         </div>
                         <div class="media-body text light profile-data">
@@ -73,7 +78,13 @@
                                 <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                                 <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
-                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
+                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}">
+                                {% if photo.author.userprofile.image%}
+                                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />
+                                {% else %}
+                                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+                                {% endif %}                               
+                                &nbsp{{ photo.author.username }}</a>
                                 <div class= "like-btn" data-photoid="{{ photo.id }}">
                                     <span class=" far like fa-heart" id="" ></span>
                                 </div>
@@ -100,7 +111,13 @@
                                 <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                                 <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
-                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
+                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}">
+                                {% if photo.author.userprofile.image%}
+                                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />
+                                {% else %}
+                                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+                                {% endif %}  
+                                &nbsp{{ photo.author.username }}</a>
                                 <div class= "like-btn" data-photoid="{{ photo.id }}">
                                     <span class=" far like fa-heart" id="" ></span>
                                 </div>
@@ -126,7 +143,13 @@
                             <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                             <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                             <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
-                            <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
+                            <a class="author" href="{% url 'capturer:profile' photo.author.username %}">
+                            {% if photo.author.userprofile.image%}
+                                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />
+                                {% else %}
+                                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+                                {% endif %}  
+                                &nbsp{{ photo.author.username }}</a>
                             <div class= "like-btn" data-photoid="{{ photo.id }}">
                                 <span class=" far like fa-heart" id="" ></span>
                             </div>
@@ -153,7 +176,13 @@
                                 <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                                 <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
-                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
+                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}">
+                                {% if photo.author.userprofile.image%}
+                                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />
+                                {% else %}
+                                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+                                {% endif %}  
+                                &nbsp{{ photo.author.username }}</a>
                                 <div class= "like-btn" data-photoid="{{ photo.id }}">
                                     <span class=" far like fa-heart" id="" ></span>
                                 </div>
@@ -176,7 +205,12 @@
 
                 <div class=" profile-area flex-md-equal">
                     <div class ="avatar-big-area">
-                        <img class ="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}">
+                        {% if user_profile.image%}
+                                    <img class="photo" src="{{ MEDIA_URL }}{{ user_profile.image }}" alt="Avatar" />
+                                {% else %}
+                                    <img class = "photo" src="{% static "default-img/avatar-profile.png" %}"  >
+                                {% endif %}  
+                                &nbsp{{ photo.author.username }}
  
                     </div>
 

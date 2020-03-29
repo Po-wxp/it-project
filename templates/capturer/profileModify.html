@@ -18,7 +18,12 @@
     {% if selected_user == user %} 
     <a class="mr-auto mx-0 mt-2 ml-1 " style = " font: 300 4rem 'Playfair Display SC', serif; color:black;">Edit your Profile</a>
         <div class="mb-3" style="width:100%">
-            <img class="edit-avatar" src="{{MEDIA_URL }}{{selected_user.userprofile.image}}"/>
+            {% if selected_user.userprofile.image%}
+                <img class="edit-avatar" src="{{MEDIA_URL }}{{selected_user.userprofile.image}}"/>
+            {% else %}
+                <img class = "edit-avatar" src="{% static "default-img/avatar.png" %}"  >
+            {% endif %}                               
+
         </div>
         <form class = "edit-profile-form"method="post" action="." enctype="multipart/form-data"> 
             {% csrf_token %} 

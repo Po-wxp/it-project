@@ -17,7 +17,13 @@ SearchPage
                 <a href="{% url 'capturer:show_photo' result.object.Category.slug result.object.id %}">
                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ result.object.Image }}"/></a>  
                 <a class="category" href="{% url 'capturer:show_category' result.object.Category.slug %}" >{{ result.object.Category }}<a class="far fa-arrow"></a></a>
-                <a class="author" href="{% url 'capturer:profile' result.object.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ result.object.author.userprofile.image }}" alt="Avatar" />&nbsp{{ result.object.author.username }}</a>
+                <a class="author" href="{% url 'capturer:profile' result.object.author.username %}">
+                {% if result.object.author.userprofile.image%}
+                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ result.object.author.userprofile.image }}" alt="Avatar" />
+                {% else %}
+                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+               {% endif %}  
+                &nbsp{{ result.object.author.username }}</a>
                 <div class= "like-btn" data-photoid="{{ result.object.id }}">
                     <span class=" far like fa-heart" id="" ></span>
                 </div>

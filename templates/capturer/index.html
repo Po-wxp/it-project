@@ -26,9 +26,10 @@ Homepage
      </div>
     <div class="row w-100 mx-0 ">
         <h6 class="mt-0 ml-3 title ">Capturer</h5>
-    </div> 
-     <div class="most-popular-sub w-100 ">
-        {% for photo in most_popular_sub %}
+    </div>
+    
+    
+        {% comment %} {% for photo in most_popular_sub %}
             <div class="col px-0 py-0  most-popular-sub-card" >  
             <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                 <img class="img_cover " src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>
@@ -37,12 +38,42 @@ Homepage
                     <span >{{ photo.Title }}</span>
                 </div>
             </div>
+        {% endfor %} {% endcomment %}
+        <div class="pt-1 photo_area flex-md-equal">
+        {% for photo in all_photos %}
+            <div class="col px-0 py-0  card" id="">  
+                                <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
+                                <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
+                                <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
+                                <a class="author" href="{% url 'capturer:profile' photo.author.username %}">
+                                {% if photo.author.userprofile.image%}
+                                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />
+                                {% else %}
+                                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+                                {% endif %}  
+                            
+                                &nbsp{{ photo.author.username }}</a>
+                                <div class= "like-btn" data-photoid="{{ photo.id }}">
+                                    <span class=" far like fa-heart" id="" ></span>
+                                </div>
+                                {% if photo.author != user %}
+                                    <div class= "collection-btn" data-url="{% url 'capturer:collection' photo.id %}" type="button">
+                                        {% if photo in profile.favorite.all %}
+                                            <span class=" favorite fas fa-bookmark"  ></span>
+                                        {% else %}
+                                            <span class=" favorite far fa-bookmark" ></span>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
         {% endfor %}
-    </div>
-    <div class="row w-100 mx-0 ">
-        <h6 class="mt-0 ml-3 cat-title ">Discover our categories</h5>
-    </div> 
-    <div class="row w-100 mb-3 mx-0">
+        </div>
+        <div class="row w-100 mx-0 ">
+            <h6 class="mt-0 ml-3 cat-title ">Discover more</h5>
+        </div> 
+        <div class="row w-100 mb-3 mx-0">
+        
         {% for photo in top_cat_photos %}
             <div class="col px-0 py-0  top-card" >  
                 <div class="img-box" >  
@@ -58,6 +89,7 @@ Homepage
             </div>
         {% endfor %}
     </div>
+    
      </div>
 
 
