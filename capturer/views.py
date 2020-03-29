@@ -36,9 +36,8 @@ def base_query():
 def index(request):
     context_dict = {}
 
-    most_popular_sub = Photo.objects.order_by('-views')[:3]
     most_popular=Photo.objects.order_by('-Like')[:1]
-    all_photos = Photo.objects.order_by('-Like')
+    all_photos = Photo.objects.order_by('-Date')[:18]
     category1_photo_list = Photo.objects.filter(Category = Category.objects.get(id=1)).order_by('-Like')[:1]
     category2_photo_list = Photo.objects.filter(Category = Category.objects.get(id=2)).order_by('-Like')[:1]
     category3_photo_list = Photo.objects.filter(Category = Category.objects.get(id=3)).order_by('-Like')[:1]
@@ -69,7 +68,7 @@ def index(request):
                     'category3': category3_photo_list, 'category4': category4_photo_list,
                     'category5': category5_photo_list, 'category6': category6_photo_list,
                     'category7': category7_photo_list, 'category8': category8_photo_list,
-                    'top_cat_photos':top_photos, 'most_popular_sub' : most_popular_sub,
+                    'top_cat_photos':top_photos,
                     'most_popular': most_popular, 'all_photos': all_photos,
                      'profile':stable(request),
                     }
@@ -296,9 +295,9 @@ def profile(request, username):
         follower = set()
         users = User.objects.all()
         for u in users:
-            profile  = UserProfile.objects.get_or_create(user=u)[0]
+            profile  = u.userprofile
             followers = profile.following.all()
-            if u in followers:
+            if user in followers:
                 follower.add(u)
             
         # print(followingAuthorsPhoto)
