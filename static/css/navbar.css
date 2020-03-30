@@ -355,14 +355,14 @@ input:focus
     border: 0rem solid rgba(255, 255, 255, 1);
   }
   .card span{
-    width: 2.5rem;
-    height: 2.5rem;
-    line-height:2.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height:2.2rem;
   }
 
 .card .favorite{
     position: absolute;
-    top:90%;
+    top:89%;
     left: 80%;
     opacity: 0;
     vertical-align: middle;
@@ -384,7 +384,7 @@ input:focus
 .card .like{
     position: absolute;
     opacity:0;
-    top:90%;
+    top:89%;
     left: 88%;
     vertical-align: middle;
     text-align: center;
