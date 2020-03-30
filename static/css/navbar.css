@@ -318,7 +318,7 @@ input:focus
 
   .card .author{
     position: absolute;
-    top:86%;
+    top:90%;
     left: 5%;
     opacity: 0;
     padding-left: 0.5rem;
@@ -362,7 +362,7 @@ input:focus
 
 .card .favorite{
     position: absolute;
-    top:85%;
+    top:90%;
     left: 80%;
     opacity: 0;
     vertical-align: middle;
@@ -384,7 +384,7 @@ input:focus
 .card .like{
     position: absolute;
     opacity:0;
-    top:85%;
+    top:90%;
     left: 88%;
     vertical-align: middle;
     text-align: center;
