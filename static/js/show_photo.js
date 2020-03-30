@@ -3,7 +3,7 @@ var reviews = 0;
 $(document).ready(function(){
     reviews= $('#review_num').text();
     reviews=parseInt(reviews);
-    $('#review-btn').text(reviews+' reviews')
+    $('#review-btn').text(reviews+' Reviews')
 })
 
 
@@ -164,6 +164,7 @@ $(document).ready(function(){
         $('#main_panel').css("float","none");
         $('#main_panel').css("min-height","500px");
         $('#reviews_panel').show();
+        $('#show_reviews').css("height","25rem");
         $('#review-back-btn').css("display","block");
         $('#back-btn').css("display","none");           
     });
@@ -181,7 +182,8 @@ $(document).ready(function(){
         $('#main_panel').css("margin","0px");
         $('#main_panel').css("float","left");
         $('#main_panel').css("min-height","auto");
-        $('#reviews_panel').hide();
+        $('#show_reviews').css("overflow","scroll");
+        $('#show_reviews').css("height","15rem");
         $('#review-back-btn').css("display","none");
         $('#back-btn').css("display","block");
     });
