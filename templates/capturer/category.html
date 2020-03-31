@@ -34,20 +34,30 @@
     {% if photos %}
         <div class="" id="album_area">  
         {% for photo in photos %}
-            <div class="col px-0 py-0  card" id="album">  
+            <div class="col px-0 py-0  card" id="">  
                 <a href="{% url 'capturer:show_photo' photo.Category.slug photo.id %}">
                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ photo.Image }}"/></a>  
                 <a class="category" href="{% url 'capturer:show_category' photo.Category.slug %}" >{{ photo.Category }}<a class="far fa-arrow"></a></a>
-                <a class="author" href="{% url 'capturer:profile' photo.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />&nbsp{{ photo.author.username }}</a>
-                <span class="like-btn far like fa-heart" id="like_btn" data-photoid="{{ photo.id }}"></span>
-                {% if photo.author != user %}
-                    {% if photo in profile.favorite.all %}
-                        <span class="collection-btn favorite fas fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
+                <a class="author" href="{% url 'capturer:profile' photo.author.username %}">
+                    {% if photo.author.userprofile.image%}
+                        <img class="author-avatar" src="{{ MEDIA_URL }}{{ photo.author.userprofile.image }}" alt="Avatar" />
                     {% else %}
-                        <span class="collection-btn favorite far fa-bookmark" id="collection_btn" data-url="{% url 'capturer:collection' photo.id %}" type="button"></span>
-                    {% endif %}
+                        <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
+                    {% endif %}  
+                    &nbsp{{ photo.author.username }}</a>
+                <div class= "like-btn" data-photoid="{{ photo.id }}">
+                    <span class=" far like fa-heart" id="" ></span>
+                </div>
+                {% if photo.author != user %}
+                    <div class= "collection-btn" data-url="{% url 'capturer:collection' photo.id %}" type="button">
+                        {% if photo in profile.favorite.all %}
+                            <span class=" favorite fas fa-bookmark"  ></span>
+                        {% else %}
+                            <span class=" favorite far fa-bookmark" ></span>
+                        {% endif %}
+                    </div>
                 {% endif %}
-            </div>
+                </div>
         {% endfor %}
     {% else %}
         <span> No photo</span>

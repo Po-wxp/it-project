@@ -28,10 +28,7 @@ def stable(request):
 
 def base_query():
     context_dict = {
-        'post_photo_form' : PhotoForm(),
-        'categories': Category.objects.all(), 
-        'tags': Tag.objects.all(),
-        'authors' : UserProfile.objects.all(), 
+        
     }
     return context_dict
 
@@ -267,9 +264,9 @@ def profile(request, username):
         follower = set()
         users = User.objects.all()
         for u in users:
-            profile  = UserProfile.objects.get_or_create(user=u)[0]
+            profile = u.userprofile
             followers = profile.following.all()
-            if u in followers:
+            if user in followers:
                 follower.add(u)
             
         # print(followingAuthorsPhoto)
