@@ -41,9 +41,9 @@ SECRET_KEY = key
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['Eugen2222.pythonanywhere.com','127.0.0.1']
+
 
 REGISTRATION_OPEN = True
 REGISTRATION_OPEN_AUTO_LOGIN = True
