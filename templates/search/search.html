@@ -2,9 +2,7 @@
 
 {% extends 'capturer/base.html' %}
 {% load staticfiles %}
-{% block script_block %}
-{% comment %} <script type="text/javascript" src="{% static "js/profile.js" %}"></script> {% endcomment %}
-{% endblock %}
+
 {% block title_block %}
 SearchPage
 {% endblock %}
@@ -17,45 +15,14 @@ SearchPage
                 <a href="{% url 'capturer:show_photo' result.object.Category.slug result.object.id %}">
                 <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ result.object.Image }}"/></a>  
                 <a class="category" href="{% url 'capturer:show_category' result.object.Category.slug %}" >{{ result.object.Category }}<a class="far fa-arrow"></a></a>
-                <a class="author" href="{% url 'capturer:profile' result.object.author.username %}">
-                {% if result.object.author.userprofile.image%}
-                    <img class="author-avatar" src="{{ MEDIA_URL }}{{ result.object.author.userprofile.image }}" alt="Avatar" />
-                {% else %}
-                    <img class = "author-avatar" src="{% static "default-img/avatar.png" %}"  >
-               {% endif %}  
-                &nbsp{{ result.object.author.username }}</a>
-                <div class= "like-btn" data-photoid="{{ result.object.id }}">
-                    <span class=" far like fa-heart" id="" ></span>
-                </div>
-                {% if result.object.author != user %}
-                    <div class= "collection-btn" data-url="{% url 'capturer:collection' result.object.id %}" type="button">
-                    {% if result.object in user.userprofile.favorite.all %}
-                        <span class=" favorite fas fa-bookmark"  ></span>
-                    {% else %}
-                        <span class=" favorite far fa-bookmark" ></span>
-                    {% endif %}
-                    </div>
-                {% endif %}
+                <a class="author" href="{% url 'capturer:profile' result.object.author.username %}"><img class="author-avatar" src="{{ MEDIA_URL }}{{ result.object.author.userprofile.image }}" alt="Avatar" />&nbsp{{ result.object.author.username }}</a>
+                
             </div>
         </div>    
     {% endif %}
     
    
 
-    {% if result.object.user %}
-        <div >
-            <div class="col px-0 py-0  card">  
-                <a href="{% url  'capturer:profile' result.object.user.username %}">
-                <img class="card-img img-fluid" src="{{ MEDIA_URL }}{{ result.object.user.userprofile.image }}"/></a>  
-                <a class="author">{{ result.object.user.username }}</a>
-            </div>
-        </div>  
-    {% endif %}
-    
-
-    <!-- {% if result.object.name %}
-        <li>Category:<a href="{% url 'capturer:show_category' result.object.slug %}">{{ result.object.name }}</a></li>
-    {% endif %} -->
 
 {% empty %}           
     <a class="mr-auto mx-0 ml-1" style = " font: 400 2rem 'Raleway', sans-serif; color:black;">No results found.</a>

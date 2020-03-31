@@ -14,8 +14,7 @@ from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 from itertools import chain
 from django.contrib import messages
-
-
+import haystack.views
 
 # helper method
 def stable(request):
@@ -29,15 +28,19 @@ def stable(request):
 
 def base_query():
     context_dict = {
-        
+        'post_photo_form' : PhotoForm(),
+        'categories': Category.objects.all(), 
+        'tags': Tag.objects.all(),
+        'authors' : UserProfile.objects.all(), 
     }
     return context_dict
 
 def index(request):
     context_dict = {}
 
+    most_popular_sub = Photo.objects.order_by('-views')[:3]
     most_popular=Photo.objects.order_by('-Like')[:1]
-    all_photos = Photo.objects.order_by('-Date')[:18]
+    all_photos = Photo.objects.order_by('-Like')
     category1_photo_list = Photo.objects.filter(Category = Category.objects.get(id=1)).order_by('-Like')[:1]
     category2_photo_list = Photo.objects.filter(Category = Category.objects.get(id=2)).order_by('-Like')[:1]
     category3_photo_list = Photo.objects.filter(Category = Category.objects.get(id=3)).order_by('-Like')[:1]
@@ -64,17 +67,17 @@ def index(request):
     for x in category8_photo_list:
         top_photos.append(x)
 
+    print(top_photos)
+    print(category8_photo_list)
     context_dict = {'category1': category1_photo_list, 'category2': category2_photo_list,
                     'category3': category3_photo_list, 'category4': category4_photo_list,
                     'category5': category5_photo_list, 'category6': category6_photo_list,
                     'category7': category7_photo_list, 'category8': category8_photo_list,
-                    'top_cat_photos':top_photos,
+                    'top_cat_photos':top_photos, 'most_popular_sub' : most_popular_sub,
                     'most_popular': most_popular, 'all_photos': all_photos,
-                     'profile':stable(request),
+                    'profile':stable(request),
                     }
     context_dict.update(base_query())
-    # context_dict = {'categories':category_list, 'profile':stable(request)}
-
     return render(request, 'capturer/index.html', context=context_dict)
 
 def about(request):
@@ -103,6 +106,7 @@ def contact(request):
     context_dict['form'] = form
     context_dict.update(base_query())
     return render(request, 'capturer/contact.html', context=context_dict)
+
 @login_required
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -243,40 +247,8 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('capturer:index'))
 
-
-# A helper method 
-def get_server_side_cookie(request, cookie, default_val=None): 
-    val = request.session.get(cookie) 
-    if not val: 
-        val = default_val 
-    return val
-
-# Updated the function definition
-def visitor_cookie_handler(request):
-    # Get the number of visits to this site
-    # COOKIES.get() function is to obtain the visits cookie
-    # If the cookie exists, the value returned is casted to an integer
-    # If the cookie doesn't exist, then the default value of 1 is used
-    visits = int(get_server_side_cookie(request, 'visits', '1'))
-
-    last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
-    last_visit_time = datetime.strptime(last_visit_cookie[:-7], '%Y-%m-%d %H:%M:%S')
-
-    # If it is been more than a day since the last visit..
-    if (datetime.now() - last_visit_time).days > 0:
-        visits = visits + 1
-        #update the last visit cookie now that we have updated the count
-        request.session['last_visit'] = str(datetime.now())
-    else:
-        # Set the last visit cookie
-        request.session['last_visit'] = last_visit_cookie
-    
-    # Update/set the visits cookie
-    request.session['visits'] = visits   
-
 @login_required
 def profile(request, username):
-
     try:
         user = User.objects.get(username=username)
         user_profile = UserProfile.objects.get_or_create(user=user)[0]
@@ -295,9 +267,9 @@ def profile(request, username):
         follower = set()
         users = User.objects.all()
         for u in users:
-            profile  = u.userprofile
+            profile  = UserProfile.objects.get_or_create(user=u)[0]
             followers = profile.following.all()
-            if user in followers:
+            if u in followers:
                 follower.add(u)
             
         # print(followingAuthorsPhoto)
@@ -359,7 +331,7 @@ class ProfileModify(View):
         return render(request, 'capturer/profileModify.html', context_dict)
 
 @login_required
-def show_photo(request, category_name_slug, photo_id):
+def show_photo(request,category_name_slug, photo_id):
     context_dict = {}
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -384,11 +356,22 @@ def show_photo(request, category_name_slug, photo_id):
     context_dict['profile'] = stable(request)
     context_dict['related_photos'] =related_photos
     context_dict.update(base_query())
-    visitor_cookie_handler(request)
-    photo.views = request.session['visits']
-    photo.save()
+    
+    # visit cookie
     response = render(request, 'capturer/show_photo.html', context=context_dict)
+    visits = int(request.COOKIES.get('visits_'+photo_id, photo.views))
+    last_visite  = request.COOKIES.get('last_visit_'+photo_id, str(datetime.now()))
+    last_visit_time = datetime.strptime(last_visite[:-7],'%Y-%m-%d %H:%M:%S')
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits +1
+        photo.views = visits
+        photo.save()
+        response.set_cookie('last_visit_'+photo_id, str(datetime.now()))
+    else:
+        response.set_cookie('last_visit_'+photo_id, last_visite)
+    response.set_cookie('visits_'+photo_id, visits)    
     return response
+     
 
 @login_required
 def upload_comment(request, photo_id):
@@ -436,18 +419,14 @@ class LikePhotoView(View):
 def collection(request, photo_id): 
     use_profile = stable(request)
     photo = Photo.objects.get(id=int(photo_id)) 
-    print(photo_id)
+    
     data = {}
     if use_profile.favorite.filter(id = photo.id).exists():
-
         use_profile.favorite.remove(photo)
         data['message'] = "2"
     else:
         use_profile.favorite.add(photo)
-
         data['message'] = "1"
-
-    print(use_profile.favorite.all())
     return JsonResponse(data, safe=False)
 
 
@@ -465,8 +444,6 @@ def follow(request, username):
         current_user_profile.following.add(selected_user)
         data['message'] = "1"
         # "You are now following {}".format(selected_user)
-
-    print(current_user_profile.favorite.all())
     return JsonResponse(data, safe=False)
 
 @login_required
@@ -513,3 +490,11 @@ def tag_photo(request, tag_name):
         context_dict['photos'] = None
     context_dict.update(base_query())
     return render(request,'capturer/tag_photo.html', context = context_dict)
+
+class SearchView(haystack.views.SearchView):
+    categories = Category.objects.all(),
+    
+    def extra_context(self):
+        return {
+            'categories': categories,
+        }
