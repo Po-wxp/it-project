@@ -38,39 +38,17 @@ def index(request):
     most_popular_sub = Photo.objects.order_by('-views')[:3]
     most_popular=Photo.objects.order_by('-Like')[:1]
     all_photos = Photo.objects.order_by('-Like')
-    category1_photo_list = Photo.objects.filter(Category = Category.objects.get(id=1)).order_by('-Like')[:1]
-    category2_photo_list = Photo.objects.filter(Category = Category.objects.get(id=2)).order_by('-Like')[:1]
-    category3_photo_list = Photo.objects.filter(Category = Category.objects.get(id=3)).order_by('-Like')[:1]
-    category4_photo_list = Photo.objects.filter(Category = Category.objects.get(id=4)).order_by('-Like')[:1]
-    category5_photo_list = Photo.objects.filter(Category = Category.objects.get(id=5)).order_by('-Like')[:1]
-    category6_photo_list = Photo.objects.filter(Category = Category.objects.get(id=6)).order_by('-Like')[:1]
-    category7_photo_list = Photo.objects.filter(Category = Category.objects.get(id=7)).order_by('-Like')[:1]
-    category8_photo_list = Photo.objects.filter(Category = Category.objects.get(id=8)).order_by('-Like')[:1]
-    top_photos =[]
-    for x in category1_photo_list:
-        top_photos.append(x)
-    for x in category2_photo_list:
-        top_photos.append(x)
-    for x in category3_photo_list:
-        top_photos.append(x)
-    for x in category4_photo_list:
-        top_photos.append(x)
-    for x in category5_photo_list:
-        top_photos.append(x)
-    for x in category6_photo_list:
-        top_photos.append(x)
-    for x in category7_photo_list:
-        top_photos.append(x)
-    for x in category8_photo_list:
-        top_photos.append(x)
 
-    print(top_photos)
-    print(category8_photo_list)
-    context_dict = {'category1': category1_photo_list, 'category2': category2_photo_list,
-                    'category3': category3_photo_list, 'category4': category4_photo_list,
-                    'category5': category5_photo_list, 'category6': category6_photo_list,
-                    'category7': category7_photo_list, 'category8': category8_photo_list,
-                    'top_cat_photos':top_photos, 'most_popular_sub' : most_popular_sub,
+    top_photos = set()
+    categories = Category.objects.all()
+    for c in categories:
+        photo = Photo.objects.filter(Category = c).order_by('-Like')[:1]
+        for p in photo:
+            top_photos.add(p)
+
+    # print(top_photos)
+    
+    context_dict = {'top_cat_photos':top_photos, 'most_popular_sub' : most_popular_sub,
                     'most_popular': most_popular, 'all_photos': all_photos,
                     'profile':stable(request),
                     }
