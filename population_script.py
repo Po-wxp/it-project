@@ -12,7 +12,9 @@ def populate():
                   'Holographic photography']
 
     for c in categories:
-        Category.objects.get_or_create(name=c)
+        category = Category.objects.get_or_create(name=c)[1]
+        if category == True:
+	        print(c)
 
 
 
