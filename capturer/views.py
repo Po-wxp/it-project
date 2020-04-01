@@ -37,7 +37,7 @@ def index(request):
 
     most_popular_sub = Photo.objects.order_by('-views')[:3]
     most_popular=Photo.objects.order_by('-Like')[:1]
-    all_photos = Photo.objects.order_by('-Like')
+    all_photos = Photo.objects.order_by('-Date')[:18]
 
     top_photos = set()
     categories = Category.objects.all()
