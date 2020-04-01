@@ -8,11 +8,12 @@ from capturer.models import Category
 def populate():
 
     categories = ['Still life photography', 'Portrait photography', 'Recording photography',
-                  'Art photography', 'Pictorial photography', 'Commercial photography', 'Ink photography'
+                  'Art photography', 'Pictorial photography', 'Commercial photography', 'Ink photography',
                   'Holographic photography']
 
     for c in categories:
-        Category.objects.create(name=c)
+        Category.objects.get_or_create(name=c)
+
 
 
 if __name__ == '__main__':
